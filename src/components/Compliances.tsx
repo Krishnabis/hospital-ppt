@@ -234,7 +234,7 @@ export default function Compliances() {
         </motion.div>
 
         {/* Tab Switcher */}
-        <div className="flex flex-col md:flex-row gap-2 p-1 md:p-2 bg-slate-200/50 rounded-2xl mb-12 backdrop-blur-sm w-full max-w-sm md:max-w-none">
+        <div className="flex flex-col md:flex-row justify-center gap-2 p-1 md:p-2 bg-slate-200/50 rounded-2xl mb-12 backdrop-blur-sm w-full max-w-sm md:w-auto mx-auto">
           {categories.map((cat) => (
             <button
               key={cat.id}
