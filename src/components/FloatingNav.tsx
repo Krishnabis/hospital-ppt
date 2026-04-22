@@ -60,7 +60,7 @@ export default function FloatingNav() {
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 1, duration: 0.8 }}
-      className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2.5 glass-neon p-3 rounded-full hidden lg:flex"
+      className="fixed right-2 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-1.5 md:gap-2.5 glass-neon p-2 md:p-3 rounded-full scale-[0.85] md:scale-100 origin-right"
     >
       {navItems.map((item) => {
         const isActive = activeSection === item.id;
