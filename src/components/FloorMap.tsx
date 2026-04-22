@@ -130,7 +130,7 @@ export default function FloorMap() {
 
           {/* Center Column: Interactive 3D Display */}
           <div className="relative w-full flex flex-col items-center">
-            <div className="relative h-[480px] w-full flex justify-center items-center perspective-2000 hidden lg:flex">
+            <div className="relative h-[360px] lg:h-[480px] w-full flex justify-center items-center perspective-2000">
                <AnimatePresence mode="wait">
                  <motion.div
                    key={activeBlock.id}
