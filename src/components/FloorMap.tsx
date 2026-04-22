@@ -120,7 +120,7 @@ export default function FloorMap() {
 
           {/* Center Column: Interactive 3D Display */}
           <div className="relative w-full flex flex-col items-center">
-            <div className="relative h-[480px] w-full flex justify-center items-center perspective-2000 hidden lg:flex">
+            <div className="relative h-[300px] lg:h-[480px] w-full flex justify-center items-center perspective-2000">
                <AnimatePresence mode="wait">
                  <motion.div
                    key={activeBlock.id}
@@ -134,7 +134,7 @@ export default function FloorMap() {
                      damping: 15,
                      mass: 1
                    }}
-                   className="relative w-64 h-64 preserve-3d"
+                   className="relative w-48 h-48 lg:w-64 lg:h-64 preserve-3d"
                    style={{ transformStyle: "preserve-3d" }}
                  >
                    {activeBlock.floors.map((floor, idx) => {

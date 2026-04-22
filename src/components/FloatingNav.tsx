@@ -57,10 +57,10 @@ export default function FloatingNav() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.8 }}
-      className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2.5 glass-neon p-3 rounded-full hidden lg:flex"
+      className="fixed bottom-4 left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-auto lg:right-6 lg:top-1/2 lg:-translate-y-1/2 z-[100] flex flex-row lg:flex-col gap-2 lg:gap-2.5 glass-neon p-2 lg:p-3 rounded-full max-w-[90vw] lg:max-w-none overflow-x-auto lg:overflow-visible no-scrollbar shadow-2xl border border-white/50"
     >
       {navItems.map((item) => {
         const isActive = activeSection === item.id;
@@ -78,7 +78,7 @@ export default function FloatingNav() {
             {/* Icon Button */}
             <button
               onClick={() => scrollTo(item.id)}
-              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 shadow-md outline-none ${
+              className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center transition-all duration-300 shadow-md outline-none ${
                 isActive 
                   ? "bg-gradient-to-r from-sky-400 to-indigo-500 text-white scale-110 shadow-[0_0_15px_rgba(56,189,248,0.5)]" 
                   : "bg-white/80 text-slate-500 hover:bg-sky-50 hover:text-sky-500 hover:scale-105"
