@@ -39,18 +39,19 @@ type MediaItem = { type: "image" | "video"; src: string };
 
 function ImageCarousel({ images, label }: { images: string[]; label: string }) {
   const dup = [...images, ...images];
+  const duration = `${dup.length * 4}s`;
   return (
-    <div className="w-full">
-      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
-        <span className="w-1.5 h-7 rounded-full bg-slate-300" />
-        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
+    <div className="w-full p-6 md:p-8 rounded-[2rem] border bg-orange-50/40 border-orange-100 shadow-sm">
+      <div className="flex items-center gap-3 mb-5 px-2 md:px-4">
+        <span className="w-1.5 h-7 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.6)]" />
+        <h3 className="text-xl md:text-2xl font-bold text-orange-900 tracking-tight">{label}</h3>
       </div>
-      <div className="overflow-hidden relative">
-        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-        <div className="flex gap-5 animate-marquee">
+      <div className="overflow-hidden relative rounded-2xl">
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-orange-50/40 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-orange-50/40 to-transparent z-10 pointer-events-none" />
+        <div className="flex gap-5 animate-marquee" style={{ animationDuration: duration }}>
           {dup.map((src, i) => (
-            <div key={i} className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group">
+            <div key={i} className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-xl overflow-hidden bg-white shadow-sm border border-orange-100 group">
               <img src={encodeURI(src)} alt={label} loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700" />
             </div>
           ))}
@@ -68,19 +69,20 @@ function MixedCarousel({ images, videos, label }: { images: string[]; videos: st
     if (vi < videos.length) items.push({ type: "image", src: videos[vi++] });
   }
   const dup = [...items, ...items];
+  const duration = `${dup.length * 4}s`;
 
   return (
-    <div className="w-full">
-      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
-        <span className="w-1.5 h-7 rounded-full bg-emerald-400" />
-        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
+    <div className="w-full p-6 md:p-8 rounded-[2rem] border bg-emerald-50/40 border-emerald-100 shadow-sm">
+      <div className="flex items-center gap-3 mb-5 px-2 md:px-4">
+        <span className="w-1.5 h-7 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+        <h3 className="text-xl md:text-2xl font-bold text-emerald-900 tracking-tight">{label}</h3>
       </div>
-      <div className="overflow-hidden relative">
-        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-        <div className="flex gap-5 animate-marquee">
+      <div className="overflow-hidden relative rounded-2xl">
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-emerald-50/40 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-emerald-50/40 to-transparent z-10 pointer-events-none" />
+        <div className="flex gap-5 animate-marquee" style={{ animationDuration: duration }}>
           {dup.map((m, i) => (
-            <div key={i} className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group">
+            <div key={i} className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-xl overflow-hidden bg-white shadow-sm border border-emerald-100 group">
               {m.type === "image" ? (
                 <img src={encodeURI(m.src)} alt={label} loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700" />
               ) : (
@@ -114,9 +116,9 @@ export default function BeforeAfter() {
       </div>
 
       {/* Carousel Stack */}
-      <div className="flex flex-col gap-12 max-w-[100vw]">
-        <ImageCarousel images={beforeImages} label="Before (Legacy Infrastructure)" />
-        <MixedCarousel images={afterImages} videos={afterVideos} label="After (Modernized Facilities)" />
+      <div className="flex flex-col gap-12 max-w-[100vw] px-4 md:px-8">
+        <ImageCarousel images={beforeImages} label="Before" />
+        <MixedCarousel images={afterImages} videos={afterVideos} label="After" />
       </div>
     </section>
   );

@@ -16,6 +16,7 @@ const qualityWallImages = [
 
 export default function QualityWall() {
   const dup = [...qualityWallImages, ...qualityWallImages];
+  const duration = `${dup.length * 4}s`;
 
   return (
     <section id="qualitywall" className="relative w-full py-20 bg-slate-50 overflow-hidden">
@@ -38,7 +39,7 @@ export default function QualityWall() {
         <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
 
-        <div className="flex gap-5 animate-marquee">
+        <div className="flex gap-5 animate-marquee" style={{ animationDuration: duration }}>
           {dup.map((src, i) => (
             <div
               key={i}

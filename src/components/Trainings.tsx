@@ -65,6 +65,7 @@ type MediaItem = { type: "image" | "video"; src: string };
 
 function Carousel({ items, label }: { items: MediaItem[]; label: string }) {
   const dup = [...items, ...items]; // duplicate for seamless loop
+  const duration = `${dup.length * 4}s`;
   return (
     <div className="w-full">
       {/* Sub-heading */}
@@ -79,7 +80,7 @@ function Carousel({ items, label }: { items: MediaItem[]; label: string }) {
         <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
 
-        <div className="flex gap-5 animate-marquee">
+        <div className="flex gap-5 animate-marquee" style={{ animationDuration: duration }}>
           {dup.map((m, i) => (
             <div
               key={i}
