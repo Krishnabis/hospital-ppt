@@ -151,9 +151,9 @@ export default function FloorMap() {
                          }}
                          whileHover={{ z: idx * 85 + 20 }}
                          transition={{ 
-                           duration: 0.6, 
-                           delay: 0.2 + (idx * 0.1),
-                           ease: [0.23, 1, 0.32, 1] 
+                           type: "spring", 
+                           stiffness: 250, 
+                           damping: 25
                          }}
                          onClick={() => setActiveFloorIndex(idx)}
                          className={`absolute inset-0 backdrop-blur-md border shadow-[0_12px_30px_rgba(0,0,0,0.06)] rounded-[1.8rem] flex items-center justify-center cursor-pointer group transition-all duration-300 ${isSelected ? 'border-sky-400 ring-4 ring-sky-400/20' : 'border-white/50'}`}
