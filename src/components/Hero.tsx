@@ -20,10 +20,10 @@ export default function Hero() {
           className="object-contain drop-shadow-2xl z-10"
           priority
         />
-        
+
         {/* Floating Chardham Images */}
         {/* Top Left: Yamunotri */}
-        <motion.div 
+        <motion.div
           className="absolute -top-2 -left-2 md:-top-4 md:-left-4 w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
           animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }}
           transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
@@ -32,7 +32,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Top Right: Gangotri */}
-        <motion.div 
+        <motion.div
           className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
           animate={{ y: [0, -15, 0], rotate: [0, -5, 5, 0] }}
           transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
@@ -41,7 +41,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Bottom Left: Kedarnath */}
-        <motion.div 
+        <motion.div
           className="absolute -bottom-2 -left-2 md:-bottom-0 md:-left-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
           animate={{ y: [0, -10, 0], rotate: [0, 8, -8, 0] }}
           transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 1 }}
@@ -50,7 +50,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Bottom Right: Badrinath */}
-        <motion.div 
+        <motion.div
           className="absolute -bottom-2 -right-2 md:-bottom-0 md:-right-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
           animate={{ y: [0, -10, 0], rotate: [0, -8, 8, 0] }}
           transition={{ repeat: Infinity, duration: 4.8, ease: "easeInOut", delay: 1.5 }}
@@ -83,8 +83,19 @@ export default function Hero() {
             transition={{ delay: 0.9, duration: 0.8 }}
             className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed max-w-xl mx-auto md:mx-0"
           >
-            We warmly welcome the Principal Assessors and Co-Assessors for the onsite inspection at <strong className="text-slate-800">Hemwati Nandan Bahuguna Base Hospital, Srinagar (Pauri Garhwal)</strong>.
+            We warmly welcome the Principal Assessor and Co-Assessors for the onsite inspection at <strong className="text-slate-800">Hemwati Nandan Bahuguna Base Hospital, Srinagar (Pauri Garhwal)</strong>.
           </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.8 }}
+            className="mt-6 flex justify-center md:justify-start"
+          >
+            <span className="inline-block bg-sky-100 border border-sky-200 text-sky-800 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">
+              Version 1.0 (Draft Version)
+            </span>
+          </motion.div>
         </motion.div>
       </div>
 

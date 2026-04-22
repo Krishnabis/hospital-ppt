@@ -7,8 +7,6 @@ export default function FuturePlans() {
   const cards = [
     { title: "Digital HMIS Integration", desc: "Complete paperless hospital management system driving real-time data flow.", icon: Server, color: "text-blue-500", bg: "bg-blue-50" },
     { title: "Smart KPI Tracking", desc: "Automated dashboards for instantaneous quality indicator monitoring.", icon: ChartSpline, color: "text-indigo-500", bg: "bg-indigo-50" },
-    { title: "Telemedicine Kiosks", desc: "Expanding robust tele-health access to remote mountainous regions.", icon: MonitorSmartphone, color: "text-sky-500", bg: "bg-sky-50" },
-    { title: "Advanced Quality Research", desc: "Integrating AI into clinical outcome analysis and continuous medical education.", icon: GraduationCap, color: "text-emerald-500", bg: "bg-emerald-50" },
   ];
 
   return (
