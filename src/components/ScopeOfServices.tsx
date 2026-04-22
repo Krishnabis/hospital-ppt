@@ -62,7 +62,7 @@ export default function ScopeOfServices() {
   };
 
   return (
-    <section 
+    <section id="scope"
       className="relative min-h-screen w-full flex flex-col items-center justify-center py-24 bg-slate-50 overflow-hidden cursor-default"
       onClick={handleOutsideClick}
     >

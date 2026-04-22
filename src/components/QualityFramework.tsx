@@ -32,7 +32,7 @@ const steps = [
 
 export default function QualityFramework() {
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+    <section id="quality" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
       
       {/* Dynamic Background Path */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" preserveAspectRatio="none">
