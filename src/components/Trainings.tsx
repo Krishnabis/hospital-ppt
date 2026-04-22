@@ -1,90 +1,133 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef } from "react";
 
-const photos = [
-  "1551076805-e16760c06477", "1576091160550-2173ff3e1ed0", "1584515933618-2e0fce5e82ad", "1516549655169-df83a0774514", "1559839734-2b71ea197ec2",
-  "1581594693702-fbdc51b2763b", "1538108149393-cebb47ac0001", "1579684385127-1ef15d508118", "1551076805-e16760c06477", "1584515933618-2e0fce5e82ad",
-  "1576091160550-2173ff3e1ed0", "1516549655169-df83a0774514", "1579684385127-1ef15d508118", "1538108149393-cebb47ac0001", "1559839734-2b71ea197ec2"
-].map(id => `https://images.unsplash.com/photo-${id}?q=80&w=800&auto=format&fit=crop`);
+const trainingImages = [
+  "/photos/training/Image/IMG_5178.JPG", "/photos/training/Image/IMG_5227.JPG", 
+  "/photos/training/Image/IMG_5231.JPG", "/photos/training/Image/IMG_5224.JPG", 
+  "/photos/training/Image/IMG_5218.JPG", "/photos/training/Image/IMG_5223.JPG", 
+  "/photos/training/Image/IMG_5092.JPG", "/photos/training/Image/IMG_5069.JPG", 
+  "/photos/training/Image/IMG_5068.JPG", "/photos/training/Image/IMG_5066.JPG", 
+  "/photos/training/Image/IMG_5070.JPG", "/photos/training/Image/IMG_5262.JPG", 
+  "/photos/training/Image/IMG_5207.JPG", "/photos/training/Image/IMG_5213.JPG", 
+  "/photos/training/Image/IMG_5206.JPG", "/photos/training/Image/IMG_5170.JPG", 
+  "/photos/training/Image/IMG_5158.JPG", "/photos/training/Image/IMG_5210.JPG", 
+  "/photos/training/Image/IMG_5205.JPG", "/photos/training/Image/IMG_5177.JPG", 
+  "/photos/training/Image/IMG_5228.JPG", "/photos/training/Image/IMG_5174.JPG", 
+  "/photos/training/Image/IMG_5217.JPG"
+];
+
+const cprVideos = [
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01 2.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01 3.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-27.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02 3.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02 2.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00 2.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00 3.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26 2.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25 2.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-00-59.MP4"
+];
+
+const fireVideos = [
+  "/photos/training/video/fire mockdrill/VIDEO-2026-04-21-19-00-51.MP4",
+  "/photos/training/video/fire mockdrill/VIDEO-2026-04-21-19-00-28 2.MP4",
+  "/photos/training/video/fire mockdrill/VIDEO-2026-04-21-19-00-38.MP4"
+];
+
+const sharedVideos = [
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27 2.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-36.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-35.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43 2.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-50 2.MP4"
+];
+
+const MediaCarousel = ({ items, type }: { items: string[], type: "image" | "video" }) => {
+  return (
+    <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar w-full px-6 md:px-12">
+      {items.map((src, idx) => (
+        <div key={idx} className="shrink-0 snap-center relative w-[280px] md:w-[350px] aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-slate-200/50 bg-slate-100 group">
+          {type === "image" ? (
+            <img src={src} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={`Training ${idx}`} loading="lazy" />
+          ) : (
+            <video src={src} className="w-full h-full object-cover" muted loop playsInline controls preload="metadata" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default function Trainings() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Tsunami Parallax speeds
-  const yFastUp = useTransform(scrollYProgress, [0, 1], [0, -600]);
-  const ySlowDown = useTransform(scrollYProgress, [0, 1], [-300, 300]);
-  const yMedUp = useTransform(scrollYProgress, [0, 1], [100, -400]);
-  const yFastDown = useTransform(scrollYProgress, [0, 1], [-500, 500]);
-
-  // Split photos into 4 columns
-  const col1 = photos.slice(0, 4);
-  const col2 = photos.slice(4, 8);
-  const col3 = photos.slice(8, 12);
-  const col4 = photos.slice(11, 15);
-
   return (
-    <section id="trainings" ref={containerRef} className="relative h-[150vh] w-full flex items-center justify-center overflow-hidden bg-slate-900 border-y-8 border-sky-500/20">
-      
-      {/* Overlay to fade top and bottom edges smoothly */}
-      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-slate-900 via-transparent to-slate-900" />
-      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-r from-slate-900 via-transparent to-slate-900 opacity-60" />
+    <section id="trainings" className="relative min-h-screen w-full py-24 bg-slate-50 overflow-hidden">
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-sky-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
 
-      {/* Floating Center Badge */}
-      <motion.div 
-        className="absolute z-30 pointer-events-none"
-        style={{ y: useTransform(scrollYProgress, [0, 1], [200, -200]) }}
-      >
-        <div className="glass-neon p-12 rounded-[3rem] text-center bg-slate-900/40 backdrop-blur-3xl border-sky-400/50 shadow-[0_0_50px_rgba(56,189,248,0.2)]">
-          <h2 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 mb-4 tracking-tighter drop-shadow-lg">
-            Continuous <br /> Learning
-          </h2>
-          <p className="text-sky-400 font-bold tracking-[0.3em] uppercase text-sm drop-shadow-md">
-            World Class Training Environment
-          </p>
-        </div>
-      </motion.div>
-
-      {/* Columns wrapper */}
-      <div className="absolute inset-0 z-10 w-full max-w-[1400px] mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 opacity-40">
+      <div className="container mx-auto relative z-10 flex flex-col items-center">
         
-        <motion.div style={{ y: yFastUp }} className="flex flex-col gap-4 md:gap-8 pt-40">
-          {col1.map((src, i) => (
-            <div key={i} className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
-              <img src={src} className="object-cover w-full h-full" alt="Training" loading="lazy" />
-            </div>
-          ))}
+        <motion.div
+           initial={{ opacity: 0, y: 50 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-100px" }}
+           transition={{ duration: 0.8 }}
+           className="text-center mb-16 px-6"
+        >
+          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">
+            Training & Mock Drills
+          </h2>
+          <div className="h-1 w-24 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mx-auto shadow-[0_0_15px_rgba(56,189,248,0.5)] mb-6" />
+          <p className="text-xl text-slate-600 font-medium">
+            Continuous learning and emergency preparedness
+          </p>
         </motion.div>
 
-        <motion.div style={{ y: ySlowDown }} className="flex flex-col gap-4 md:gap-8 pt-10">
-          {col2.map((src, i) => (
-            <div key={i} className="relative w-full aspect-square rounded-2xl overflow-hidden shadow-2xl">
-              <img src={src} className="object-cover w-full h-full" alt="Training" loading="lazy" />
-            </div>
-          ))}
-        </motion.div>
+        <div className="w-full flex flex-col gap-16 max-w-[100vw]">
+          
+          <div className="w-full">
+            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
+              <span className="w-2 h-8 bg-sky-500 rounded-full" />
+              General Training Sessions
+            </h3>
+            <MediaCarousel items={trainingImages} type="image" />
+          </div>
 
-        <motion.div style={{ y: yMedUp }} className="hidden md:flex flex-col gap-8 pt-80">
-          {col3.map((src, i) => (
-            <div key={i} className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
-              <img src={src} className="object-cover w-full h-full" alt="Training" loading="lazy" />
-            </div>
-          ))}
-        </motion.div>
+          <div className="w-full">
+            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
+              <span className="w-2 h-8 bg-rose-500 rounded-full" />
+              CPR Mockdrills
+            </h3>
+            <MediaCarousel items={cprVideos} type="video" />
+          </div>
 
-        <motion.div style={{ y: yFastDown }} className="hidden md:flex flex-col gap-8 pt-20">
-          {col4.map((src, i) => (
-            <div key={i} className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl">
-              <img src={src} className="object-cover w-full h-full" alt="Training" loading="lazy" />
-            </div>
-          ))}
-        </motion.div>
+          <div className="w-full">
+            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
+              <span className="w-2 h-8 bg-amber-500 rounded-full" />
+              Fire Mockdrills
+            </h3>
+            <MediaCarousel items={fireVideos} type="video" />
+          </div>
 
+          <div className="w-full">
+            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
+              <span className="w-2 h-8 bg-indigo-500 rounded-full" />
+              Training Videos Shared
+            </h3>
+            <MediaCarousel items={sharedVideos} type="video" />
+          </div>
+
+        </div>
       </div>
     </section>
   );

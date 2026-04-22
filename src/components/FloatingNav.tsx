@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { 
   Home, Info, Stethoscope, Network, ShieldCheck, 
   FileCheck, Users, GraduationCap, Map, Image as ImageIcon, 
-  UsersRound, HeartHandshake, Rocket, LineChart, Megaphone
+  UsersRound, HeartHandshake, Rocket, LineChart, Megaphone, Award
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -20,6 +20,7 @@ const navItems = [
   { id: "trainings", name: "Trainings", icon: GraduationCap },
   { id: "map", name: "Floor Map", icon: Map },
   { id: "beforeafter", name: "Before & After", icon: ImageIcon },
+  { id: "qualitywall", name: "Quality Wall", icon: Award },
   { id: "committees", name: "Committees", icon: UsersRound },
   { id: "patient", name: "Patient Rights", icon: HeartHandshake },
   { id: "future", name: "Future Plans", icon: Rocket },
