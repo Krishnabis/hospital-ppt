@@ -216,7 +216,7 @@ export default function Compliances() {
   const filteredCompliances = compliances.filter(c => c.category === activeTab);
 
   return (
-    <section id="compliances" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-50 overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-50 overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         
         <motion.div

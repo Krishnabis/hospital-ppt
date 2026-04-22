@@ -182,7 +182,7 @@ export default function Committees() {
   const [selectedCommittee, setSelectedCommittee] = useState<any | null>(null);
 
   return (
-    <section id="committees" className="relative min-h-[60vh] w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+    <section className="relative min-h-[60vh] w-full flex items-center justify-center py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         
         <motion.div

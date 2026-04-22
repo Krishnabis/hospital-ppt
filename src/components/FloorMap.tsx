@@ -68,7 +68,7 @@ export default function FloorMap() {
   };
 
   return (
-    <section id="map" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
       
       {/* Dynamic Background */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[100px] pointer-events-none opacity-50" />
@@ -119,8 +119,8 @@ export default function FloorMap() {
           </div>
 
           {/* Center Column: Interactive 3D Display */}
-          <div className="relative w-full flex flex-col items-center mt-16 lg:mt-0">
-            <div className="relative h-[380px] lg:h-[480px] w-full flex justify-center items-center perspective-2000">
+          <div className="relative w-full flex flex-col items-center">
+            <div className="relative h-[480px] w-full flex justify-center items-center perspective-2000 hidden lg:flex">
                <AnimatePresence mode="wait">
                  <motion.div
                    key={activeBlock.id}
@@ -134,7 +134,7 @@ export default function FloorMap() {
                      damping: 15,
                      mass: 1
                    }}
-                   className="relative w-48 h-48 lg:w-64 lg:h-64 preserve-3d"
+                   className="relative w-64 h-64 preserve-3d"
                    style={{ transformStyle: "preserve-3d" }}
                  >
                    {activeBlock.floors.map((floor, idx) => {

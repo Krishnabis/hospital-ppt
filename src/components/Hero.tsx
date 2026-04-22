@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen w-full flex flex-col md:flex-row items-center justify-center overflow-hidden bg-gradient-to-b from-white via-slate-50 to-blue-50/30 px-6 xl:px-20 gap-8 pt-20 pb-24">
+    <section className="relative min-h-screen w-full flex flex-col md:flex-row items-center justify-center overflow-hidden bg-gradient-to-b from-white via-slate-50 to-blue-50/30 px-6 xl:px-20 gap-8 pt-20 pb-24">
       {/* Hospital Image Container */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}

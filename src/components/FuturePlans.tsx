@@ -10,7 +10,7 @@ export default function FuturePlans() {
   ];
 
   return (
-    <section id="future" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-900 border-t border-slate-800 overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-900 border-t border-slate-800 overflow-hidden">
       
       {/* Background Neon Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />

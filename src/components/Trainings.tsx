@@ -29,7 +29,7 @@ export default function Trainings() {
   const col4 = photos.slice(11, 15);
 
   return (
-    <section id="trainings" ref={containerRef} className="relative h-[150vh] w-full flex items-center justify-center overflow-hidden bg-slate-900 border-y-8 border-sky-500/20">
+    <section ref={containerRef} className="relative h-[150vh] w-full flex items-center justify-center overflow-hidden bg-slate-900 border-y-8 border-sky-500/20">
       
       {/* Overlay to fade top and bottom edges smoothly */}
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-b from-slate-900 via-transparent to-slate-900" />

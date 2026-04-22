@@ -159,7 +159,7 @@ export default function OrgStructure() {
   };
 
   return (
-    <section id="org" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-50 overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-50 overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 relative z-10 flex flex-col items-center">
 
         <motion.div
