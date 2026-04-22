@@ -128,57 +128,56 @@ export default function FloorMap() {
             ))}
           </div>
 
-          {/* Center Column: Interactive 3D Display */}
-          <div className="relative w-full flex flex-col items-center">
-            <div className="relative h-[360px] lg:h-[480px] w-full flex justify-center items-center perspective-2000">
-               <AnimatePresence mode="wait">
-                 <motion.div
-                   key={activeBlock.id}
-                   initial={{ opacity: 0, rotateX: 60, rotateZ: -45, y: 120, scale: 0.95 }}
-                   animate={{ opacity: 1, rotateX: 60, rotateZ: -45, y: 80, scale: 1 }}
-                   exit={{ opacity: 0, rotateX: 60, rotateZ: -45, y: 40, scale: 0.95 }}
-                   transition={{ 
-                     duration: 0.8, 
-                     ease: [0.16, 1, 0.3, 1]
-                   }}
-                   className="relative w-64 h-64 preserve-3d"
-                   style={{ transformStyle: "preserve-3d" }}
-                 >
-                   {activeBlock.floors.map((floor, idx) => {
-                     const isSelected = activeFloorIndex === idx;
-                     return (
-                       <motion.div
-                         key={idx}
-                         initial={{ z: 0, opacity: 0 }}
-                         animate={{ 
-                           z: idx * 85 + (isSelected ? 30 : 0),
-                           opacity: 1,
-                           scale: isSelected ? 1.05 : 1,
-                           backgroundColor: isSelected ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.75)"
-                         }}
-                         whileHover={{ z: idx * 85 + 15 }}
-                         transition={{ 
-                           duration: 0.8,
-                           ease: [0.16, 1, 0.3, 1],
-                           delay: idx * 0.12
-                         }}
-                         onClick={() => setActiveFloorIndex(idx)}
-                         className={`absolute inset-0 backdrop-blur-md border shadow-[0_12px_30px_rgba(0,0,0,0.06)] rounded-[1.8rem] flex items-center justify-center cursor-pointer group transition-all duration-300 ${isSelected ? 'border-sky-400 ring-4 ring-sky-400/20' : 'border-white/50'}`}
-                       >
-                         <div className={`absolute inset-0 bg-gradient-to-br ${activeBlock.color} transition-opacity duration-300 ${isSelected ? 'opacity-15' : 'opacity-0 group-hover:opacity-10'}`} />
-                         <div className="transform -rotateZ-[45deg] -rotateX-[60deg] text-center pointer-events-none">
-                            <p className={`text-[9px] uppercase tracking-widest font-bold mb-0.5 ${isSelected ? 'text-sky-500' : 'text-slate-400'}`}>L0{idx}</p>
-                            <span className={`font-black text-lg bg-white/40 px-3.5 py-1.5 rounded-xl border border-white/50 ${isSelected ? 'text-sky-600' : 'text-slate-800'}`}>
-                              {floor.name}
-                            </span>
-                         </div>
-                       </motion.div>
-                     );
-                   })}
-                 </motion.div>
-               </AnimatePresence>
-            </div>
-            <p className="mt-4 text-slate-400 text-[11px] font-bold animate-pulse uppercase tracking-tighter">← Select Level</p>
+          {/* Center Column: Floor Selector (Elevator Style) */}
+          <div className="relative w-full flex flex-col items-center justify-center min-h-[360px] lg:min-h-[480px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeBlock.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}
+                className="flex flex-col-reverse gap-3 w-full max-w-sm my-auto"
+              >
+                {activeBlock.floors.map((floor, idx) => {
+                  const isSelected = activeFloorIndex === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveFloorIndex(idx)}
+                      className={`relative w-full p-4 rounded-2xl flex items-center justify-between border transition-all duration-300 overflow-hidden shadow-sm hover:shadow-md ${
+                        isSelected 
+                          ? 'bg-slate-900 border-slate-800 text-white transform scale-105 shadow-xl z-10' 
+                          : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                      }`}
+                    >
+                      {isSelected && (
+                        <div className={`absolute inset-0 bg-gradient-to-r ${activeBlock.color} opacity-20`} />
+                      )}
+                      <div className="flex items-center gap-4 relative z-10">
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg ${
+                          isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-400'
+                        }`}>
+                          L{idx}
+                        </div>
+                        <span className={`font-bold text-lg ${isSelected ? 'text-white' : 'text-slate-700'}`}>
+                          {floor.name}
+                        </span>
+                      </div>
+                      
+                      <div className={`relative z-10 text-xs font-bold px-3 py-1 rounded-full ${
+                        isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
+                      }`}>
+                        {floor.depts.length} Depts
+                      </div>
+                    </button>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+            <p className="mt-8 text-slate-400 text-[11px] font-bold animate-pulse uppercase tracking-widest">
+              ↑ Select Floor
+            </p>
           </div>
 
           {/* Right Column: Dynamic Floor Services & Assembly Points */}
