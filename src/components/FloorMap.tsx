@@ -57,6 +57,16 @@ const blocks = [
   }
 ];
 
+const assemblyPointMap: Record<string, string> = {
+  "Emergency": "Assembly Point 1",
+  "Registration Counter": "Assembly Point 2",
+  "Gynae Ward": "Assembly Point 3",
+  "Oxygen Plant": "Assembly Point 4",
+  "CSSD": "Assembly Point 5",
+  "Respiratory Ward": "Assembly Point 6",
+  "MICU": "Assembly Point 7"
+};
+
 export default function FloorMap() {
   const [activeBlock, setActiveBlock] = useState(blocks[0]);
   const [activeFloorIndex, setActiveFloorIndex] = useState(0);
@@ -152,8 +162,9 @@ export default function FloorMap() {
                          whileHover={{ z: idx * 85 + 20 }}
                          transition={{ 
                            type: "spring", 
-                           stiffness: 250, 
-                           damping: 25
+                           stiffness: 120, 
+                           damping: 20,
+                           delay: idx * 0.1
                          }}
                          onClick={() => setActiveFloorIndex(idx)}
                          className={`absolute inset-0 backdrop-blur-md border shadow-[0_12px_30px_rgba(0,0,0,0.06)] rounded-[1.8rem] flex items-center justify-center cursor-pointer group transition-all duration-300 ${isSelected ? 'border-sky-400 ring-4 ring-sky-400/20' : 'border-white/50'}`}
@@ -200,40 +211,31 @@ export default function FloorMap() {
                   </div>
 
                   <div className="flex flex-wrap gap-2.5">
-                    {activeBlock.floors[activeFloorIndex].depts.map((d, i) => (
-                      <motion.span 
-                        key={i} 
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: i * 0.02 }}
-                        className="px-4 py-2 bg-white rounded-xl text-[12px] font-bold text-slate-700 shadow-sm border border-slate-100 hover:border-sky-300 transition-all"
-                      >
-                        {d}
-                      </motion.span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Compact Assembly Points Section (Moved up here) */}
-                <div className="p-6 rounded-[2rem] bg-slate-900 text-white relative overflow-hidden shadow-xl">
-                  <div className="absolute top-0 right-0 p-4 opacity-5">
-                    <MapPin size={60} />
-                  </div>
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-8 h-8 rounded-xl bg-sky-500 flex items-center justify-center">
-                        <Info size={18} className="text-white" />
-                      </div>
-                      <h4 className="text-xl font-bold tracking-tight">Assembly Points</h4>
-                    </div>
-                    <div className="grid grid-cols-1 gap-2.5">
-                      {activeBlock.assemblyPoints.map((ap, idx) => (
-                        <div key={idx} className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
-                          <div className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-                          <span className="font-bold text-[11px] text-slate-300">{ap}</span>
-                        </div>
-                      ))}
-                    </div>
+                    {activeBlock.floors[activeFloorIndex].depts.map((d, i) => {
+                      const ap = assemblyPointMap[d];
+                      return (
+                        <motion.div 
+                          key={i} 
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.02 }}
+                          className={`relative group px-4 py-2 rounded-xl text-[12px] font-bold shadow-sm border transition-all flex items-center gap-2 cursor-default ${
+                            ap ? 'bg-blue-500 text-white border-blue-600 hover:bg-blue-600 shadow-blue-500/30 shadow-md' : 'bg-white text-slate-700 border-slate-100 hover:border-sky-300'
+                          }`}
+                        >
+                          {d}
+                          {ap && (
+                            <>
+                              <Info size={14} className="text-white opacity-90" />
+                              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-bold whitespace-nowrap rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl">
+                                {ap}
+                                <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-slate-900" />
+                              </div>
+                            </>
+                          )}
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
               </motion.div>
