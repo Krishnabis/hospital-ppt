@@ -96,13 +96,32 @@ section {
 
 @keyframes marquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-100% - 1.5rem)); }
+  100% { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 80s linear infinite;
   display: flex;
+  width: max-content;
 }
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Float animation - replaces Framer Motion infinite y animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Scroll line animation for Hero */
+@keyframes scroll-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+.animate-scroll-line {
+  animation: scroll-line 2s linear infinite;
 }
 

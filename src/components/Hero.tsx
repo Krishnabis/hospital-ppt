@@ -23,40 +23,32 @@ export default function Hero() {
 
         {/* Floating Chardham Images */}
         {/* Top Left: Yamunotri */}
-        <motion.div
-          className="absolute -top-2 -left-2 md:-top-4 md:-left-4 w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
-          animate={{ y: [0, -15, 0], rotate: [0, 5, -5, 0] }}
-          transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+        <div
+          className="absolute -top-2 -left-2 md:-top-4 md:-left-4 w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20 animate-float"
         >
           <Image src="/Yamnotri.jpeg" alt="Yamnotri" fill className="object-cover" />
-        </motion.div>
+        </div>
 
         {/* Top Right: Gangotri */}
-        <motion.div
-          className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
-          animate={{ y: [0, -15, 0], rotate: [0, -5, 5, 0] }}
-          transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
+        <div
+          className="absolute -top-2 -right-2 md:-top-4 md:-right-4 w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20 animate-float" style={{ animationDelay: "0.5s" }}
         >
           <Image src="/gangotri.jpeg" alt="Gangotri" fill className="object-cover" />
-        </motion.div>
+        </div>
 
         {/* Bottom Left: Kedarnath */}
-        <motion.div
-          className="absolute -bottom-2 -left-2 md:-bottom-0 md:-left-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
-          animate={{ y: [0, -10, 0], rotate: [0, 8, -8, 0] }}
-          transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut", delay: 1 }}
+        <div
+          className="absolute -bottom-2 -left-2 md:-bottom-0 md:-left-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20 animate-float" style={{ animationDelay: "1s" }}
         >
           <Image src="/kedarnath.jpeg" alt="Kedarnath" fill className="object-cover" />
-        </motion.div>
+        </div>
 
         {/* Bottom Right: Badrinath */}
-        <motion.div
-          className="absolute -bottom-2 -right-2 md:-bottom-0 md:-right-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20"
-          animate={{ y: [0, -10, 0], rotate: [0, -8, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 4.8, ease: "easeInOut", delay: 1.5 }}
+        <div
+          className="absolute -bottom-2 -right-2 md:-bottom-0 md:-right-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white shadow-[0_0_20px_rgba(56,189,248,0.4)] z-20 animate-float" style={{ animationDelay: "1.5s" }}
         >
           <Image src="/badrinath.jpeg" alt="Badrinath" fill className="object-cover" />
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Cinematic Text Overlay */}
@@ -99,30 +91,12 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator overlay */}
-      <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          className="flex flex-col items-center opacity-80"
-        >
-          <span className="text-xs font-bold tracking-[0.2em] text-sky-500 uppercase mb-3 drop-shadow-sm">
-            Scroll to Explore
-          </span>
-          <div className="w-[2px] h-12 bg-sky-200/50 relative overflow-hidden">
-            <motion.div
-              animate={{ y: ["-100%", "100%"] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-              className="absolute w-full h-1/2 bg-sky-400"
-            />
-          </div>
-        </motion.div>
-      </motion.div>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-80 flex flex-col items-center">
+        <span className="text-xs font-bold tracking-[0.2em] text-sky-500 uppercase mb-3 drop-shadow-sm">Scroll to Explore</span>
+        <div className="w-[2px] h-12 bg-sky-200/50 relative overflow-hidden">
+          <div className="absolute w-full h-1/2 bg-sky-400 animate-scroll-line" />
+        </div>
+      </div>
     </section>
   );
 }

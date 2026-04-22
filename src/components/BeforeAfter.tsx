@@ -1,121 +1,124 @@
 "use client";
 
-import { motion } from "framer-motion";
+/* ──────────────── DATA ──────────────── */
 
 const beforeImages = [
-  "/photos/before/IMG_5232.JPG", "/photos/before/IMG_5233.JPG", "/photos/before/IMG_5220.JPG",
-  "/photos/before/IMG_5221.JPG", "/photos/before/IMG_5251.JPG", "/photos/before/IMG_5250.JPG",
-  "/photos/before/IMG_5106.JPG", "/photos/before/IMG_5111.JPG", "/photos/before/IMG_5071.JPG"
+  "/photos/before/IMG_5232.JPG", "/photos/before/IMG_5233.JPG",
+  "/photos/before/IMG_5220.JPG", "/photos/before/IMG_5221.JPG",
+  "/photos/before/IMG_5251.JPG", "/photos/before/IMG_5250.JPG",
+  "/photos/before/IMG_5106.JPG", "/photos/before/IMG_5111.JPG",
+  "/photos/before/IMG_5071.JPG",
 ];
 
-const afterMedia = [
-  { type: "image", src: "/photos/after/IMG_5145.JPG" },
-  { type: "image", src: "/photos/after/IMG_5179.JPG" },
-  { type: "video", src: "/photos/after/VIDEO-2026-04-21-19-00-56.MP4" },
-  { type: "image", src: "/photos/after/IMG_5147.JPG" },
-  { type: "video", src: "/photos/after/74f30ef8-0669-4bba-9e3d-2549f7806a0f.MP4" },
-  { type: "image", src: "/photos/after/IMG_5230.JPG" },
-  { type: "image", src: "/photos/after/IMG_5181.JPG" },
-  { type: "image", src: "/photos/after/IMG_5142.JPG" },
-  { type: "image", src: "/photos/after/IMG_5234.JPG" },
-  { type: "image", src: "/photos/after/IMG_5180.JPG" },
-  { type: "image", src: "/photos/after/IMG_5141.JPG" },
-  { type: "image", src: "/photos/after/IMG_5222.JPG" },
-  { type: "image", src: "/photos/after/IMG_5140.JPG" },
-  { type: "image", src: "/photos/after/IMG_5252.JPG" },
-  { type: "image", src: "/photos/after/IMG_5135.JPG" },
-  { type: "image", src: "/photos/after/IMG_4983.JPG" },
-  { type: "image", src: "/photos/after/IMG_5257.JPG" },
-  { type: "image", src: "/photos/after/IMG_5256.JPG" },
-  { type: "image", src: "/photos/after/IMG_5108.JPG" },
-  { type: "image", src: "/photos/after/IMG_5134.JPG" },
-  { type: "image", src: "/photos/after/IMG_5136.JPG" },
-  { type: "image", src: "/photos/after/IMG_5254.JPG" },
-  { type: "image", src: "/photos/after/IMG_5112.JPG" },
-  { type: "video", src: "/photos/after/VIDEO-2026-04-21-17-12-34.MP4" },
-  { type: "image", src: "/photos/after/IMG_5259.JPG" },
-  { type: "image", src: "/photos/after/IMG_4972.JPG" },
-  { type: "image", src: "/photos/after/IMG_5113.JPG" },
-  { type: "image", src: "/photos/after/IMG_5065.JPG" },
-  { type: "image", src: "/photos/after/IMG_5064.JPG" },
-  { type: "video", src: "/photos/after/72432ecc-dcab-4c13-a600-9b4bdea42bce.MP4" },
-  { type: "image", src: "/photos/after/IMG_5063.JPG" },
-  { type: "image", src: "/photos/after/IMG_5260.JPG" },
-  { type: "image", src: "/photos/after/IMG_5176.JPG" },
-  { type: "image", src: "/photos/after/IMG_5175.JPG" }
+const afterImages = [
+  "/photos/after/IMG_5145.JPG", "/photos/after/IMG_5179.JPG",
+  "/photos/after/IMG_5147.JPG", "/photos/after/IMG_5230.JPG",
+  "/photos/after/IMG_5181.JPG", "/photos/after/IMG_5142.JPG",
+  "/photos/after/IMG_5234.JPG", "/photos/after/IMG_5180.JPG",
+  "/photos/after/IMG_5141.JPG", "/photos/after/IMG_5222.JPG",
+  "/photos/after/IMG_5140.JPG", "/photos/after/IMG_5252.JPG",
+  "/photos/after/IMG_5135.JPG", "/photos/after/IMG_4983.JPG",
+  "/photos/after/IMG_5257.JPG", "/photos/after/IMG_5256.JPG",
+  "/photos/after/IMG_5108.JPG", "/photos/after/IMG_5134.JPG",
+  "/photos/after/IMG_5136.JPG", "/photos/after/IMG_5254.JPG",
+  "/photos/after/IMG_5112.JPG", "/photos/after/IMG_5259.JPG",
+  "/photos/after/IMG_4972.JPG", "/photos/after/IMG_5113.JPG",
+  "/photos/after/IMG_5065.JPG", "/photos/after/IMG_5064.JPG",
+  "/photos/after/IMG_5063.JPG", "/photos/after/IMG_5260.JPG",
+  "/photos/after/IMG_5176.JPG", "/photos/after/IMG_5175.JPG",
 ];
 
-const MediaCarousel = ({ items }: { items: { type: string, src: string }[] }) => {
-  // Duplicate items for seamless infinite scroll
-  const duplicatedItems = [...items, ...items];
+const afterVideos = [
+  "/photos/after/VIDEO-2026-04-21-19-00-56.MP4",
+  "/photos/after/74f30ef8-0669-4bba-9e3d-2549f7806a0f.MP4",
+  "/photos/after/VIDEO-2026-04-21-17-12-34.MP4",
+  "/photos/after/72432ecc-dcab-4c13-a600-9b4bdea42bce.MP4",
+];
 
+/* ──────────────── CAROUSEL ──────────────── */
+
+type MediaItem = { type: "image" | "video"; src: string };
+
+function ImageCarousel({ images, label }: { images: string[]; label: string }) {
+  const dup = [...images, ...images];
   return (
-    <div className="flex overflow-hidden w-full px-0 relative">
-      {/* Left/Right Fade Overlays */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-      
-      <div className="flex gap-6 animate-marquee w-max">
-        {duplicatedItems.map((item, idx) => (
-          <div key={idx} className="shrink-0 relative w-[280px] md:w-[350px] aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-slate-200/50 bg-slate-100 group">
-            {item.type === "image" ? (
-              <img src={encodeURI(item.src)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={`Media ${idx}`} loading="lazy" />
-            ) : (
-              <video src={encodeURI(item.src)} className="w-full h-full object-cover" muted loop playsInline controls preload="metadata" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </div>
-        ))}
+    <div className="w-full">
+      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
+        <span className="w-1.5 h-7 rounded-full bg-slate-300" />
+        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
+      </div>
+      <div className="overflow-hidden relative">
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="flex gap-5 animate-marquee">
+          {dup.map((src, i) => (
+            <div key={i} className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group">
+              <img src={encodeURI(src)} alt={label} loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
+}
+
+function MixedCarousel({ images, videos, label }: { images: string[]; videos: string[]; label: string }) {
+  const items: MediaItem[] = [];
+  let ii = 0, vi = 0;
+  while (ii < images.length || vi < videos.length) {
+    for (let k = 0; k < 5 && ii < images.length; k++) items.push({ type: "image", src: images[ii++] });
+    if (vi < videos.length) items.push({ type: "video", src: videos[vi++] });
+  }
+  const dup = [...items, ...items];
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
+        <span className="w-1.5 h-7 rounded-full bg-emerald-400" />
+        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
+      </div>
+      <div className="overflow-hidden relative">
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="flex gap-5 animate-marquee">
+          {dup.map((m, i) => (
+            <div key={i} className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group">
+              {m.type === "image" ? (
+                <img src={encodeURI(m.src)} alt={label} loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700" />
+              ) : (
+                <video src={encodeURI(m.src)} className="w-full h-full object-cover" muted loop playsInline controls preload="none" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────── SECTION ──────────────── */
 
 export default function BeforeAfter() {
   return (
-    <section id="beforeafter" className="relative min-h-screen w-full py-24 bg-white overflow-hidden">
-      
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sky-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
+    <section id="beforeafter" className="relative w-full py-20 bg-white overflow-hidden">
+      {/* Section Header */}
+      <div className="text-center mb-14 px-6">
+        <p className="text-[11px] font-black tracking-[0.25em] text-emerald-500 uppercase mb-3">
+          Infrastructure
+        </p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight mb-3">
+          Transformation Journey
+        </h2>
+        <div className="h-[3px] w-16 bg-emerald-400 rounded-full mx-auto mb-4" />
+        <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
+          Witness our infrastructural growth — bridging legacy structures and world-class care.
+        </p>
+      </div>
 
-      <div className="container mx-auto relative z-10 flex flex-col items-center">
-        
-        <motion.div
-           initial={{ opacity: 0, y: 50 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 0.8 }}
-           className="text-center mb-16 px-6"
-        >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">
-            Transformation Journey
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-emerald-400 to-sky-500 rounded-full mx-auto shadow-[0_0_15px_rgba(52,211,153,0.5)] mb-6" />
-          <p className="text-xl text-slate-600 font-medium max-w-2xl mx-auto">
-            Witness our infrastructural growth bridging the gap between legacy structures and world-class future care.
-          </p>
-        </motion.div>
-
-        <div className="w-full flex flex-col gap-16 max-w-[100vw]">
-          
-          <div className="w-full">
-            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
-              <span className="w-2 h-8 bg-slate-400 rounded-full" />
-              Before (Legacy Infrastructure)
-            </h3>
-            <MediaCarousel items={beforeImages.map(src => ({ type: "image", src }))} />
-          </div>
-
-          <div className="w-full">
-            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
-              <span className="w-2 h-8 bg-sky-500 rounded-full" />
-              After (Modernized Facilities)
-            </h3>
-            <MediaCarousel items={afterMedia} />
-          </div>
-
-        </div>
-
+      {/* Carousel Stack */}
+      <div className="flex flex-col gap-12 max-w-[100vw]">
+        <ImageCarousel images={beforeImages} label="Before (Legacy Infrastructure)" />
+        <MixedCarousel images={afterImages} videos={afterVideos} label="After (Modernized Facilities)" />
       </div>
     </section>
   );

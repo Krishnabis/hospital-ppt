@@ -10,8 +10,8 @@ import QualityFramework from "@/components/QualityFramework";
 import Compliances from "@/components/Compliances";
 import HRManagement from "@/components/HRManagement";
 import GrievanceRedressal from "@/components/GrievanceRedressal";
-import Trainings from "@/components/Trainings";
 import FloorMap from "@/components/FloorMap";
+import Trainings from "@/components/Trainings";
 import BeforeAfter from "@/components/BeforeAfter";
 import QualityWall from "@/components/QualityWall";
 import Committees from "@/components/Committees";
@@ -24,10 +24,10 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen font-sans selection:bg-sky-200 selection:text-sky-900 w-full overflow-x-hidden relative">
-      
+
       {/* Global Neon Progress Bar */}
       <div className="progress-bar-container border-t border-sky-400/20 backdrop-blur-md">
-        <motion.div 
+        <motion.div
           className="progress-bar"
           style={{ scaleX: scrollYProgress }}
         />
@@ -43,6 +43,7 @@ export default function Home() {
       <div id="compliances"><Compliances /></div>
       <div id="hr"><HRManagement /></div>
       <div id="grievance"><GrievanceRedressal /></div>
+
       <div id="trainings"><Trainings /></div>
       <div id="beforeafter"><BeforeAfter /></div>
       <div id="qualitywall"><QualityWall /></div>
@@ -51,7 +52,7 @@ export default function Home() {
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>
       <div id="indicators"><QualityIndicators /></div>
-      
+
       <footer className="w-full bg-slate-950 text-slate-400 py-12 text-center text-sm border-t border-slate-900 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-[1px] bg-gradient-to-r from-transparent via-sky-500 to-transparent shadow-[0_0_10px_#38bdf8]" />
         <p className="tracking-widest uppercase font-bold text-slate-500 mb-2">Hospital Information System</p>

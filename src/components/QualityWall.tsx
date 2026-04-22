@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+/* ──────────────── DATA ──────────────── */
 
 const qualityWallImages = [
   "/photos/quality wall/IMG_5187.JPG",
@@ -9,63 +9,50 @@ const qualityWallImages = [
   "/photos/quality wall/IMG_5185.JPG",
   "/photos/quality wall/IMG_5182.JPG",
   "/photos/quality wall/IMG_5169.JPG",
-  "/photos/quality wall/IMG_5183.JPG"
+  "/photos/quality wall/IMG_5183.JPG",
 ];
 
-const MediaCarousel = ({ items }: { items: string[] }) => {
-  // Duplicate items to create a seamless infinite loop
-  const duplicatedItems = [...items, ...items];
-
-  return (
-    <div className="flex overflow-hidden w-full px-0 relative">
-      {/* Left/Right Fade Overlays */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10 pointer-events-none" />
-      
-      <div className="flex gap-6 animate-marquee w-max">
-        {duplicatedItems.map((src, idx) => (
-          <div key={idx} className="shrink-0 relative w-[280px] md:w-[350px] aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-slate-700/50 bg-slate-800 group">
-            <img src={encodeURI(src)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={`Quality Wall ${idx}`} loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
+/* ──────────────── SECTION ──────────────── */
 
 export default function QualityWall() {
+  const dup = [...qualityWallImages, ...qualityWallImages];
+
   return (
-    <section id="qualitywall" className="relative min-h-[70vh] w-full py-24 bg-slate-900 text-white overflow-hidden">
-      
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none opacity-40" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-sky-500/10 rounded-full blur-[100px] pointer-events-none opacity-40" />
+    <section id="qualitywall" className="relative w-full py-20 bg-slate-50 overflow-hidden">
+      {/* Section Header */}
+      <div className="text-center mb-14 px-6">
+        <p className="text-[11px] font-black tracking-[0.25em] text-amber-500 uppercase mb-3">
+          Excellence
+        </p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight mb-3">
+          Quality Wall
+        </h2>
+        <div className="h-[3px] w-16 bg-amber-400 rounded-full mx-auto mb-4" />
+        <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
+          A testament to our commitment to continuous improvement and excellence in healthcare.
+        </p>
+      </div>
 
-      <div className="container mx-auto relative z-10 flex flex-col items-center">
-        
-        <motion.div
-           initial={{ opacity: 0, y: 50 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 0.8 }}
-           className="text-center mb-16 px-6"
-        >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 uppercase">
-            Quality Wall
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mx-auto shadow-[0_0_15px_rgba(52,211,153,0.5)] mb-6" />
-          <p className="text-xl text-slate-300 font-medium max-w-2xl mx-auto">
-            A testament to our commitment to continuous improvement and excellence.
-          </p>
-        </motion.div>
+      {/* Carousel */}
+      <div className="overflow-hidden relative max-w-[100vw]">
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
 
-        <div className="w-full flex flex-col gap-16 max-w-[100vw]">
-          <div className="w-full">
-            <MediaCarousel items={qualityWallImages} />
-          </div>
+        <div className="flex gap-5 animate-marquee">
+          {dup.map((src, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-[280px] md:w-[360px] aspect-[4/3] rounded-2xl overflow-hidden bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group"
+            >
+              <img
+                src={encodeURI(src)}
+                alt="Quality Wall"
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
+              />
+            </div>
+          ))}
         </div>
-
       </div>
     </section>
   );

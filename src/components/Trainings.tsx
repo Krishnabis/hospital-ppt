@@ -1,45 +1,56 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRef } from "react";
+/* ──────────────── DATA ──────────────── */
 
-const trainingImages = [
-  "/photos/training/Image/IMG_5178.JPG", "/photos/training/Image/IMG_5227.JPG", 
-  "/photos/training/Image/IMG_5231.JPG", "/photos/training/Image/IMG_5224.JPG", 
-  "/photos/training/Image/IMG_5218.JPG", "/photos/training/Image/IMG_5223.JPG", 
-  "/photos/training/Image/IMG_5092.JPG", "/photos/training/Image/IMG_5069.JPG", 
-  "/photos/training/Image/IMG_5068.JPG", "/photos/training/Image/IMG_5066.JPG", 
-  "/photos/training/Image/IMG_5070.JPG", "/photos/training/Image/IMG_5262.JPG", 
-  "/photos/training/Image/IMG_5207.JPG", "/photos/training/Image/IMG_5213.JPG", 
-  "/photos/training/Image/IMG_5206.JPG", "/photos/training/Image/IMG_5170.JPG", 
-  "/photos/training/Image/IMG_5158.JPG", "/photos/training/Image/IMG_5210.JPG", 
-  "/photos/training/Image/IMG_5205.JPG", "/photos/training/Image/IMG_5177.JPG", 
-  "/photos/training/Image/IMG_5228.JPG", "/photos/training/Image/IMG_5174.JPG", 
-  "/photos/training/Image/IMG_5217.JPG"
+const generalImages = [
+  "/photos/training/Image/IMG_5178.JPG", "/photos/training/Image/IMG_5227.JPG",
+  "/photos/training/Image/IMG_5231.JPG", "/photos/training/Image/IMG_5224.JPG",
+  "/photos/training/Image/IMG_5218.JPG", "/photos/training/Image/IMG_5223.JPG",
+  "/photos/training/Image/IMG_5092.JPG", "/photos/training/Image/IMG_5069.JPG",
+  "/photos/training/Image/IMG_5068.JPG", "/photos/training/Image/IMG_5066.JPG",
+  "/photos/training/Image/IMG_5070.JPG", "/photos/training/Image/IMG_5262.JPG",
+  "/photos/training/Image/IMG_5207.JPG", "/photos/training/Image/IMG_5213.JPG",
+  "/photos/training/Image/IMG_5206.JPG", "/photos/training/Image/IMG_5170.JPG",
+  "/photos/training/Image/IMG_5158.JPG", "/photos/training/Image/IMG_5210.JPG",
+  "/photos/training/Image/IMG_5205.JPG", "/photos/training/Image/IMG_5177.JPG",
+  "/photos/training/Image/IMG_5228.JPG", "/photos/training/Image/IMG_5174.JPG",
+  "/photos/training/Image/IMG_5217.JPG",
+];
+
+const generalVideos = [
+  "/photos/training/video/VIDEO-2026-04-21-19-00-07.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-28.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-30.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-31.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-31 2.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-32 2.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-33 2.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-34.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-38.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-47.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-49.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-50.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-51.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-01-07.MP4",
 ];
 
 const cprVideos = [
   "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01 2.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01 3.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-27.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02 3.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02 2.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00 2.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00 3.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26 2.MP4",
   "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25 2.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-00-59.MP4"
 ];
 
-const fireVideos = [
-  "/photos/training/video/fire mockdrill/VIDEO-2026-04-21-19-00-51.MP4",
-  "/photos/training/video/fire mockdrill/VIDEO-2026-04-21-19-00-28 2.MP4",
-  "/photos/training/video/fire mockdrill/VIDEO-2026-04-21-19-00-38.MP4"
+const vaccinationImages = [
+  "/photos/vaccination/IMG_5150.JPG", "/photos/vaccination/IMG_5151.JPG",
+  "/photos/vaccination/IMG_5152.JPG", "/photos/vaccination/IMG_5153.JPG",
+  "/photos/vaccination/IMG_5154.JPG", "/photos/vaccination/IMG_5155.JPG",
+  "/photos/vaccination/IMG_5156.JPG", "/photos/vaccination/IMG_5157.JPG",
+  "/photos/vaccination/IMG_5159.JPG",
 ];
 
 const sharedVideos = [
@@ -49,94 +60,110 @@ const sharedVideos = [
   "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-35.MP4",
   "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43 2.MP4",
   "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-50 2.MP4"
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-50 2.MP4",
 ];
 
-const MediaCarousel = ({ items, type }: { items: string[], type: "image" | "video" }) => {
-  // Duplicate items for infinite scroll
-  const duplicatedItems = [...items, ...items];
+/* ──────────────── CAROUSEL ──────────────── */
 
+type MediaItem = { type: "image" | "video"; src: string };
+
+function Carousel({ items, label }: { items: MediaItem[]; label: string }) {
+  const dup = [...items, ...items]; // duplicate for seamless loop
   return (
-    <div className="flex overflow-hidden w-full px-0 relative">
-      {/* Fade Overlays */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
-      
-      <div className="flex gap-6 animate-marquee w-max">
-        {duplicatedItems.map((src, idx) => (
-          <div key={idx} className="shrink-0 relative w-[280px] md:w-[350px] aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-slate-200/50 bg-slate-100 group">
-            {type === "image" ? (
-              <img src={encodeURI(src)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={`Training ${idx}`} loading="lazy" />
-            ) : (
-              <video src={encodeURI(src)} className="w-full h-full object-cover" muted loop playsInline controls preload="metadata" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-          </div>
-        ))}
+    <div className="w-full">
+      {/* Sub-heading */}
+      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
+        <span className="w-1.5 h-7 rounded-full bg-sky-400" />
+        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
+      </div>
+
+      {/* Track */}
+      <div className="overflow-hidden relative">
+        {/* Fades */}
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+
+        <div className="flex gap-5 animate-marquee">
+          {dup.map((m, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group"
+            >
+              {m.type === "image" ? (
+                <img
+                  src={encodeURI(m.src)}
+                  alt={label}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
+                />
+              ) : (
+                <video
+                  src={encodeURI(m.src)}
+                  className="w-full h-full object-cover"
+                  muted
+                  loop
+                  playsInline
+                  controls
+                  preload="none"
+                />
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
+}
+
+/* helpers */
+function imagesToMedia(arr: string[]): MediaItem[] {
+  return arr.map((s) => ({ type: "image", src: s }));
+}
+function videosToMedia(arr: string[]): MediaItem[] {
+  return arr.map((s) => ({ type: "video", src: s }));
+}
+function mixMedia(images: string[], videos: string[]): MediaItem[] {
+  const imgs = imagesToMedia(images);
+  const vids = videosToMedia(videos);
+  // interleave: 3 images then 1 video, repeat
+  const out: MediaItem[] = [];
+  let ii = 0, vi = 0;
+  while (ii < imgs.length || vi < vids.length) {
+    for (let k = 0; k < 3 && ii < imgs.length; k++) out.push(imgs[ii++]);
+    if (vi < vids.length) out.push(vids[vi++]);
+  }
+  return out;
+}
+
+/* ──────────────── SECTION ──────────────── */
 
 export default function Trainings() {
   return (
-    <section id="trainings" className="relative min-h-screen w-full py-24 bg-slate-50 overflow-hidden">
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-sky-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
+    <section
+      id="trainings"
+      className="relative w-full py-20 bg-slate-50 overflow-hidden"
+    >
+      {/* Section Header */}
+      <div className="text-center mb-14 px-6">
+        <p className="text-[11px] font-black tracking-[0.25em] text-sky-500 uppercase mb-3">
+          Capacity Building
+        </p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight mb-3">
+          Training &amp; Preparedness
+        </h2>
+        <div className="h-[3px] w-16 bg-sky-400 rounded-full mx-auto mb-4" />
+        <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
+          Continuous learning, emergency mock drills, and vaccination drives
+          that keep our team prepared and our community protected.
+        </p>
+      </div>
 
-      <div className="container mx-auto relative z-10 flex flex-col items-center">
-        
-        <motion.div
-           initial={{ opacity: 0, y: 50 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true, margin: "-100px" }}
-           transition={{ duration: 0.8 }}
-           className="text-center mb-16 px-6"
-        >
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-4 uppercase">
-            Training & Mock Drills
-          </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mx-auto shadow-[0_0_15px_rgba(56,189,248,0.5)] mb-6" />
-          <p className="text-xl text-slate-600 font-medium">
-            Continuous learning and emergency preparedness
-          </p>
-        </motion.div>
-
-        <div className="w-full flex flex-col gap-16 max-w-[100vw]">
-          
-          <div className="w-full">
-            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
-              <span className="w-2 h-8 bg-sky-500 rounded-full" />
-              General Training Sessions
-            </h3>
-            <MediaCarousel items={trainingImages} type="image" />
-          </div>
-
-          <div className="w-full">
-            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
-              <span className="w-2 h-8 bg-rose-500 rounded-full" />
-              CPR Mockdrills
-            </h3>
-            <MediaCarousel items={cprVideos} type="video" />
-          </div>
-
-          <div className="w-full">
-            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
-              <span className="w-2 h-8 bg-amber-500 rounded-full" />
-              Fire Mockdrills
-            </h3>
-            <MediaCarousel items={fireVideos} type="video" />
-          </div>
-
-          <div className="w-full">
-            <h3 className="text-2xl font-black text-slate-800 mb-6 px-6 md:px-12 flex items-center gap-3">
-              <span className="w-2 h-8 bg-indigo-500 rounded-full" />
-              Training Videos Shared
-            </h3>
-            <MediaCarousel items={sharedVideos} type="video" />
-          </div>
-
-        </div>
+      {/* Carousel Stack */}
+      <div className="flex flex-col gap-12 max-w-[100vw]">
+        <Carousel items={mixMedia(generalImages, generalVideos)} label="General Training Sessions" />
+        <Carousel items={videosToMedia(cprVideos)} label="CPR Mockdrills" />
+        <Carousel items={imagesToMedia(vaccinationImages)} label="Vaccination Drives" />
+        <Carousel items={videosToMedia(sharedVideos)} label="Training Videos Shared" />
       </div>
     </section>
   );

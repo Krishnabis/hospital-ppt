@@ -86,8 +86,7 @@ export default function GrievanceRedressal() {
     <section id="grievance" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-50 overflow-hidden">
       
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-sky-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-100 rounded-full blur-[100px] pointer-events-none opacity-40" />
+
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         

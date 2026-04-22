@@ -26,7 +26,7 @@ export default function HRManagement() {
     <section id="hr" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
       
       {/* Dynamic Background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[100px] pointer-events-none" />
+
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         
@@ -69,32 +69,18 @@ export default function HRManagement() {
             {/* Floating avatars effect */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-[3rem]">
               {[
-                { left: "22%", top: "18%", duration: 3.2 },
-                { left: "76%", top: "25%", duration: 4.1 },
-                { left: "43%", top: "67%", duration: 3.8 },
-                { left: "85%", top: "72%", duration: 4.6 },
-                { left: "15%", top: "54%", duration: 3.5 },
-                { left: "60%", top: "12%", duration: 4.9 },
+                { left: "22%", top: "18%", delay: "0s" },
+                { left: "76%", top: "25%", delay: "0.8s" },
+                { left: "43%", top: "67%", delay: "1.2s" },
+                { left: "85%", top: "72%", delay: "0.4s" },
+                { left: "15%", top: "54%", delay: "1.6s" },
+                { left: "60%", top: "12%", delay: "2s" },
               ].map((avatar, i) => (
-                <motion.div
+                <div
                   key={i}
-                  animate={{ 
-                    y: [10, -20, 10], 
-                    opacity: [0.1, 0.5, 0.1] 
-                  }}
-                  transition={{ 
-                    duration: avatar.duration, 
-                    repeat: Infinity, 
-                    delay: i * 0.5 
-                  }}
-                  className="absolute"
-                  style={{
-                    left: avatar.left,
-                    top: avatar.top
-                  }}
-                >
-                  <div className="w-8 h-8 rounded-full bg-slate-200 shadow-sm border border-white" />
-                </motion.div>
+                  className="absolute w-8 h-8 rounded-full bg-slate-200 shadow-sm border border-white animate-float"
+                  style={{ left: avatar.left, top: avatar.top, animationDelay: avatar.delay }}
+                />
               ))}
             </div>
           </motion.div>
