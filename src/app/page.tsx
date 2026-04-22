@@ -44,9 +44,9 @@ export default function Home() {
       <div id="hr"><HRManagement /></div>
       <div id="grievance"><GrievanceRedressal /></div>
       <div id="trainings"><Trainings /></div>
-      <div id="map"><FloorMap /></div>
       <div id="beforeafter"><BeforeAfter /></div>
       <div id="qualitywall"><QualityWall /></div>
+      <div id="map"><FloorMap /></div>
       <div id="committees"><Committees /></div>
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>

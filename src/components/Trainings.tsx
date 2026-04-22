@@ -53,18 +53,27 @@ const sharedVideos = [
 ];
 
 const MediaCarousel = ({ items, type }: { items: string[], type: "image" | "video" }) => {
+  // Duplicate items for infinite scroll
+  const duplicatedItems = [...items, ...items];
+
   return (
-    <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory custom-scrollbar w-full px-6 md:px-12">
-      {items.map((src, idx) => (
-        <div key={idx} className="shrink-0 snap-center relative w-[280px] md:w-[350px] aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-slate-200/50 bg-slate-100 group">
-          {type === "image" ? (
-            <img src={src} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={`Training ${idx}`} loading="lazy" />
-          ) : (
-            <video src={src} className="w-full h-full object-cover" muted loop playsInline controls preload="metadata" />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-        </div>
-      ))}
+    <div className="flex overflow-hidden w-full px-0 relative">
+      {/* Fade Overlays */}
+      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+      
+      <div className="flex gap-6 animate-marquee w-max">
+        {duplicatedItems.map((src, idx) => (
+          <div key={idx} className="shrink-0 relative w-[280px] md:w-[350px] aspect-[4/3] rounded-3xl overflow-hidden shadow-lg border border-slate-200/50 bg-slate-100 group">
+            {type === "image" ? (
+              <img src={encodeURI(src)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt={`Training ${idx}`} loading="lazy" />
+            ) : (
+              <video src={encodeURI(src)} className="w-full h-full object-cover" muted loop playsInline controls preload="metadata" />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
