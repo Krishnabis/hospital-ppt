@@ -29,8 +29,8 @@ const afterImages = [
 ];
 
 const afterVideos = [
-  "/photos/after/74f30ef8-0669-4bba-9e3d-2549f7806a0f.MP4",
-  "/photos/after/72432ecc-dcab-4c13-a600-9b4bdea42bce.MP4",
+  "/photos/after/74f30ef8-0669-4bba-9e3d-2549f7806a0f.gif",
+  "/photos/after/72432ecc-dcab-4c13-a600-9b4bdea42bce.gif",
 ];
 
 /* ──────────────── CAROUSEL ──────────────── */
@@ -65,7 +65,7 @@ function MixedCarousel({ images, videos, label }: { images: string[]; videos: st
   let ii = 0, vi = 0;
   while (ii < images.length || vi < videos.length) {
     for (let k = 0; k < 5 && ii < images.length; k++) items.push({ type: "image", src: images[ii++] });
-    if (vi < videos.length) items.push({ type: "video", src: videos[vi++] });
+    if (vi < videos.length) items.push({ type: "image", src: videos[vi++] });
   }
   const dup = [...items, ...items];
 

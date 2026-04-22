@@ -18,27 +18,27 @@ const generalImages = [
 ];
 
 const generalVideos = [
-  "/photos/training/video/VIDEO-2026-04-21-19-00-30.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-31.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-31 2.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-32 2.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-33 2.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-47.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-49.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-50.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-51.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-01-07.MP4",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-30.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-31.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-31 2.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-32 2.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-33 2.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-47.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-49.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-50.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-00-51.gif",
+  "/photos/training/video/VIDEO-2026-04-21-19-01-07.gif",
 ];
 
 const cprVideos = [
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02 3.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00 2.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26 2.MP4",
-  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25 2.MP4",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-01.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-02 3.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-19-01-00 2.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-26 2.gif",
+  "/photos/training/video/CPR/VIDEO-2026-04-21-18-59-25 2.gif",
 ];
 
 const vaccinationImages = [
@@ -50,13 +50,13 @@ const vaccinationImages = [
 ];
 
 const sharedVideos = [
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27 2.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-36.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-35.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43 2.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27.MP4",
-  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-50 2.MP4",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43.gif",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27 2.gif",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-36.gif",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-35.gif",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-43 2.gif",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-27.gif",
+  "/photos/training/video/personal video trainings/VIDEO-2026-04-21-19-00-50 2.gif",
 ];
 
 /* ──────────────── CAROUSEL ──────────────── */
@@ -116,7 +116,7 @@ function imagesToMedia(arr: string[]): MediaItem[] {
   return arr.map((s) => ({ type: "image", src: s }));
 }
 function videosToMedia(arr: string[]): MediaItem[] {
-  return arr.map((s) => ({ type: "video", src: s }));
+  return arr.map((s) => ({ type: "image", src: s }));
 }
 function mixMedia(images: string[], videos: string[]): MediaItem[] {
   const imgs = imagesToMedia(images);
