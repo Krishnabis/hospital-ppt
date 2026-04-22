@@ -306,7 +306,17 @@ export default function OrgStructure() {
 
                 <div className="w-1 h-8 bg-emerald-300 relative z-10" />
 
-                {/* Level 2: MS */}
+                {/* Level 2: Financial Controller */}
+                <div className="glass-neon px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-purple-400 shadow-lg bg-white relative z-20 w-80">
+                  <h3 className="font-bold text-slate-800 text-lg">Financial Controller</h3>
+                  <div className="flex items-center gap-2 mt-2 text-purple-600 font-bold text-sm bg-purple-50 px-3 py-1 rounded-full">
+                    <User size={14} /> Prashant Kumar (P.F.S)
+                  </div>
+                </div>
+
+                <div className="w-1 h-8 bg-purple-400 relative z-10" />
+
+                {/* Level 3: MS */}
                 <div className="glass-neon px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-sky-400 shadow-xl bg-white relative z-20 w-80">
                   <h3 className="font-bold text-slate-800 text-lg">Medical Superintendent</h3>
                   <div className="flex items-center gap-2 mt-2 text-sky-600 font-bold text-sm bg-sky-50 px-3 py-1 rounded-full">
