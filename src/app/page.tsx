@@ -9,6 +9,7 @@ import OrgStructure from "@/components/OrgStructure";
 import QualityFramework from "@/components/QualityFramework";
 import Compliances from "@/components/Compliances";
 import HRManagement from "@/components/HRManagement";
+import GrievanceRedressal from "@/components/GrievanceRedressal";
 import Trainings from "@/components/Trainings";
 import FloorMap from "@/components/FloorMap";
 import BeforeAfter from "@/components/BeforeAfter";
@@ -40,6 +41,7 @@ export default function Home() {
       <div id="quality"><QualityFramework /></div>
       <div id="compliances"><Compliances /></div>
       <div id="hr"><HRManagement /></div>
+      <div id="grievance"><GrievanceRedressal /></div>
       <div id="trainings"><Trainings /></div>
       <div id="map"><FloorMap /></div>
       <div id="beforeafter"><BeforeAfter /></div>
