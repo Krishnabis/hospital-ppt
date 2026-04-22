@@ -143,17 +143,15 @@ export default function GrievanceRedressal() {
                       <p className="text-slate-500 font-medium">{step.action}</p>
                     </div>
                     
-                    <div className="flex flex-col items-center justify-center min-w-[120px] py-3 px-4 bg-slate-50 rounded-xl border border-slate-100 text-center shrink-0">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Timeline</p>
-                      {step.level === 5 ? (
-                        <Gavel size={28} className="text-slate-700" />
-                      ) : (
+                    {step.level !== 5 && (
+                      <div className="flex flex-col items-center justify-center min-w-[120px] py-3 px-4 bg-slate-50 rounded-xl border border-slate-100 text-center shrink-0">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Timeline</p>
                         <div className="flex items-center gap-2 text-sky-600">
                           <Clock size={20} strokeWidth={2.5} />
                           <span className="font-black text-lg">{step.timeline}</span>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               ))}
