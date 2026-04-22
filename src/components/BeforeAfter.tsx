@@ -33,7 +33,7 @@ export default function BeforeAfter() {
   const clipWidth = useTransform(x, (val) => `${val}px`);
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-100 overflow-hidden">
+    <section id="beforeafter" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-slate-100 overflow-hidden">
       
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         

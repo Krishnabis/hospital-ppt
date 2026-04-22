@@ -35,7 +35,7 @@ export default function Overview() {
   ];
 
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-center py-24 bg-white overflow-hidden">
+    <section id="overview" className="relative min-h-screen w-full flex flex-col items-center justify-center py-24 bg-white overflow-hidden">
       
       {/* Background Decor */}
       <div className="absolute top-0 right-0 -mr-40 -mt-40 w-[600px] h-[600px] bg-sky-50 rounded-full blur-3xl opacity-50 pointer-events-none" />

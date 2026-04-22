@@ -68,7 +68,7 @@ export default function FloorMap() {
   };
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+    <section id="map" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
       
       {/* Dynamic Background */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-slate-50 rounded-full blur-[100px] pointer-events-none opacity-50" />
