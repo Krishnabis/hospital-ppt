@@ -134,15 +134,12 @@ export default function FloorMap() {
                <AnimatePresence mode="wait">
                  <motion.div
                    key={activeBlock.id}
-                   initial={{ opacity: 0, rotateX: 60, rotateZ: -45, y: 40, scale: 0.9 }}
+                   initial={{ opacity: 0, rotateX: 60, rotateZ: -45, y: 120, scale: 0.95 }}
                    animate={{ opacity: 1, rotateX: 60, rotateZ: -45, y: 80, scale: 1 }}
-                   exit={{ opacity: 0, rotateX: 60, rotateZ: -45, y: 120, scale: 0.9 }}
+                   exit={{ opacity: 0, rotateX: 60, rotateZ: -45, y: 40, scale: 0.95 }}
                    transition={{ 
                      duration: 0.8, 
-                     type: "spring", 
-                     stiffness: 50, 
-                     damping: 15,
-                     mass: 1
+                     ease: [0.16, 1, 0.3, 1]
                    }}
                    className="relative w-64 h-64 preserve-3d"
                    style={{ transformStyle: "preserve-3d" }}
@@ -152,19 +149,18 @@ export default function FloorMap() {
                      return (
                        <motion.div
                          key={idx}
-                         initial={{ z: -50, opacity: 0 }}
+                         initial={{ z: 0, opacity: 0 }}
                          animate={{ 
                            z: idx * 85 + (isSelected ? 30 : 0),
                            opacity: 1,
                            scale: isSelected ? 1.05 : 1,
                            backgroundColor: isSelected ? "rgba(255, 255, 255, 0.98)" : "rgba(255, 255, 255, 0.75)"
                          }}
-                         whileHover={{ z: idx * 85 + 20 }}
+                         whileHover={{ z: idx * 85 + 15 }}
                          transition={{ 
-                           type: "spring", 
-                           stiffness: 120, 
-                           damping: 20,
-                           delay: idx * 0.1
+                           duration: 0.8,
+                           ease: [0.16, 1, 0.3, 1],
+                           delay: idx * 0.12
                          }}
                          onClick={() => setActiveFloorIndex(idx)}
                          className={`absolute inset-0 backdrop-blur-md border shadow-[0_12px_30px_rgba(0,0,0,0.06)] rounded-[1.8rem] flex items-center justify-center cursor-pointer group transition-all duration-300 ${isSelected ? 'border-sky-400 ring-4 ring-sky-400/20' : 'border-white/50'}`}
