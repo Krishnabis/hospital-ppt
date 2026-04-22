@@ -18,15 +18,11 @@ const generalImages = [
 ];
 
 const generalVideos = [
-  "/photos/training/video/VIDEO-2026-04-21-19-00-07.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-28.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-30.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-31.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-31 2.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-32 2.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-33 2.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-34.MP4",
-  "/photos/training/video/VIDEO-2026-04-21-19-00-38.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-47.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-49.MP4",
   "/photos/training/video/VIDEO-2026-04-21-19-00-50.MP4",

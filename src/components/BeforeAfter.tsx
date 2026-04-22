@@ -29,9 +29,7 @@ const afterImages = [
 ];
 
 const afterVideos = [
-  "/photos/after/VIDEO-2026-04-21-19-00-56.MP4",
   "/photos/after/74f30ef8-0669-4bba-9e3d-2549f7806a0f.MP4",
-  "/photos/after/VIDEO-2026-04-21-17-12-34.MP4",
   "/photos/after/72432ecc-dcab-4c13-a600-9b4bdea42bce.MP4",
 ];
 
