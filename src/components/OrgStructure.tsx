@@ -211,7 +211,7 @@ export default function OrgStructure() {
             className={`relative px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${activeTab === "clinical" ? "text-sky-600 bg-sky-50 shadow-md ring-1 ring-sky-200" : "text-slate-500 hover:bg-slate-100"
               }`}
           >
-            <Stethoscope size={20} /> Clinical Directorate
+            <Stethoscope size={20} /> Clinical Organogram
           </button>
           
           <button
@@ -219,7 +219,7 @@ export default function OrgStructure() {
             className={`relative px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${activeTab === "nonClinical" ? "text-indigo-600 bg-indigo-50 shadow-md ring-1 ring-indigo-200" : "text-slate-500 hover:bg-slate-100"
               }`}
           >
-            <Briefcase size={20} /> Non-Clinical / Support Services
+            <Briefcase size={20} /> Admin & Financial Organogram
           </button>
 
           <button
@@ -235,7 +235,7 @@ export default function OrgStructure() {
             className={`relative px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${activeTab === "committees" ? "text-emerald-600 bg-emerald-50 shadow-md ring-1 ring-emerald-200" : "text-slate-500 hover:bg-slate-100"
               }`}
           >
-            <Shield size={20} /> Governance & Committees
+            <Shield size={20} /> Committees Organogram
           </button>
         </div>
 
