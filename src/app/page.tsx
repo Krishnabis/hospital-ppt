@@ -14,7 +14,6 @@ import FloorMap from "@/components/FloorMap";
 import Trainings from "@/components/Trainings";
 import BeforeAfter from "@/components/BeforeAfter";
 import QualityWall from "@/components/QualityWall";
-import Committees from "@/components/Committees";
 import PatientRights from "@/components/PatientRights";
 import FuturePlans from "@/components/FuturePlans";
 import QualityIndicators from "@/components/QualityIndicators";
@@ -49,7 +48,6 @@ export default function Home() {
       <div id="beforeafter"><BeforeAfter /></div>
       <div id="qualitywall"><QualityWall /></div>
       <div id="map"><FloorMap /></div>
-      <div id="committees"><Committees /></div>
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>
       <div id="indicators"><QualityIndicators /></div>

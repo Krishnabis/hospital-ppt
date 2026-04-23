@@ -21,7 +21,6 @@ const navItems = [
   { id: "beforeafter", name: "Before & After", icon: ImageIcon },
   { id: "qualitywall", name: "Quality Wall", icon: Award },
   { id: "map", name: "Floor Map", icon: Map },
-  { id: "committees", name: "Committees", icon: UsersRound },
   { id: "patient", name: "Patient Rights", icon: HeartHandshake },
   { id: "future", name: "Future Plans", icon: Rocket },
   { id: "indicators", name: "Quality Indicators", icon: LineChart },
@@ -71,8 +70,8 @@ export default function FloatingNav() {
             key={item.id} 
             className="relative group flex items-center justify-end"
           >
-            {/* Tooltip */}
-            <div className="absolute right-11 bg-slate-800 text-white text-xs font-semibold py-1 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl hidden md:block">
+            {/* Tooltip — shows on hover, all screen sizes */}
+            <div className="absolute right-11 bg-slate-800 text-white text-xs font-semibold py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap shadow-xl z-50 scale-95 group-hover:scale-100">
               {item.name}
               <div className="absolute top-1/2 -translate-y-1/2 -right-1.5 border-[5px] border-transparent border-l-slate-800" />
             </div>

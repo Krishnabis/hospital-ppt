@@ -5,13 +5,8 @@ import { Phone, AlertTriangle } from "lucide-react";
 
 const codes = [
   {
-    sn: 1,
-    code: "BLUE",
-    bg: "bg-blue-500",
-    text: "text-blue-700",
-    border: "border-blue-300",
-    rowBg: "bg-blue-50",
-    badge: "bg-blue-100 text-blue-800 border-blue-300",
+    sn: 1, code: "BLUE", bg: "bg-blue-500", text: "text-blue-700",
+    rowBg: "bg-blue-50", badge: "bg-blue-100 text-blue-800 border-blue-300",
     incident: "Any Type of Medical Emergency / Cardiac Arrest",
     contacts: [
       { label: "PRO OFFICE", number: "01346-257799" },
@@ -22,13 +17,8 @@ const codes = [
     ],
   },
   {
-    sn: 2,
-    code: "RED",
-    bg: "bg-red-500",
-    text: "text-red-700",
-    border: "border-red-300",
-    rowBg: "bg-red-50",
-    badge: "bg-red-100 text-red-800 border-red-300",
+    sn: 2, code: "RED", bg: "bg-red-500", text: "text-red-700",
+    rowBg: "bg-red-50", badge: "bg-red-100 text-red-800 border-red-300",
     incident: "Fire",
     contacts: [
       { label: "PRO OFFICE", number: "01346-257799" },
@@ -39,13 +29,8 @@ const codes = [
     ],
   },
   {
-    sn: 3,
-    code: "VIOLET",
-    bg: "bg-violet-500",
-    text: "text-violet-700",
-    border: "border-violet-300",
-    rowBg: "bg-violet-50",
-    badge: "bg-violet-100 text-violet-800 border-violet-300",
+    sn: 3, code: "VIOLET", bg: "bg-violet-500", text: "text-violet-700",
+    rowBg: "bg-violet-50", badge: "bg-violet-100 text-violet-800 border-violet-300",
     incident: "Violent Patient / Attendant or Visitor",
     contacts: [
       { label: "PRO OFFICE", number: "01346-257799" },
@@ -56,13 +41,8 @@ const codes = [
     ],
   },
   {
-    sn: 4,
-    code: "PINK",
-    bg: "bg-pink-400",
-    text: "text-pink-700",
-    border: "border-pink-300",
-    rowBg: "bg-pink-50",
-    badge: "bg-pink-100 text-pink-800 border-pink-300",
+    sn: 4, code: "PINK", bg: "bg-pink-400", text: "text-pink-700",
+    rowBg: "bg-pink-50", badge: "bg-pink-100 text-pink-800 border-pink-300",
     incident: "Child Abduction / Baby Missing",
     contacts: [
       { label: "PRO OFFICE", number: "01346-257799" },
@@ -74,13 +54,8 @@ const codes = [
     ],
   },
   {
-    sn: 5,
-    code: "BLACK",
-    bg: "bg-slate-800",
-    text: "text-slate-800",
-    border: "border-slate-400",
-    rowBg: "bg-slate-50",
-    badge: "bg-slate-200 text-slate-800 border-slate-400",
+    sn: 5, code: "BLACK", bg: "bg-slate-800", text: "text-slate-800",
+    rowBg: "bg-slate-50", badge: "bg-slate-200 text-slate-800 border-slate-400",
     incident: "Bomb Threat",
     contacts: [
       { label: "PRO OFFICE", number: "01346-257799" },
@@ -90,13 +65,8 @@ const codes = [
     ],
   },
   {
-    sn: 6,
-    code: "YELLOW",
-    bg: "bg-yellow-400",
-    text: "text-yellow-700",
-    border: "border-yellow-300",
-    rowBg: "bg-yellow-50",
-    badge: "bg-yellow-100 text-yellow-800 border-yellow-400",
+    sn: 6, code: "YELLOW", bg: "bg-yellow-400", text: "text-yellow-700",
+    rowBg: "bg-yellow-50", badge: "bg-yellow-100 text-yellow-800 border-yellow-400",
     incident: "Internal and External Disaster",
     contacts: [
       { label: "PRO OFFICE", number: "01346-257799" },
@@ -108,13 +78,8 @@ const codes = [
     ],
   },
   {
-    sn: 7,
-    code: "ORANGE",
-    bg: "bg-orange-400",
-    text: "text-orange-700",
-    border: "border-orange-300",
-    rowBg: "bg-orange-50",
-    badge: "bg-orange-100 text-orange-800 border-orange-300",
+    sn: 7, code: "ORANGE", bg: "bg-orange-400", text: "text-orange-700",
+    rowBg: "bg-orange-50", badge: "bg-orange-100 text-orange-800 border-orange-300",
     incident: "Spill Management",
     contacts: [
       { label: "HOUSE KEEPING", number: "9760331431" },
@@ -124,26 +89,25 @@ const codes = [
   },
 ];
 
+const keyContacts = [
+  { sn: 1,  label: "EMERGENCY NO.",              number: "799" },
+  { sn: 2,  label: "PRO OFFICE",                 number: "01346-257799" },
+  { sn: 3,  label: "PRO OFFICE",                 number: "01346-244702" },
+  { sn: 4,  label: "Mr. Achlesh Parashar (ANS)", number: "9758254569" },
+  { sn: 5,  label: "Mr. Jai Hind (ANS)",         number: "9720438496" },
+  { sn: 6,  label: "Mr. Bijendra (ANS)",         number: "9870877504" },
+  { sn: 7,  label: "Mr. Pramod Panwar",          number: "" },
+];
+
 export default function EmergencyContacts() {
   return (
     <section
       id="emergency"
       className="relative w-full flex items-center justify-center py-20 overflow-hidden bg-slate-50"
     >
-      {/* Top accent line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-1 bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-60" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10 max-w-6xl flex flex-col items-center">
-
-        {/* TEMPORARY BADGE */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-6 px-5 py-1.5 rounded-full border border-amber-500/60 bg-amber-100 text-amber-700 text-xs font-black tracking-[0.2em] uppercase"
-        >
-          ⚠ Temporary Display
-        </motion.div>
 
         {/* Hospital Header */}
         <motion.div
@@ -175,7 +139,6 @@ export default function EmergencyContacts() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="w-full rounded-3xl overflow-hidden border border-slate-200 shadow-xl bg-white"
         >
-          {/* Table Header */}
           <div className="grid grid-cols-12 bg-slate-800 px-6 py-3">
             <div className="col-span-1 text-white font-black text-xs tracking-widest uppercase">S.N.</div>
             <div className="col-span-2 text-white font-black text-xs tracking-widest uppercase">Code</div>
@@ -185,7 +148,6 @@ export default function EmergencyContacts() {
             </div>
           </div>
 
-          {/* Rows */}
           {codes.map((c, idx) => (
             <motion.div
               key={idx}
@@ -195,35 +157,25 @@ export default function EmergencyContacts() {
               transition={{ delay: 0.05 * idx }}
               className={`grid grid-cols-12 px-4 py-4 border-t border-slate-100 items-start ${c.rowBg} hover:brightness-95 transition-all`}
             >
-              {/* S.N. */}
               <div className="col-span-1 flex items-start pt-1">
                 <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${c.bg} text-white shadow-sm`}>
                   {c.sn}
                 </span>
               </div>
-
-              {/* Code Badge */}
               <div className="col-span-2 flex items-start pt-1">
                 <span className={`px-3 py-1.5 rounded-full border font-black text-sm tracking-wider ${c.badge}`}>
                   {c.code}
                 </span>
               </div>
-
-              {/* Incident */}
               <div className="col-span-4 pr-4 pt-1">
                 <span className="font-bold text-slate-800 text-sm leading-snug">{c.incident}</span>
               </div>
-
-              {/* Contacts */}
               <div className="col-span-5 flex flex-col gap-1.5">
                 {c.contacts.map((contact, cIdx) => (
                   <div key={cIdx} className="flex items-center gap-2">
                     <span className="text-[10px] font-black text-slate-500 uppercase tracking-wide w-32 shrink-0">{contact.label}</span>
                     <span className="text-slate-400 text-xs">=</span>
-                    <a
-                      href={`tel:${contact.number.replace(/[^0-9]/g, "")}`}
-                      className={`font-black text-sm flex items-center gap-1 group ${c.text}`}
-                    >
+                    <a href={`tel:${contact.number.replace(/[^0-9]/g, "")}`} className={`font-black text-sm flex items-center gap-1 group ${c.text}`}>
                       <Phone size={11} className="opacity-50 group-hover:opacity-100 transition-opacity" />
                       {contact.number}
                     </a>
@@ -234,7 +186,53 @@ export default function EmergencyContacts() {
           ))}
         </motion.div>
 
-        {/* Footer note */}
+        {/* Key Contacts */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="w-full mt-8 rounded-3xl overflow-hidden border border-red-200 shadow-xl bg-white"
+        >
+          <div className="grid grid-cols-12 bg-red-600 px-6 py-3">
+            <div className="col-span-1 text-white font-black text-xs tracking-widest uppercase">S.N.</div>
+            <div className="col-span-7 text-white font-black text-xs tracking-widest uppercase">Name / Designation</div>
+            <div className="col-span-4 text-white font-black text-xs tracking-widest uppercase flex items-center gap-1.5">
+              <Phone size={12} /> Contact Number
+            </div>
+          </div>
+
+          {keyContacts.map((c, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.05 * idx }}
+              className={`grid grid-cols-12 px-6 py-4 border-t border-red-100 items-center transition-colors hover:bg-red-50 ${idx === 0 ? "bg-red-50" : "bg-white"}`}
+            >
+              <div className="col-span-1">
+                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${idx === 0 ? "bg-red-500 text-white" : "bg-slate-100 text-slate-600"}`}>
+                  {c.sn}
+                </span>
+              </div>
+              <div className="col-span-7">
+                <span className={`font-bold text-sm ${idx === 0 ? "text-red-700" : "text-slate-700"}`}>{c.label}</span>
+              </div>
+              <div className="col-span-4">
+                {c.number ? (
+                  <a href={`tel:${c.number.replace(/[^0-9]/g, "")}`} className={`font-black text-base flex items-center gap-2 group ${idx === 0 ? "text-red-600" : "text-emerald-600"}`}>
+                    <Phone size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+                    {c.number}
+                  </a>
+                ) : (
+                  <span className="text-slate-400 text-sm">—</span>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
