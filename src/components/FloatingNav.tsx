@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { 
   Home, Info, Stethoscope, Network, ShieldCheck, 
   FileCheck, Users, GraduationCap, Map, Image as ImageIcon, 
-  HeartHandshake, Rocket, LineChart, Megaphone, Award, Siren
+  HeartHandshake, Rocket, LineChart, Megaphone, Award, Siren, UsersRound
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const navItems = [
   { id: "hero",        name: "Welcome",           icon: Home },
@@ -21,6 +21,7 @@ const navItems = [
   { id: "beforeafter",name: "Before & After",      icon: ImageIcon },
   { id: "qualitywall",name: "Quality Wall",        icon: Award },
   { id: "map",        name: "Floor Map",           icon: Map },
+  { id: "committees", name: "Committees",          icon: UsersRound },
   { id: "patient",    name: "Patient Rights",      icon: HeartHandshake },
   { id: "future",     name: "Future Plans",        icon: Rocket },
   { id: "indicators", name: "Quality Indicators",  icon: LineChart },
@@ -29,7 +30,8 @@ const navItems = [
 
 export default function FloatingNav() {
   const [activeSection, setActiveSection] = useState("hero");
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [tooltip, setTooltip] = useState<{ name: string; y: number } | null>(null);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,21 +53,30 @@ export default function FloatingNav() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleMouseEnter = (name: string, e: React.MouseEvent<HTMLDivElement>) => {
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltip({ name, y: rect.top + rect.height / 2 });
+  };
+
+  const handleMouseLeave = () => {
+    hideTimer.current = setTimeout(() => setTooltip(null), 80);
+  };
+
   return (
     <>
-      {/* Tooltip rendered outside nav (no overflow clipping) */}
-      {hoveredId && (() => {
-        const item = navItems.find(n => n.id === hoveredId);
-        return item ? (
-          <div
-            className="fixed right-16 z-[200] bg-slate-800 text-white text-xs font-semibold py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap pointer-events-none"
-            style={{ top: "50%", transform: "translateY(-50%)" }}
-          >
-            {item.name}
+      {/* Tooltip — positioned at exact icon Y, to the left of nav */}
+      {tooltip && (
+        <div
+          className="fixed z-[200] pointer-events-none"
+          style={{ top: tooltip.y, right: 56, transform: "translateY(-50%)" }}
+        >
+          <div className="bg-slate-800 text-white text-xs font-semibold py-1.5 px-3 rounded-lg shadow-xl whitespace-nowrap relative">
+            {tooltip.name}
             <div className="absolute top-1/2 -translate-y-1/2 -right-1.5 border-[5px] border-transparent border-l-slate-800" />
           </div>
-        ) : null;
-      })()}
+        </div>
+      )}
 
       <motion.div
         initial={{ opacity: 0, x: 50 }}
@@ -79,11 +90,11 @@ export default function FloatingNav() {
             <div
               key={item.id}
               className="relative flex items-center justify-center"
-              onMouseEnter={() => setHoveredId(item.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              onMouseEnter={(e) => handleMouseEnter(item.name, e)}
+              onMouseLeave={handleMouseLeave}
             >
-              {/* Mobile tooltip above the icon */}
-              <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] font-semibold py-1 px-2 rounded-md shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150 md:hidden ${hoveredId === item.id ? "opacity-100" : "opacity-0"}`}>
+              {/* Mobile tooltip — above icon */}
+              <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] font-semibold py-1 px-2 rounded-md shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-150 md:hidden ${tooltip?.name === item.name ? "opacity-100" : "opacity-0"}`}>
                 {item.name}
               </div>
 
