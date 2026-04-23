@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { 
-  Stethoscope, Activity, Baby, ArrowRight, ClipboardList
+  Stethoscope, Activity, Baby, ArrowRight, ArrowDown, ClipboardList
 } from "lucide-react";
 
 type Step = {
@@ -181,7 +181,7 @@ export default function ClinicalPathways() {
   };
 
   return (
-    <section id="pathways" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+    <section id="pathways" className="relative min-h-screen w-full py-24 bg-white overflow-hidden">
       
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
@@ -246,51 +246,68 @@ export default function ClinicalPathways() {
           ))}
         </div>
 
-        {/* Horizontal Flow Visualization */}
+        {/* Grid-based Flow Visualization (3 steps per row) */}
         <div className="w-full max-w-6xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePathway.id}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4 overflow-x-auto pb-10 px-4 scrollbar-hide"
+              className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-4 px-4"
             >
-              {activePathway.steps.map((step, idx) => (
-                <div key={idx} className="flex flex-col md:flex-row items-center shrink-0">
-                  
-                  {/* Step Card */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="w-full md:w-64 glass p-6 rounded-[2rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group"
-                  >
-                    <div className={`w-10 h-10 rounded-xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-sm mb-4 group-hover:bg-${activeCategory.color}-500 group-hover:text-white transition-colors`}>
-                      {idx + 1}
-                    </div>
-                    <h4 className="font-black text-slate-800 text-base mb-2 leading-tight">
-                      {step.title}
-                    </h4>
-                    <p className="text-slate-500 text-xs font-semibold leading-relaxed">
-                      {step.desc}
-                    </p>
-                  </motion.div>
+              {activePathway.steps.map((step, idx) => {
+                const isEndOfRow = (idx + 1) % 3 === 0;
+                const isLastStep = idx === activePathway.steps.length - 1;
+                
+                return (
+                  <div key={idx} className="relative flex items-center justify-center">
+                    
+                    {/* Step Card */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.08 }}
+                      className="w-full glass p-6 rounded-[2rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group flex flex-col items-center text-center"
+                    >
+                      <div className={`w-10 h-10 rounded-xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-sm mb-4 group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
+                        {idx + 1}
+                      </div>
+                      <h4 className="font-black text-slate-800 text-base mb-2 leading-tight">
+                        {step.title}
+                      </h4>
+                      <p className="text-slate-500 text-xs font-semibold leading-relaxed">
+                        {step.desc}
+                      </p>
+                    </motion.div>
 
-                  {/* Arrow (Hidden on last step) */}
-                  {idx < activePathway.steps.length - 1 && (
-                    <div className="flex items-center justify-center p-4">
-                       <div className="hidden md:block">
-                          <ArrowRight className={`text-${activeCategory.color}-300`} size={32} />
-                       </div>
-                       <div className="block md:hidden">
-                          <div className={`w-1 h-8 bg-gradient-to-b from-${activeCategory.color}-300 to-transparent`} />
-                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    {/* Arrow Logic */}
+                    {!isLastStep && (
+                      <div className="absolute z-20 pointer-events-none">
+                        {/* Horizontal Arrow (Right) - Visible on desktop for steps 1, 2, 4, 5... */}
+                        {!isEndOfRow && (
+                          <div className="hidden md:block absolute -right-[2.5rem] top-1/2 -translate-y-1/2 text-slate-300">
+                             <ArrowRight size={28} strokeWidth={3} />
+                          </div>
+                        )}
+                        
+                        {/* Vertical Arrow (Down) - Visible on desktop for steps 3, 6... */}
+                        {isEndOfRow && (
+                          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-[3.5rem] text-slate-300">
+                             <ArrowDown size={28} strokeWidth={3} />
+                          </div>
+                        )}
+
+                        {/* Always Down on Mobile */}
+                        <div className="md:hidden absolute left-1/2 -translate-x-1/2 -bottom-[3.5rem] text-slate-300">
+                           <ArrowDown size={28} strokeWidth={3} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </motion.div>
           </AnimatePresence>
         </div>
