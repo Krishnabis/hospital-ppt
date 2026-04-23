@@ -234,12 +234,12 @@ export default function Compliances() {
         </motion.div>
 
         {/* Tab Switcher */}
-        <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-3 p-2 md:p-3 bg-slate-200/50 rounded-2xl md:rounded-[1.25rem] mb-12 backdrop-blur-sm w-full max-w-sm md:w-auto mx-auto">
+        <div className="inline-flex flex-wrap justify-center gap-2 p-2 bg-slate-200/50 rounded-2xl mb-12 backdrop-blur-sm mx-auto">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveTab(cat.id)}
-              className={`px-4 md:px-6 py-3 md:py-2.5 rounded-xl font-bold transition-all duration-300 w-full md:w-auto ${activeTab === cat.id ? 'bg-white text-slate-900 shadow-md scale-[1.02] md:scale-105' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
+              className={`px-6 py-2.5 rounded-xl font-bold whitespace-nowrap transition-all duration-300 ${activeTab === cat.id ? 'bg-white text-slate-900 shadow-md scale-105' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50'}`}
             >
               {cat.name}
             </button>
