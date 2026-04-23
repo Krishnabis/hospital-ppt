@@ -89,14 +89,15 @@ const codes = [
   },
 ];
 
+
 const keyContacts = [
-  { sn: 1,  label: "EMERGENCY NO.",              number: "799" },
-  { sn: 2,  label: "PRO OFFICE",                 number: "01346-257799" },
-  { sn: 3,  label: "PRO OFFICE",                 number: "01346-244702" },
-  { sn: 4,  label: "Mr. Achlesh Parashar (ANS)", number: "9758254569" },
-  { sn: 5,  label: "Mr. Jai Hind (ANS)",         number: "9720438496" },
-  { sn: 6,  label: "Mr. Bijendra (ANS)",         number: "9870877504" },
-  { sn: 7,  label: "Mr. Pramod Panwar",          number: "" },
+  { label: "EMERGENCY NO.",              number: "799",        highlight: true },
+  { label: "PRO OFFICE",                 number: "01346-257799" },
+  { label: "PRO OFFICE",                 number: "01346-244702" },
+  { label: "Mr. Achlesh Parashar (ANS)", number: "9758254569" },
+  { label: "Mr. Jai Hind (ANS)",         number: "9720438496" },
+  { label: "Mr. Bijendra (ANS)",         number: "9870877504" },
+  { label: "Mr. Pramod Panwar",          number: "" },
 ];
 
 export default function EmergencyContacts() {
@@ -186,51 +187,34 @@ export default function EmergencyContacts() {
           ))}
         </motion.div>
 
-        {/* Key Contacts */}
+        {/* Key Contacts below codes */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full mt-8 rounded-3xl overflow-hidden border border-red-200 shadow-xl bg-white"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="w-full mt-8"
         >
-          <div className="grid grid-cols-12 bg-red-600 px-6 py-3">
-            <div className="col-span-1 text-white font-black text-xs tracking-widest uppercase">S.N.</div>
-            <div className="col-span-7 text-white font-black text-xs tracking-widest uppercase">Name / Designation</div>
-            <div className="col-span-4 text-white font-black text-xs tracking-widest uppercase flex items-center gap-1.5">
-              <Phone size={12} /> Contact Number
-            </div>
+          <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <Phone size={13} className="text-red-400" /> Key Emergency Contacts
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {keyContacts.map((c, i) => (
+              <div key={i} className={`flex items-center gap-3 p-3 rounded-2xl border shadow-sm ${ c.highlight ? "bg-red-50 border-red-200" : "bg-white border-slate-100" }`}>
+                <div className={`w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[11px] font-black ${ c.highlight ? "bg-red-500 text-white" : "bg-slate-100 text-slate-500" }`}>{i + 1}</div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-wide truncate">{c.label}</p>
+                  {c.number ? (
+                    <a href={`tel:${c.number.replace(/[^0-9]/g, "")}`} className={`font-black text-sm flex items-center gap-1 group ${ c.highlight ? "text-red-600" : "text-emerald-600" }`}>
+                      <Phone size={11} className="opacity-60 group-hover:opacity-100" />{c.number}
+                    </a>
+                  ) : (
+                    <span className="text-slate-400 text-sm">—</span>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
-
-          {keyContacts.map((c, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.05 * idx }}
-              className={`grid grid-cols-12 px-6 py-4 border-t border-red-100 items-center transition-colors hover:bg-red-50 ${idx === 0 ? "bg-red-50" : "bg-white"}`}
-            >
-              <div className="col-span-1">
-                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-black ${idx === 0 ? "bg-red-500 text-white" : "bg-slate-100 text-slate-600"}`}>
-                  {c.sn}
-                </span>
-              </div>
-              <div className="col-span-7">
-                <span className={`font-bold text-sm ${idx === 0 ? "text-red-700" : "text-slate-700"}`}>{c.label}</span>
-              </div>
-              <div className="col-span-4">
-                {c.number ? (
-                  <a href={`tel:${c.number.replace(/[^0-9]/g, "")}`} className={`font-black text-base flex items-center gap-2 group ${idx === 0 ? "text-red-600" : "text-emerald-600"}`}>
-                    <Phone size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
-                    {c.number}
-                  </a>
-                ) : (
-                  <span className="text-slate-400 text-sm">—</span>
-                )}
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
 
         <motion.p
