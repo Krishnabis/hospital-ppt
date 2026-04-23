@@ -5,7 +5,7 @@ import { useState } from "react";
 import { User, Users, Briefcase, Stethoscope, ChevronDown, Shield, Plus } from "lucide-react";
 
 export default function OrgStructure() {
-  const [activeTab, setActiveTab] = useState<"clinical" | "nonClinical" | "committees">("clinical");
+  const [activeTab, setActiveTab] = useState<"clinical" | "nonClinical" | "nursing" | "committees">("clinical");
 
   const clinicalDepts = [
     "Medicine", "Surgery", "Pediatrics", "OBG", "Orthopedics", "Psychiatry",
@@ -17,6 +17,31 @@ export default function OrgStructure() {
     "Administration", "Stores & Procurement", "Maintenance", "Finance & Accounts",
     "IT & HIS", "Transport & Ambulance", "Housekeeping & Sanitation", "Laundry & Linen",
     "Human Resources (HR)", "Food & Beverage (Dietary)", "Registration & Reception", "Security Services"
+  ];
+
+  const ansStaff = [
+    { name: "Mr. Jai Hind Sharma", area: "General Wards" },
+    { name: "Mr. Achlesh Parashar", area: "Operation Theatre & ICU" },
+    { name: "Mr. Suresh Kumar", area: "OPD & Emergency" },
+  ];
+
+  const deptIncharges = [
+    { dept: "General Medicine", incharge: "SNO / Nursing Incharge" },
+    { dept: "General Surgery", incharge: "SNO / Nursing Incharge" },
+    { dept: "Pediatrics", incharge: "SNO / Nursing Incharge" },
+    { dept: "OBG / Maternity", incharge: "SNO / Nursing Incharge" },
+    { dept: "Orthopedics", incharge: "SNO / Nursing Incharge" },
+    { dept: "Psychiatry", incharge: "SNO / Nursing Incharge" },
+    { dept: "ENT", incharge: "SNO / Nursing Incharge" },
+    { dept: "Ophthalmology", incharge: "SNO / Nursing Incharge" },
+    { dept: "Dermatology", incharge: "SNO / Nursing Incharge" },
+    { dept: "Intensive Care Unit (ICU)", incharge: "ICU Nursing Incharge" },
+    { dept: "Emergency / Casualty", incharge: "Emergency Nursing Incharge" },
+    { dept: "Operation Theatre (OT)", incharge: "OT Nursing Incharge" },
+    { dept: "Radiology", incharge: "SNO / Nursing Incharge" },
+    { dept: "Physiotherapy & OT", incharge: "SNO / Nursing Incharge" },
+    { dept: "Pulmonology", incharge: "SNO / Nursing Incharge" },
+    { dept: "Dental / Dentistry", incharge: "SNO / Nursing Incharge" },
   ];
 
   const hospitalCommittees = [
@@ -195,6 +220,14 @@ export default function OrgStructure() {
           >
             <Briefcase size={20} /> Non-Clinical / Support Services
           </button>
+
+          <button
+            onClick={() => setActiveTab("nursing")}
+            className={`relative px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-all duration-300 ${activeTab === "nursing" ? "text-rose-600 bg-rose-50 shadow-md ring-1 ring-rose-200" : "text-slate-500 hover:bg-slate-100"
+              }`}
+          >
+            <Users size={20} /> Nursing Organogram
+          </button>
           
           <button
             onClick={() => setActiveTab("committees")}
@@ -227,18 +260,8 @@ export default function OrgStructure() {
                 </div>
 
                 <div className="w-1 h-8 bg-emerald-300 relative z-10" />
-                
-                {/* Level 2: Financial Controller */}
-                <div className="glass-neon px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-purple-400 shadow-lg bg-white relative z-20 w-80">
-                  <h3 className="font-bold text-slate-800 text-lg">Financial Controller</h3>
-                  <div className="flex items-center gap-2 mt-2 text-purple-600 font-bold text-sm bg-purple-50 px-3 py-1 rounded-full">
-                    <User size={14} /> Prashant Kumar (P.F.S)
-                  </div>
-                </div>
 
-                <div className="w-1 h-8 bg-purple-400 relative z-10" />
-
-                {/* Level 3: MS */}
+                {/* Level 2: MS */}
                 <div className="glass-neon px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-sky-400 shadow-lg bg-white relative z-20 w-80">
                   <h3 className="font-bold text-slate-800 text-lg">Medical Superintendent</h3>
                   <div className="flex items-center gap-2 mt-2 text-sky-600 font-bold text-sm bg-sky-50 px-3 py-1 rounded-full">
@@ -355,6 +378,108 @@ export default function OrgStructure() {
                   ))}
                 </div>
 
+              </motion.div>
+            )}
+
+            {activeTab === "nursing" && (
+              <motion.div
+                key="nursing"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4 }}
+                className="flex flex-col items-center w-full relative pb-8"
+              >
+                {/* Level 1: Principal */}
+                <div className="glass-neon px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-emerald-300 shadow-xl bg-white relative z-20 w-80">
+                  <h3 className="font-black text-slate-800 text-xl">Principal & Dean</h3>
+                  <div className="flex items-center gap-2 mt-2 text-emerald-600 font-bold text-sm bg-emerald-50 px-3 py-1 rounded-full">
+                    <User size={14} /> Prof. (Dr.) Ashutosh Sayana
+                  </div>
+                </div>
+
+                <div className="w-1 h-8 bg-emerald-300" />
+
+                {/* Level 2: MS */}
+                <div className="glass-neon px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-sky-400 shadow-lg bg-white relative z-20 w-80">
+                  <h3 className="font-bold text-slate-800 text-lg">Medical Superintendent</h3>
+                  <div className="flex items-center gap-2 mt-2 text-sky-600 font-bold text-sm bg-sky-50 px-3 py-1 rounded-full">
+                    <User size={14} /> Dr. Rakesh Rawat
+                  </div>
+                </div>
+
+                <div className="w-1 h-8 bg-sky-300" />
+
+                {/* Level 3: 3 ANS + 1 ICN side by side */}
+                <div className="relative flex items-start justify-center gap-0 w-full max-w-5xl">
+                  {/* Horizontal bar across ANS boxes */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px bg-rose-300" style={{ width: '62%' }} />
+
+                  {/* 3 ANS nodes */}
+                  {ansStaff.map((ans, idx) => (
+                    <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '200px', margin: '0 8px' }}>
+                      <div className="w-1 h-8 bg-rose-300" />
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 * idx }}
+                        className="glass-neon px-4 py-4 rounded-2xl flex flex-col items-center border-[3px] border-rose-300 shadow-lg bg-white w-full text-center"
+                      >
+                        <div className="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center mb-2">
+                          <User size={16} className="text-rose-500" />
+                        </div>
+                        <span className="font-black text-slate-800 text-sm">ANS</span>
+                        <span className="font-bold text-rose-600 text-xs mt-1">{ans.name}</span>
+                        <span className="text-[10px] text-slate-400 font-semibold mt-1 bg-rose-50 px-2 py-0.5 rounded-full">{ans.area}</span>
+                      </motion.div>
+                    </div>
+                  ))}
+
+                  {/* ICN — parallel, slightly below ANS, connected by a side line */}
+                  <div className="flex flex-col items-center ml-6 mt-8">
+                    <motion.div
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.35 }}
+                      className="relative"
+                    >
+                      {/* horizontal connector line from left */}
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full w-6 h-px bg-violet-300" />
+                      <div className="glass-neon px-5 py-4 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-48 text-center">
+                        <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center mb-2">
+                          <Stethoscope size={16} className="text-violet-500" />
+                        </div>
+                        <span className="font-black text-slate-800 text-sm">ICN</span>
+                        <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-2 py-0.5 rounded-full">Infection Control Nurse</span>
+                      </div>
+                    </motion.div>
+                  </div>
+                </div>
+
+                <div className="w-1 h-8 bg-rose-200 mt-2" />
+
+                {/* Level 4: Department Incharges label */}
+                <div className="glass px-8 py-3 rounded-full bg-rose-700 text-white w-full max-w-lg shadow-lg flex items-center justify-center gap-3 mb-6">
+                  <Users size={18} className="text-rose-200" />
+                  <h4 className="font-bold text-sm tracking-widest uppercase text-rose-100">Department Nursing Incharges</h4>
+                </div>
+
+                {/* Grid of Department Incharges */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 w-full relative z-20">
+                  {deptIncharges.map((item, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.04 * idx, type: "spring" }}
+                      className="glass px-4 py-4 rounded-2xl flex flex-col items-center justify-center text-center border-t-4 border-rose-300 bg-white shadow-md hover:-translate-y-1 hover:shadow-xl transition-all"
+                    >
+                      <Users size={18} className="text-rose-400 mb-2 opacity-60" />
+                      <span className="text-xs font-black text-slate-700 leading-tight">{item.dept}</span>
+                      <span className="text-[10px] font-semibold text-rose-500 mt-1 bg-rose-50 px-2 py-0.5 rounded-full">{item.incharge}</span>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             )}
 
