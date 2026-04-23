@@ -287,7 +287,7 @@ export default function OrgStructure() {
 
                   {/* LEFT COLUMN: HOD of all departments */}
                   <div className="flex flex-col items-center flex-1 min-w-0">
-                    <div className="glass px-6 py-2 rounded-full bg-sky-700 text-white font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
+                    <div className="px-6 py-2 rounded-full bg-sky-700 text-white font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
                       <Stethoscope size={14} /> HOD of Departments
                     </div>
                     <div className="grid grid-cols-2 gap-3 w-full">
@@ -311,7 +311,7 @@ export default function OrgStructure() {
                   <div className="flex flex-col items-center flex-1 min-w-0">
 
                     {/* ANS header */}
-                    <div className="glass px-6 py-2 rounded-full bg-rose-600 text-white font-bold text-xs tracking-widest uppercase mb-2 flex items-center gap-2">
+                    <div className="px-6 py-2 rounded-full bg-rose-600 text-white font-bold text-xs tracking-widest uppercase mb-2 flex items-center gap-2">
                       <Users size={14} /> ANS (Nursing)
                     </div>
 
@@ -356,7 +356,7 @@ export default function OrgStructure() {
                     <div className="w-1 h-5 bg-rose-200" />
 
                     {/* Dept Incharges label */}
-                    <div className="glass px-5 py-2 rounded-full bg-rose-700 text-white font-bold text-xs tracking-widest uppercase mb-3 flex items-center gap-2">
+                    <div className="px-5 py-2 rounded-full bg-rose-700 text-white font-bold text-xs tracking-widest uppercase mb-3 flex items-center gap-2">
                       <Users size={13} /> Dept. Nursing Incharges
                     </div>
 
@@ -545,7 +545,7 @@ export default function OrgStructure() {
                 <div className="w-1 h-8 bg-rose-200 mt-2" />
 
                 {/* Level 4: Department Incharges label */}
-                <div className="glass px-8 py-3 rounded-full bg-rose-700 text-white w-full max-w-lg shadow-lg flex items-center justify-center gap-3 mb-6">
+                <div className="px-8 py-3 rounded-full bg-rose-700 text-white w-full max-w-lg shadow-lg flex items-center justify-center gap-3 mb-6">
                   <Users size={18} className="text-rose-200" />
                   <h4 className="font-bold text-sm tracking-widest uppercase text-rose-100">Department Nursing Incharges</h4>
                 </div>
