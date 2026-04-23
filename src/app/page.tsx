@@ -18,7 +18,6 @@ import Committees from "@/components/Committees";
 import PatientRights from "@/components/PatientRights";
 import FuturePlans from "@/components/FuturePlans";
 import QualityIndicators from "@/components/QualityIndicators";
-import EmergencyContacts from "@/components/EmergencyContacts";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -50,7 +49,6 @@ export default function Home() {
       <div id="qualitywall"><QualityWall /></div>
       <div id="map"><FloorMap /></div>
       <div id="committees"><Committees /></div>
-      <div id="emergency"><EmergencyContacts /></div>
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>
       <div id="indicators"><QualityIndicators /></div>

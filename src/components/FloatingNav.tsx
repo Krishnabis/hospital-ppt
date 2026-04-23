@@ -25,7 +25,6 @@ const navItems = [
   { id: "patient",    name: "Patient Rights",      icon: HeartHandshake },
   { id: "future",     name: "Future Plans",        icon: Rocket },
   { id: "indicators", name: "Quality Indicators",  icon: LineChart },
-  { id: "emergency",  name: "Emergency Codes",     icon: Siren },
 ];
 
 export default function FloatingNav() {
