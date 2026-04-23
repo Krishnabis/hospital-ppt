@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { 
   Home, Info, Stethoscope, Network, ShieldCheck, 
   FileCheck, Users, GraduationCap, Map, Image as ImageIcon, 
-  HeartHandshake, Rocket, LineChart, Megaphone, Award, Siren, UsersRound, FileText
+  HeartHandshake, Rocket, LineChart, Megaphone, Award, Siren, UsersRound, FileText, ClipboardList
 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
@@ -24,6 +24,7 @@ const navItems = [
   { id: "committees", name: "Committees",          icon: UsersRound },
   { id: "patient",    name: "Patient Rights",      icon: HeartHandshake },
   { id: "future",     name: "Future Plans",        icon: Rocket },
+  { id: "pathways",   name: "Clinical Pathways",   icon: ClipboardList },
   { id: "indicators", name: "Quality Indicators",  icon: LineChart },
   { id: "sop",        name: "SOP Index",          icon: FileText },
 ];

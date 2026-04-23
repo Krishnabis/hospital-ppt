@@ -1,0 +1,325 @@
+"use client";
+
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { 
+  Stethoscope, Activity, Baby, ArrowRight, CheckCircle2, 
+  AlertCircle, Thermometer, HeartPulse, FileText, ClipboardList
+} from "lucide-react";
+
+type Step = {
+  title: string;
+  desc: string;
+};
+
+type Pathway = {
+  id: string;
+  name: string;
+  steps: Step[];
+};
+
+type Category = {
+  id: string;
+  name: string;
+  icon: any;
+  color: string;
+  pathways: Pathway[];
+};
+
+const clinicalData: Category[] = [
+  {
+    id: "emergency",
+    name: "Emergency Department",
+    icon: Stethoscope,
+    color: "sky",
+    pathways: [
+      {
+        id: "copd",
+        name: "COPD Patient",
+        steps: [
+          { title: "Triage (0-5 Min)", desc: "Assess Red/Yellow flags (Airway, SpO2, Accessory muscles)." },
+          { title: "Immediate Actions", desc: "Oxygen therapy (88-92%), sitting position, cardiac monitoring." },
+          { title: "Investigations", desc: "ABG, CBC, CXR, ECG, Serum Electrolytes." },
+          { title: "Treatment", desc: "Nebulization, IV steroids, Antibiotics, BiPAP if pH < 7.35." },
+          { title: "Disposition", desc: "Admit to ICU if unstable, or ward/discharge with counseling." }
+        ]
+      },
+      {
+        id: "febrile",
+        name: "Febrile Illness",
+        steps: [
+          { title: "Triage", desc: "Check Red Flags: Hypotension, Altered sensorium, Sepsis suspicion." },
+          { title: "Assessment", desc: "Vitals, Travel & Exposure history." },
+          { title: "Investigations", desc: "CBC, Malaria/Dengue/Typhoid tests, Blood culture." },
+          { title: "Management", desc: "IV Fluids, Paracetamol, Empirical Antibiotics." },
+          { title: "Sepsis Protocol", desc: "Lactate measurement, Fluid bolus (30ml/kg) within 1hr." },
+          { title: "Disposition", desc: "Observation ward or admission based on stability." }
+        ]
+      },
+      {
+        id: "anemia",
+        name: "Anemia Patient",
+        steps: [
+          { title: "Triage", desc: "Identify severity: Pallor, Breathlessness, Syncope." },
+          { title: "Assessment", desc: "Vitals, Hb estimation, bleeding history." },
+          { title: "Investigations", desc: "CBC with indices, Retic count, Blood grouping/cross-match." },
+          { title: "Management", desc: "Oxygen support, IV access, Packed RBC if Hb < 7g/dL." },
+          { title: "Disposition", desc: "Admit if Red Flags (Hypotension, Active bleeding) present." }
+        ]
+      },
+      {
+        id: "chest-pain",
+        name: "Chest Pain",
+        steps: [
+          { title: "Triage (0-10 Min)", desc: "ECG within 10 mins, Pain assessment." },
+          { title: "Actions", desc: "Cardiac monitor, IV access, Oxygen if hypoxic." },
+          { title: "MONA Protocol", desc: "Morphine, Oxygen, Nitrates, Aspirin (Loading dose)." },
+          { title: "Investigations", desc: "Serial ECG, Troponin I/T, CK-MB, Chest X-ray." },
+          { title: "Disposition", desc: "Cath Lab/ICU (STEMI) or Rule-out protocol (Observation)." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "surgery",
+    name: "Surgery Department",
+    icon: Activity,
+    color: "emerald",
+    pathways: [
+      {
+        id: "hernia",
+        name: "Hernia (Inguinal/Ventral)",
+        steps: [
+          { title: "Presentation", desc: "Reducible swelling, Pain on exertion, Irreducibility (Emergency)." },
+          { title: "Evaluation", desc: "Clinical diagnosis, Fitness assessment, USG if doubtful." },
+          { title: "Management", desc: "Elective mesh repair OR Resuscitation/Surgery for strangulation." },
+          { title: "Post-op Care", desc: "Early ambulation (6-8 hrs), Analgesics, Wound care." },
+          { title: "Discharge", desc: "POD 1-3 with heavy lifting precautions for 4-6 weeks." }
+        ]
+      },
+      {
+        id: "chole",
+        name: "Cholelithiasis",
+        steps: [
+          { title: "Presentation", desc: "RUQ pain, Dyspepsia, Biliary Colic." },
+          { title: "Investigations", desc: "USG Abdomen (Gold Standard), LFT, CBC, MRCP if needed." },
+          { title: "Management", desc: "Laparoscopic Cholecystectomy (Elective or within 72hrs if acute)." },
+          { title: "Post-op Care", desc: "Oral intake within 6-8 hrs, mobilization same day." },
+          { title: "Discharge", desc: "Usually within 24-48 hours post-laparoscopy." }
+        ]
+      },
+      {
+        id: "abscess",
+        name: "Surgical Abscess",
+        steps: [
+          { title: "Presentation", desc: "Swelling, Pain, Fever, Fluctuation." },
+          { title: "Evaluation", desc: "Clinical diagnosis, CBC, USG for deep abscess." },
+          { title: "Management", desc: "Incision & Drainage (I&D), Pus Culture, Antibiotics." },
+          { title: "Post-op", desc: "Daily dressing, Glycemic control, Pain management." }
+        ]
+      },
+      {
+        id: "mesenteric",
+        name: "Mesenteric Ischemia",
+        steps: [
+          { title: "Emergency Actions", desc: "ABC Resuscitation, Oxygen, IV access, Fluid bolus." },
+          { title: "Investigations", desc: "ABG, Lactate, CT Angiography (Preferred)." },
+          { title: "Management", desc: "Antibiotics, Anticoagulation, Emergency Laparotomy." },
+          { title: "Intraoperative", desc: "Assess bowel viability, Resection of necrotic bowel." },
+          { title: "ICU Care", desc: "Sepsis monitoring, Nutritional support." }
+        ]
+      }
+    ]
+  },
+  {
+    id: "nicu",
+    name: "NICU Department",
+    icon: Baby,
+    color: "indigo",
+    pathways: [
+      {
+        id: "preterm",
+        name: "Preterm/LBW",
+        steps: [
+          { title: "Admission", desc: "Birth weight < 1800g or Gestation < 34 weeks." },
+          { title: "Thermal Care", desc: "Radiant warmer/incubator, Thermal protection." },
+          { title: "Respiratory", desc: "Early CPAP use, Minimal handling." },
+          { title: "Nutrition", desc: "Kangaroo Mother Care (KMC), TPN to enteral progression." },
+          { title: "Discharge", desc: "Stable temp, oral feeding, weight gain, no apnea." }
+        ]
+      },
+      {
+        id: "distress",
+        name: "Respiratory Distress",
+        steps: [
+          { title: "Assessment", desc: "Silverman Anderson Score, SpO2 Monitoring." },
+          { title: "Diagnostics", desc: "Chest X-ray, ABG Monitoring." },
+          { title: "Treatment", desc: "Oxygen hood -> CPAP -> Surfactant -> Mechanical Ventilation." },
+          { title: "Targets", desc: "Maintain SpO2 between 90-95%." }
+        ]
+      },
+      {
+        id: "sepsis",
+        name: "Neonatal Sepsis",
+        steps: [
+          { title: "Early Signs", desc: "Lethargy, Poor feeding, Temp instability, Apnea." },
+          { title: "Screening", desc: "Sepsis screen, Blood Culture." },
+          { title: "Management", desc: "Empirical Antibiotics within 1hr, Fluid management." },
+          { title: "Monitoring", desc: "CRP trends, Vitals, Feeding tolerance." }
+        ]
+      }
+    ]
+  }
+];
+
+export default function ClinicalPathways() {
+  const [activeCategory, setActiveCategory] = useState(clinicalData[0]);
+  const [activePathway, setActivePathway] = useState(clinicalData[0].pathways[0]);
+
+  const handleCategoryChange = (cat: Category) => {
+    setActiveCategory(cat);
+    setActivePathway(cat.pathways[0]);
+  };
+
+  return (
+    <section id="pathways" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+      
+      {/* Background Decor */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+        <div className="absolute top-1/4 -right-20 w-96 h-96 bg-sky-100 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-indigo-100 rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        
+        <motion.div
+           initial={{ opacity: 0, y: 50 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="text-center mb-12"
+        >
+          <div className="flex items-center justify-center gap-3 mb-4">
+             <div className="w-12 h-12 rounded-2xl bg-sky-500 flex items-center justify-center text-white shadow-lg">
+                <ClipboardList size={24} />
+             </div>
+             <h2 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight uppercase">
+                Clinical Pathways
+             </h2>
+          </div>
+          <div className="h-1 w-24 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mx-auto mb-6" />
+          <p className="text-slate-500 font-medium max-w-2xl mx-auto">
+            Visualized clinical care flows and treatment protocols for Emergency, Surgery, and NICU departments.
+          </p>
+        </motion.div>
+
+        {/* Category Tabs */}
+        <div className="flex flex-wrap justify-center gap-4 mb-10">
+          {clinicalData.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => handleCategoryChange(cat)}
+              className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-bold transition-all ${
+                activeCategory.id === cat.id 
+                  ? `bg-slate-900 text-white shadow-xl scale-105` 
+                  : `bg-slate-50 text-slate-500 hover:bg-slate-100`
+              }`}
+            >
+              <cat.icon size={20} />
+              {cat.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Pathway Selection (Buttons inside active category) */}
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          {activeCategory.pathways.map((path) => (
+            <button
+              key={path.id}
+              onClick={() => setActivePathway(path)}
+              className={`px-5 py-2 rounded-xl text-sm font-bold border transition-all ${
+                activePathway.id === path.id
+                  ? `bg-${activeCategory.color}-500 border-transparent text-white shadow-md ring-4 ring-${activeCategory.color}-100`
+                  : `bg-white border-slate-200 text-slate-600 hover:border-${activeCategory.color}-400 hover:text-${activeCategory.color}-500`
+              }`}
+              style={{
+                backgroundColor: activePathway.id === path.id ? `var(--tw-color-${activeCategory.color}-500)` : ''
+              }}
+            >
+              {path.name}
+            </button>
+          ))}
+        </div>
+
+        {/* Flow Visualization */}
+        <div className="w-full max-w-6xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activePathway.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4 overflow-x-auto pb-10 px-4 scrollbar-hide"
+            >
+              {activePathway.steps.map((step, idx) => (
+                <div key={idx} className="flex flex-col md:flex-row items-center shrink-0">
+                  
+                  {/* Step Card */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="w-full md:w-64 glass p-6 rounded-[2rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group"
+                  >
+                    <div className={`w-10 h-10 rounded-xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-sm mb-4 group-hover:bg-${activeCategory.color}-500 group-hover:text-white transition-colors`}>
+                      {idx + 1}
+                    </div>
+                    <h4 className="font-black text-slate-800 text-base mb-2 leading-tight">
+                      {step.title}
+                    </h4>
+                    <p className="text-slate-500 text-xs font-semibold leading-relaxed">
+                      {step.desc}
+                    </p>
+                  </motion.div>
+
+                  {/* Arrow (Hidden on last step) */}
+                  {idx < activePathway.steps.length - 1 && (
+                    <div className="flex items-center justify-center p-4">
+                       <div className="hidden md:block">
+                          <ArrowRight className={`text-${activeCategory.color}-300`} size={32} />
+                       </div>
+                       <div className="block md:hidden">
+                          <div className={`w-1 h-8 bg-gradient-to-b from-${activeCategory.color}-300 to-transparent`} />
+                       </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Quality/NABH Note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-16 p-8 rounded-[2.5rem] bg-slate-50 border border-slate-100 w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div className="flex items-center gap-4">
+             <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-sky-500 shadow-sm border border-slate-100">
+                <CheckCircle2 size={28} />
+             </div>
+             <div>
+                <h4 className="font-black text-slate-800 text-lg">NABH Compliance Points</h4>
+                <p className="text-slate-400 text-sm font-medium">Triage time documented • Pain score recording • Reassessment every 30-60 min.</p>
+             </div>
+          </div>
+          <div className="px-6 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest">
+            Audit Ready
+          </div>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}

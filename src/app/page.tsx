@@ -18,6 +18,7 @@ import Committees from "@/components/Committees";
 import PatientRights from "@/components/PatientRights";
 import FuturePlans from "@/components/FuturePlans";
 import QualityIndicators from "@/components/QualityIndicators";
+import ClinicalPathways from "@/components/ClinicalPathways";
 import SopIndex from "@/components/SopIndex";
 
 export default function Home() {
@@ -52,6 +53,7 @@ export default function Home() {
       <div id="committees"><Committees /></div>
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>
+      <div id="pathways"><ClinicalPathways /></div>
       <div id="indicators"><QualityIndicators /></div>
       <div id="sop"><SopIndex /></div>
 
