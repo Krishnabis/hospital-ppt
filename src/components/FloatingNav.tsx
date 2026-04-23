@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { 
   Home, Info, Stethoscope, Network, ShieldCheck, 
   FileCheck, Users, GraduationCap, Map, Image as ImageIcon, 
-  HeartHandshake, Rocket, LineChart, Megaphone, Award, Siren, UsersRound
+  HeartHandshake, Rocket, LineChart, Megaphone, Award, Siren, UsersRound, FileText
 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
@@ -25,6 +25,7 @@ const navItems = [
   { id: "patient",    name: "Patient Rights",      icon: HeartHandshake },
   { id: "future",     name: "Future Plans",        icon: Rocket },
   { id: "indicators", name: "Quality Indicators",  icon: LineChart },
+  { id: "sop",        name: "SOP Index",          icon: FileText },
 ];
 
 export default function FloatingNav() {

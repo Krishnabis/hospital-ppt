@@ -18,6 +18,7 @@ import Committees from "@/components/Committees";
 import PatientRights from "@/components/PatientRights";
 import FuturePlans from "@/components/FuturePlans";
 import QualityIndicators from "@/components/QualityIndicators";
+import SopIndex from "@/components/SopIndex";
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -52,6 +53,7 @@ export default function Home() {
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>
       <div id="indicators"><QualityIndicators /></div>
+      <div id="sop"><SopIndex /></div>
 
       <footer className="w-full bg-slate-950 text-slate-400 py-12 text-center text-sm border-t border-slate-900 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-[1px] bg-gradient-to-r from-transparent via-sky-500 to-transparent shadow-[0_0_10px_#38bdf8]" />
