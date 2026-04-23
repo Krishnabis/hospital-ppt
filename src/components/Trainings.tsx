@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef, useEffect } from "react";
+
 /* ──────────────── DATA ──────────────── */
 
 const generalImages = [
@@ -63,51 +65,113 @@ const sharedVideos = [
 
 type MediaItem = { type: "image" | "video"; src: string };
 
-function Carousel({ items, label }: { items: MediaItem[]; label: string }) {
-  const dup = [...items, ...items]; // duplicate for seamless loop
-  const duration = `${dup.length * 4}s`;
+function ScrollableCarousel({ items, label }: { items: MediaItem[]; label: string }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const isHovered = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftRef = useRef(0);
+  const rafId = useRef<number>(0);
+
+  // Auto-scroll loop
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const speed = 0.5; // px per frame
+    const step = () => {
+      if (!isDragging.current && !isHovered.current && el) {
+        el.scrollLeft += speed;
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      rafId.current = requestAnimationFrame(step);
+    };
+    rafId.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId.current);
+  }, []);
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    startX.current = e.pageX - (scrollRef.current?.offsetLeft ?? 0);
+    scrollLeftRef.current = scrollRef.current?.scrollLeft ?? 0;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grabbing";
+  };
+  const onMouseLeave = () => {
+    isDragging.current = false;
+    isHovered.current = false;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+  };
+  const onMouseUp = () => {
+    isDragging.current = false;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+  };
+  const onMouseEnterScroll = () => { isHovered.current = true; };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const scrollBy = (dir: "left" | "right") => {
+    scrollRef.current?.scrollBy({ left: dir === "left" ? -600 : 600, behavior: "smooth" });
+  };
+
+  const allItems = [...items, ...items];
+
   return (
     <div className="w-full">
-      {/* Sub-heading */}
-      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
-        <span className="w-1.5 h-7 rounded-full bg-sky-400" />
-        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
+      <div className="flex items-center justify-between mb-5 px-4 md:px-10">
+        <div className="flex items-center gap-3">
+          <span className="w-1.5 h-7 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
+          <h3 className="text-xl md:text-2xl font-bold text-slate-700 tracking-tight">{label}</h3>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() => scrollBy("left")}
+            className="w-9 h-9 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-700 flex items-center justify-center font-bold text-lg transition-all hover:scale-110"
+          >&#8249;</button>
+          <button
+            onClick={() => scrollBy("right")}
+            className="w-9 h-9 rounded-full bg-sky-100 hover:bg-sky-200 text-sky-700 flex items-center justify-center font-bold text-lg transition-all hover:scale-110"
+          >&#8250;</button>
+        </div>
       </div>
 
-      {/* Track */}
-      <div className="overflow-hidden relative">
-        {/* Fades */}
+      <div className="relative overflow-hidden">
         <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
-
-        <div className="flex gap-5 animate-marquee" style={{ animationDuration: duration }}>
-          {dup.map((m, i) => (
+        <div
+          ref={scrollRef}
+          className="flex gap-5 overflow-x-auto pb-4 select-none scrollbar-hide"
+          style={{ cursor: "grab", scrollbarWidth: "none" }}
+          onMouseEnter={onMouseEnterScroll}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+        >
+          {allItems.map((m, i) => (
             <div
               key={i}
-              className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group"
+              className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-white shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-slate-100 group"
             >
-              {m.type === "image" ? (
-                <img
-                  src={encodeURI(m.src)}
-                  alt={label}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
-                />
-              ) : (
-                <video
-                  src={encodeURI(m.src)}
-                  className="w-full h-full object-cover"
-                  muted
-                  loop
-                  playsInline
-                  controls
-                  preload="none"
-                />
-              )}
+              <img
+                src={encodeURI(m.src)}
+                alt={label}
+                loading="lazy"
+                draggable={false}
+                className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700 pointer-events-none"
+              />
             </div>
           ))}
         </div>
       </div>
+      <p className="text-center text-[10px] text-slate-400 font-semibold mt-1 tracking-wider">
+        ← drag or use arrows to scroll →
+      </p>
     </div>
   );
 }
@@ -122,7 +186,6 @@ function videosToMedia(arr: string[]): MediaItem[] {
 function mixMedia(images: string[], videos: string[]): MediaItem[] {
   const imgs = imagesToMedia(images);
   const vids = videosToMedia(videos);
-  // interleave: 3 images then 1 video, repeat
   const out: MediaItem[] = [];
   let ii = 0, vi = 0;
   while (ii < imgs.length || vi < vids.length) {
@@ -136,11 +199,7 @@ function mixMedia(images: string[], videos: string[]): MediaItem[] {
 
 export default function Trainings() {
   return (
-    <section
-      id="trainings"
-      className="relative w-full py-20 bg-slate-50 overflow-hidden"
-    >
-      {/* Section Header */}
+    <section id="trainings" className="relative w-full py-20 bg-slate-50 overflow-hidden">
       <div className="text-center mb-14 px-6">
         <p className="text-[11px] font-black tracking-[0.25em] text-sky-500 uppercase mb-3">
           Capacity Building
@@ -155,12 +214,11 @@ export default function Trainings() {
         </p>
       </div>
 
-      {/* Carousel Stack */}
-      <div className="flex flex-col gap-12 max-w-[100vw]">
-        <Carousel items={mixMedia(generalImages, generalVideos)} label="General Training Sessions" />
-        <Carousel items={videosToMedia(cprVideos)} label="CPR Mockdrills" />
-        <Carousel items={imagesToMedia(vaccinationImages)} label="Vaccination Drives" />
-        <Carousel items={videosToMedia(sharedVideos)} label="Training Videos Shared" />
+      <div className="flex flex-col gap-14 max-w-[100vw]">
+        <ScrollableCarousel items={mixMedia(generalImages, generalVideos)} label="General Training Sessions" />
+        <ScrollableCarousel items={videosToMedia(cprVideos)} label="CPR Mockdrills" />
+        <ScrollableCarousel items={imagesToMedia(vaccinationImages)} label="Vaccination Drives" />
+        <ScrollableCarousel items={videosToMedia(sharedVideos)} label="Training Videos Shared" />
       </div>
     </section>
   );
