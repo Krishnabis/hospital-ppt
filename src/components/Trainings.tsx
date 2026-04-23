@@ -73,17 +73,19 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
   const [canScrollRight, setCanScrollRight] = useState(true);
   const isDragging = useRef(false);
   const isHovered = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftRef = useRef(0);
   const rafId = useRef<number>(0);
 
   // Auto-scroll loop
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const speed = 0.6; // px per frame - consistent with BeforeAfter
+    const speed = 0.8; // slightly faster
     const step = () => {
       if (!isDragging.current && !isHovered.current && el) {
         el.scrollLeft += speed;
-        // Seamless loop
+        // Seamless loop: when reach halfway, jump back to 0
         if (el.scrollLeft >= el.scrollWidth / 2) {
           el.scrollLeft = 0;
         }
@@ -114,6 +116,30 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
       const scrollAmount = direction === "left" ? -clientWidth * 0.8 : clientWidth * 0.8;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
+  };
+
+  // Drag logic
+  const onMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    startX.current = e.pageX - (scrollRef.current?.offsetLeft ?? 0);
+    scrollLeftRef.current = scrollRef.current?.scrollLeft ?? 0;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grabbing";
+  };
+  const onMouseLeave = () => {
+    isDragging.current = false;
+    isHovered.current = false;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+  };
+  const onMouseUp = () => {
+    isDragging.current = false;
+    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeftRef.current - walk;
   };
 
   // Double items for seamless loop
@@ -157,31 +183,32 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
           ref={scrollRef}
           onScroll={checkScroll}
           onMouseEnter={() => { isHovered.current = true; }}
-          onMouseLeave={() => { isHovered.current = false; }}
-          className="flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-10 pb-8 cursor-grab active:cursor-grabbing"
+          onMouseLeave={onMouseLeave}
+          onMouseDown={onMouseDown}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          className="flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-10 pb-8 cursor-grab active:cursor-grabbing select-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {loopItems.map((m, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: (i % items.length) * 0.05 }}
               className="shrink-0 w-[280px] md:w-[380px] aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-xl border border-slate-100/50 group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
               
-              {m.type === "image" ? (
+              {/* Force treat .gif as image for proper display */}
+              {m.src.toLowerCase().endsWith('.gif') || m.type === "image" ? (
                 <img
                   src={encodeURI(m.src)}
                   alt={label}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  draggable={false}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
                 />
               ) : (
                 <video
                   src={encodeURI(m.src)}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
                   muted
                   loop
                   playsInline
@@ -192,7 +219,7 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
               {/* Tag */}
               <div className="absolute top-4 left-4 z-20">
                 <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[10px] font-black text-white uppercase tracking-widest shadow-sm">
-                  {m.type}
+                  {m.src.toLowerCase().endsWith('.gif') ? "gif" : m.type}
                 </span>
               </div>
             </motion.div>
@@ -208,7 +235,8 @@ function imagesToMedia(arr: string[]): MediaItem[] {
   return arr.map((s) => ({ type: "image", src: s }));
 }
 function videosToMedia(arr: string[]): MediaItem[] {
-  return arr.map((s) => ({ type: "video", src: s }));
+  // If they are GIFs, they are technically images for HTML rendering
+  return arr.map((s) => ({ type: s.toLowerCase().endsWith('.gif') ? "image" : "video", src: s }));
 }
 function mixMedia(images: string[], videos: string[]): MediaItem[] {
   const imgs = imagesToMedia(images);
