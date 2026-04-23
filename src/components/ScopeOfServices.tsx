@@ -12,19 +12,19 @@ const nodes = [
     gradient: "from-sky-400 to-blue-500",
     shadow: "shadow-sky-400/50",
     services: [
-      "General Medicine",
-      "General Surgery incl. Laparoscopy",
-      "Obstetrics & Gynaecology",
-      "Orthopedic Surgery incl. Joint Replacement",
-      "Paediatrics",
-      "Neonatology",
-      "Ophthalmology",
       "Anesthesiology",
       "Dental",
       "Dermatology & Venereology",
-      "Psychiatry",
+      "General Medicine",
+      "General Surgery incl. Laparoscopy",
       "Medical Oncology",
-      "Nephrology incl. Dialysis"
+      "Neonatology",
+      "Nephrology incl. Dialysis",
+      "Obstetrics & Gynaecology",
+      "Ophthalmology",
+      "Orthopedic Surgery incl. Joint Replacement",
+      "Paediatrics",
+      "Psychiatry"
     ]
   },
   {
@@ -60,7 +60,7 @@ const nodes = [
     icon: FileDigit,
     gradient: "from-teal-400 to-emerald-500",
     shadow: "shadow-teal-400/50",
-    services: ["Pharmacy & CSSD", "Dietary Services", "Biomedical Engineering", "Fleet & Ambulance", "Housekeeping"]
+    services: ["Pharmacy", "Physiotherapy", "CSSD", "Dietary Services", "Biomedical Engineering", "Fleet & Ambulance", "Housekeeping"]
   }
 ];
 

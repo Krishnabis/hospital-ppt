@@ -25,7 +25,8 @@ export default function OrgStructure() {
     { dept: "Neurosurgery", hod: "Dr. Devendra Kumar" },
     { dept: "Pathology", hod: "Dr. Sachan Bhatt" },
     { dept: "Dentistry", hod: "Dr. Arun K. Goyal" },
-    { dept: "PMR (Physiotherapy)", hod: "Dr. Indira Yadav" }
+    { dept: "PMR (Physiotherapy)", hod: "Dr. Indira Yadav" },
+    { dept: "ENT", hod: "Dr. " }
   ];
 
   const adminDepts = [
@@ -450,15 +451,38 @@ export default function OrgStructure() {
 
                 {/* Level 2: DMS */}
                 <div className="glass px-6 py-3 rounded-2xl bg-indigo-50 border border-indigo-200 flex flex-col items-center w-80 shadow-md relative z-20">
-                  <h4 className="font-bold text-slate-700">Deputy Medical Supt. (Admin)</h4>
-                  <p className="text-xs font-semibold text-indigo-600 mt-1">Operations & Support Services</p>
+                  <h4 className="font-bold text-slate-700">Deputy Medical Superintendent</h4>
+                  <div className="flex items-center gap-2 mt-1 text-indigo-600 font-bold text-sm">
+                    <User size={14} /> Dr. Deepa Hatwal
+                  </div>
                 </div>
 
                 <div className="w-1 h-8 bg-indigo-300 relative z-10" />
 
-                {/* Central Hub for support services */}
-                <div className="glass-neon px-8 py-3 rounded-full bg-slate-100 border border-slate-200 w-full max-w-md shadow-inner relative z-20 mb-8 flex items-center justify-center">
-                  <h4 className="font-bold text-slate-600 text-sm tracking-widest uppercase">Support & Admin Departments</h4>
+                {/* Parallel Branch: Chief Pharmacist & Support Services */}
+                <div className="flex items-start justify-center gap-12 w-full max-w-4xl relative z-20 mb-8">
+                  {/* Chief Pharmacist */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-px h-6 bg-slate-300" />
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="glass px-6 py-3 rounded-2xl border-2 border-amber-400 bg-white shadow-lg w-48 text-center"
+                    >
+                      <h4 className="font-bold text-slate-800 text-sm">Chief Pharmacist</h4>
+                      <div className="flex items-center justify-center gap-2 mt-1 text-amber-600 font-bold text-[10px]">
+                        <User size={12} /> Mr. R.S. Chauhan
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Support & Admin Departments */}
+                  <div className="flex flex-col items-center">
+                    <div className="w-px h-6 bg-slate-300" />
+                    <div className="glass-neon px-8 py-3 rounded-full bg-slate-100 border border-slate-200 shadow-inner flex items-center justify-center">
+                      <h4 className="font-bold text-slate-600 text-sm tracking-widest uppercase">Support & Admin Departments</h4>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Grid for 12 Admin Departments */}
@@ -507,17 +531,20 @@ export default function OrgStructure() {
                   </div>
                 </div>
 
-                <div className="w-1 h-8 bg-sky-300" />
+                {/* Level 3: DMS */}
+                <div className="glass px-6 py-3 rounded-2xl bg-indigo-50 border border-indigo-200 flex flex-col items-center w-80 shadow-md relative z-20">
+                  <h4 className="font-bold text-slate-700">Deputy Medical Superintendent</h4>
+                  <div className="flex items-center gap-2 mt-1 text-indigo-600 font-bold text-sm">
+                    <User size={14} /> Dr. Deepa Hatwal
+                  </div>
+                </div>
 
-                {/* Level 3: 3 ANS + 1 ICN side by side */}
-                <div className="relative flex items-start justify-center gap-0 w-full max-w-5xl">
-                  {/* Horizontal bar across ANS boxes */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px bg-rose-300" style={{ width: '62%' }} />
+                <div className="w-1 h-8 bg-indigo-300 relative z-10" />
 
-                  {/* 3 ANS nodes */}
+                {/* Level 4: 3 ANS side by side */}
+                <div className="relative flex items-start justify-center gap-6 w-full max-w-4xl">
                   {ansStaff.map((ans, idx) => (
-                    <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '200px', margin: '0 8px' }}>
-                      <div className="w-1 h-8 bg-rose-300" />
+                    <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '180px' }}>
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -532,27 +559,23 @@ export default function OrgStructure() {
                       </motion.div>
                     </div>
                   ))}
-
-                  {/* ICN — parallel, slightly below ANS, connected by a side line */}
-                  <div className="flex flex-col items-center ml-6 mt-8">
-                    <motion.div
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.35 }}
-                      className="relative"
-                    >
-                      {/* horizontal connector line from left */}
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full w-6 h-px bg-violet-300" />
-                      <div className="glass-neon px-5 py-4 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-48 text-center">
-                        <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center mb-2">
-                          <Stethoscope size={16} className="text-violet-500" />
-                        </div>
-                        <span className="font-black text-slate-800 text-sm">ICN</span>
-                        <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-2 py-0.5 rounded-full">Infection Control Nurse</span>
-                      </div>
-                    </motion.div>
-                  </div>
                 </div>
+
+                <div className="w-1 h-8 bg-rose-300 mt-2" />
+
+                {/* Level 5: ICN (below ANS) */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="glass-neon px-6 py-3 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-56 text-center"
+                >
+                  <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center mb-2">
+                    <Stethoscope size={16} className="text-violet-500" />
+                  </div>
+                  <span className="font-black text-slate-800 text-sm">ICN</span>
+                  <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-2 py-0.5 rounded-full">Infection Control Nurse</span>
+                </motion.div>
 
                 <div className="w-1 h-8 bg-rose-200 mt-2" />
 

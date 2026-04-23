@@ -13,7 +13,6 @@ const navItems = [
   { id: "overview",   name: "Overview",           icon: Info },
   { id: "scope",      name: "Scope of Services",  icon: Stethoscope },
   { id: "org",        name: "Org Structure",       icon: Network },
-  { id: "quality",    name: "Quality Framework",   icon: ShieldCheck },
   { id: "compliances",name: "Compliances",         icon: FileCheck },
   { id: "hr",         name: "HR Management",       icon: Users },
   { id: "grievance",  name: "Grievance Handling",  icon: Megaphone },

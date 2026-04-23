@@ -19,7 +19,8 @@ const sops = [
   "Documented policies and procedures for maintaining confidentiality, integrity, and security of records, data, and information.",
   "Documented procedures exist for retention time of medical records, data, and information.",
   "Policy on Maintenance for medical gas pipeline system and vacuum system.",
-  "Policy on uniform use of CPR"
+  "Policy on uniform use of CPR",
+  "Infection Control Manual"
 ];
 
 export default function SopIndex() {

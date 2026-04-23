@@ -6,6 +6,20 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section id="hero" className="relative min-h-screen w-full flex flex-col md:flex-row items-center justify-center overflow-hidden bg-gradient-to-b from-white via-slate-50 to-blue-50/30 px-6 xl:px-20 gap-8 pt-20 pb-24">
+      {/* Logo Overlay */}
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute top-8 left-8 md:top-12 md:left-20 z-50 flex items-center gap-4"
+      >
+        <Image src="/logo.png" alt="Hospital Logo" width={60} height={60} className="drop-shadow-md" />
+        <div className="flex flex-col">
+          <span className="text-slate-800 font-black text-xl leading-none">HNB BASE</span>
+          <span className="text-sky-500 font-bold text-xs tracking-widest uppercase">Hospital Srinagar</span>
+        </div>
+      </motion.div>
+
       {/* Hospital Image Container */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}
@@ -14,7 +28,7 @@ export default function Hero() {
         className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] z-10 shrink-0 mt-8 md:mt-0"
       >
         <Image
-          src="/hospital.png"
+          src="/hospital.jpg"
           alt="HNB Base Hospital"
           fill
           className="object-contain drop-shadow-2xl z-10"
@@ -78,16 +92,6 @@ export default function Hero() {
             We warmly welcome the Principal Assessor and Co-Assessors for the onsite inspection at <strong className="text-slate-800">Hemwati Nandan Bahuguna Base Hospital, Srinagar (Pauri Garhwal)</strong>.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.8 }}
-            className="mt-6 flex justify-center md:justify-start"
-          >
-            <span className="inline-block bg-sky-100 border border-sky-200 text-sky-800 font-bold px-4 py-1.5 rounded-full text-xs uppercase tracking-widest shadow-sm">
-              Version 1.0 (Draft Version)
-            </span>
-          </motion.div>
         </motion.div>
       </div>
 

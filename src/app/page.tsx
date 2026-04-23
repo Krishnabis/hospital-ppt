@@ -6,7 +6,6 @@ import Hero from "@/components/Hero";
 import Overview from "@/components/Overview";
 import ScopeOfServices from "@/components/ScopeOfServices";
 import OrgStructure from "@/components/OrgStructure";
-import QualityFramework from "@/components/QualityFramework";
 import Compliances from "@/components/Compliances";
 import HRManagement from "@/components/HRManagement";
 import GrievanceRedressal from "@/components/GrievanceRedressal";
@@ -40,7 +39,6 @@ export default function Home() {
       <div id="overview"><Overview /></div>
       <div id="scope"><ScopeOfServices /></div>
       <div id="org"><OrgStructure /></div>
-      <div id="quality"><QualityFramework /></div>
       <div id="compliances"><Compliances /></div>
       <div id="hr"><HRManagement /></div>
       <div id="grievance"><GrievanceRedressal /></div>
