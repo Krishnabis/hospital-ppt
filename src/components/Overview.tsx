@@ -10,7 +10,7 @@ export default function Overview() {
   const cards = [
     { title: "Location", value: "Srinagar, Pauri Garhwal", icon: MapPin },
     { title: "Type", value: "Govt. Medical College & Teaching Hospital", icon: Building2 },
-    { title: "Capacity", value: "550 Operational (700 Reg.)", icon: Bed, interactive: true },
+    { title: "Capacity", value: "567 Operational (700 Reg.)", icon: Bed, interactive: true },
     { title: "Established", value: "June 25, 1984", icon: Calendar },
     { title: "Daily OPD", value: "600+", icon: Activity },
   ];
@@ -25,13 +25,30 @@ export default function Overview() {
   ];
 
   const bedDistribution = [
-    { dept: "General Medicine", beds: 120 },
-    { dept: "General Surgery", beds: 100 },
-    { dept: "Pediatrics & NICU", beds: 70 },
-    { dept: "Obstetrics & Gynecology", beds: 80 },
-    { dept: "Orthopedics", beds: 60 },
-    { dept: "Emergency & ICU", beds: 40 },
-    { dept: "Psychiatry & Others", beds: 80 },
+    { dept: "Emergency", beds: 22 },
+    { dept: "Dialysis", beds: 11 },
+    { dept: "Radiotherapy", beds: 6 },
+    { dept: "NICU", beds: 20 },
+    { dept: "MICU", beds: 20 },
+    { dept: "AICU", beds: 12 },
+    { dept: "RICU", beds: 5 },
+    { dept: "PICU", beds: 8 },
+    { dept: "Gynae Ward", beds: 67 },
+    { dept: "Surgery Ward 1", beds: 30 },
+    { dept: "Surgery Ward 2", beds: 34 },
+    { dept: "Surgery Ward 3", beds: 19 },
+    { dept: "Pediatrics Ward", beds: 52 },
+    { dept: "Medicine Ward 1", beds: 34 },
+    { dept: "Medicine Ward 2", beds: 32 },
+    { dept: "ENT Ward", beds: 33 },
+    { dept: "Opthalmology Ward", beds: 30 },
+    { dept: "Orthopedics Ward", beds: 55 },
+    { dept: "Neuro Ward", beds: 15 },
+    { dept: "Derma Ward", beds: 12 },
+    { dept: "Psychiatry Ward", beds: 12 },
+    { dept: "Palliative Ward", beds: 6 },
+    { dept: "TB Chest Ward", beds: 24 },
+    { dept: "Private Ward", beds: 8 }
   ];
 
   return (
@@ -194,11 +211,11 @@ export default function Overview() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-slate-800">Bed Distribution</h3>
-                  <p className="text-slate-500 font-medium">Total Operational: 550</p>
+                  <p className="text-slate-500 font-medium">Total Operational: 567</p>
                 </div>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-4 max-h-[50vh] overflow-y-auto custom-scrollbar pr-2">
                 {bedDistribution.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100/50">
                     <span className="font-semibold text-slate-700">{item.dept}</span>
@@ -206,8 +223,8 @@ export default function Overview() {
                       <div className="w-32 h-2 bg-slate-200 rounded-full overflow-hidden">
                         <motion.div 
                           initial={{ width: 0 }}
-                          animate={{ width: `${(item.beds / 550) * 100}%` }}
-                          transition={{ duration: 1, delay: idx * 0.1 }}
+                          animate={{ width: `${(item.beds / 70) * 100}%` }}
+                          transition={{ duration: 1, delay: idx * 0.05 }}
                           className="h-full bg-gradient-to-r from-sky-400 to-indigo-500"
                         />
                       </div>
