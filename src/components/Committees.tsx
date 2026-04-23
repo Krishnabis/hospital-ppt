@@ -8,43 +8,77 @@ const codeCommittees = [
   { 
     name: "CODE BLUE", 
     desc: "Cardiac Arrest / Medical Emergency",
-    roles: ["Team Leader: Duty Doctor ICU", "Members: ER Nurse, Anesthetist, Ward Boy"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "EMERGENCY NO.: 707",
+      "SECURITY SUPERVISOR: 767",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-blue-500 to-sky-400", bg: "bg-blue-50", text: "text-blue-500", icon: ShieldAlert, border: "#3b82f6"
   },
   { 
     name: "CODE RED", 
     desc: "Fire Emergency",
-    roles: ["Team Leader: Fire Safety Officer", "Members: Security Head, Maintenance, Admin On-Duty"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "SECURITY SUPERVISOR: 767",
+      "ELECTRICIAN HEAD: 9411129911",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-rose-500 to-red-400", bg: "bg-rose-50", text: "text-rose-500", icon: Flame, border: "#f43f5e"
   },
   { 
     name: "CODE ORANGE", 
     desc: "Hazardous Spill Management",
-    roles: ["Team Leader: Housekeeping Supervisor", "Members: Infection Control, Safety Officer"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "SECURITY SUPERVISOR: 767",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-orange-500 to-amber-400", bg: "bg-orange-50", text: "text-orange-600", icon: Droplets, border: "#f97316"
   },
   { 
     name: "CODE YELLOW", 
     desc: "Internal & External Disaster",
-    roles: ["Team Leader: Medical Superintendent", "Members: All HODs, ER In-Charge, Blood Bank"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "M S OFFICE: 788, 706",
+      "SECURITY SUPERVISOR: 767",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-amber-500 to-yellow-400", bg: "bg-amber-50", text: "text-amber-500", icon: Radiation, border: "#f59e0b"
   },
   { 
     name: "CODE PINK", 
     desc: "Missing Child / Abduction",
-    roles: ["Team Leader: Security In-Charge", "Members: Pediatrician, Nursing Supt, Front Desk"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "PEDIA: 717",
+      "ANS: 727",
+      "SECURITY SUPERVISOR: 767",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-pink-500 to-rose-400", bg: "bg-pink-50", text: "text-pink-500", icon: Users, border: "#ec4899"
   },
   { 
     name: "CODE BLACK", 
     desc: "Bomb Threat / Suspicious Object",
-    roles: ["Team Leader: Security Head", "Members: Admin, Local Police Liaison"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "SECURITY SUPERVISOR: 767",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-slate-700 to-slate-900", bg: "bg-slate-100", text: "text-slate-800", icon: Bomb, border: "#1e293b"
   },
   { 
     name: "CODE VIOLET", 
     desc: "Violent Patient / Weapon / Hostage",
-    roles: ["Team Leader: Security Quick Response Team", "Members: Admin, Psych Head"],
+    roles: [
+      "PRO OFFICE: 01346-257799, 01346-244702",
+      "M S OFFICE: 788, 706",
+      "SECURITY SUPERVISOR: 767",
+      "COMPLAINT CELL: 888"
+    ],
     color: "from-violet-500 to-purple-400", bg: "bg-violet-50", text: "text-violet-600", icon: UserX, border: "#8b5cf6"
   },
 ];
