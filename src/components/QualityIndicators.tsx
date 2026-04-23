@@ -102,7 +102,7 @@ export default function QualityIndicators() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
                     <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
                     <YAxis domain={[60, 100]} axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} unit="%" />
-                    <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 12 }} formatter={(v: number) => [`${v}%`]} />
+                    <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 12 }} formatter={(v: any) => [`${v}%`]} />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
                     <defs>
                       <linearGradient id="gWard" x1="0" y1="0" x2="0" y2="1">
@@ -143,7 +143,7 @@ export default function QualityIndicators() {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
                     <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
                     <YAxis domain={[4, 7]} axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} unit="d" />
-                    <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 12 }} formatter={(v: number) => [`${v} days`]} />
+                    <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 12 }} formatter={(v: any) => [`${v} days`]} />
                     <Area type="monotone" dataKey="ALOS" name="Avg. LOS" stroke="#f59e0b" strokeWidth={3} fillOpacity={1} fill="url(#gALOS)" dot={{ r: 5, fill: "#f59e0b" }} />
                   </AreaChart>
                 </ResponsiveContainer>
