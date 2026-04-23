@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 /* ─── DATA ─── */
 
@@ -315,8 +315,29 @@ interface CarouselProps {
 function ScrollableCarousel({ images, label, colorScheme, gifs = [] }: CarouselProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  const isHovered = useRef(false);
   const startX = useRef(0);
   const scrollLeftRef = useRef(0);
+  const rafId = useRef<number>(0);
+
+  // Auto-scroll loop
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const speed = 0.6; // px per frame
+    const step = () => {
+      if (!isDragging.current && !isHovered.current && el) {
+        el.scrollLeft += speed;
+        // Seamless loop: when we reach halfway, jump back to start
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      rafId.current = requestAnimationFrame(step);
+    };
+    rafId.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId.current);
+  }, []);
 
   const onMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
@@ -326,12 +347,14 @@ function ScrollableCarousel({ images, label, colorScheme, gifs = [] }: CarouselP
   };
   const onMouseLeave = () => {
     isDragging.current = false;
+    isHovered.current = false;
     if (scrollRef.current) scrollRef.current.style.cursor = "grab";
   };
   const onMouseUp = () => {
     isDragging.current = false;
     if (scrollRef.current) scrollRef.current.style.cursor = "grab";
   };
+  const onMouseEnterScroll = () => { isHovered.current = true; };
   const onMouseMove = (e: React.MouseEvent) => {
     if (!isDragging.current || !scrollRef.current) return;
     e.preventDefault();
@@ -396,12 +419,14 @@ function ScrollableCarousel({ images, label, colorScheme, gifs = [] }: CarouselP
           ref={scrollRef}
           className="flex gap-5 overflow-x-auto pb-2 select-none"
           style={{ cursor: "grab", scrollbarWidth: "thin" }}
+          onMouseEnter={onMouseEnterScroll}
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseLeave}
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
         >
-          {allItems.map((item, i) => (
+          {/* Duplicate items for seamless infinite loop */}
+          {[...allItems, ...allItems].map((item, i) => (
             <div
               key={i}
               className={`shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-xl overflow-hidden bg-white shadow-sm border ${imgBorder} group`}

@@ -33,7 +33,7 @@ const nodes = [
     icon: Scan,
     gradient: "from-indigo-400 to-purple-500",
     shadow: "shadow-indigo-400/50",
-    services: ["X-Ray", "Ultrasound", "CT Scan (Computed Tomography)", "MRI (Magnetic Resonance Imaging)"]
+    services: ["X-Ray", "Ultrasound", "CT Scan (Computed Tomography)", "MRI (Magnetic Resonance Imaging)", "Color Doppler"]
   },
   {
     id: "pathology",
@@ -41,7 +41,18 @@ const nodes = [
     icon: Microscope,
     gradient: "from-rose-400 to-pink-500",
     shadow: "shadow-rose-400/50",
-    services: ["24/7 Clinical Pathology", "Advanced Microbiology", "Biochemistry", "Hematology & Histopathology"]
+    services: [
+      "Microbiology — Serology",
+      "Microbiology — Bacteriology",
+      "Microbiology — Virology",
+      "Microbiology — Mycology",
+      "Biochemistry",
+      "Clinical Pathology — Histopathology",
+      "Clinical Pathology — Hematology",
+      "Clinical Pathology — Cytology",
+      "Clinical Pathology — Histochemistry",
+      "Body & Routine Fluids"
+    ]
   },
   {
     id: "support",
