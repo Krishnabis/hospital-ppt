@@ -21,9 +21,9 @@ export default function OrgStructure() {
   ];
 
   const ansStaff = [
-    { name: "Mr. Jai Hind Sharma", area: "General Wards" },
-    { name: "Mr. Achlesh Parashar", area: "Operation Theatre & ICU" },
-    { name: "Mr. Suresh Kumar", area: "OPD & Emergency" },
+    { name: "Mr. Jai Hind Sharma" },
+    { name: "Mr. Achlesh Parashar" },
+    { name: "Mr. Bijendra Singh" },
   ];
 
   const deptIncharges = [
@@ -330,7 +330,6 @@ export default function OrgStructure() {
                           </div>
                           <span className="font-black text-slate-800 text-[11px]">ANS</span>
                           <span className="font-bold text-rose-600 text-[10px] mt-0.5">{ans.name}</span>
-                          <span className="text-[9px] text-slate-400 mt-0.5 bg-rose-50 px-1.5 py-0.5 rounded-full">{ans.area}</span>
                         </motion.div>
                       ))}
                     </div>
@@ -516,7 +515,6 @@ export default function OrgStructure() {
                         </div>
                         <span className="font-black text-slate-800 text-sm">ANS</span>
                         <span className="font-bold text-rose-600 text-xs mt-1">{ans.name}</span>
-                        <span className="text-[10px] text-slate-400 font-semibold mt-1 bg-rose-50 px-2 py-0.5 rounded-full">{ans.area}</span>
                       </motion.div>
                     </div>
                   ))}

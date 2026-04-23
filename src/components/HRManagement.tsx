@@ -2,7 +2,7 @@
 
 import { motion, animate, useMotionValue, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
-import { UserPlus, UserRound, Users, Stethoscope } from "lucide-react";
+import { UserPlus, UserRound, Users, Stethoscope, HeartPulse } from "lucide-react";
 
 export default function HRManagement() {
   const count = useMotionValue(0);
@@ -19,6 +19,7 @@ export default function HRManagement() {
     { name: "Officers & Professors", icon: UserPlus, color: "text-blue-500", bg: "bg-blue-50" },
     { name: "Associate & Asst Profs", icon: Stethoscope, color: "text-indigo-500", bg: "bg-indigo-50" },
     { name: "SR & JR (Residents)", icon: UserRound, color: "text-rose-500", bg: "bg-rose-50" },
+    { name: "Nurses", icon: HeartPulse, color: "text-purple-500", bg: "bg-purple-50" },
     { name: "Clerical, Contract & Regular", icon: Users, color: "text-emerald-500", bg: "bg-emerald-50" },
   ];
 
