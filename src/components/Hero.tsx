@@ -10,13 +10,15 @@ export default function Hero() {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="absolute top-8 left-8 md:top-12 md:left-20 z-50 flex items-center gap-4"
+        transition={{ duration: 0.8 }}
+        className="absolute top-8 left-8 md:top-12 md:left-20 z-[60] flex items-center gap-3"
       >
-        <Image src="/logo.png" alt="Hospital Logo" width={60} height={60} className="drop-shadow-md" />
-        <div className="flex flex-col">
-          <span className="text-slate-800 font-black text-xl leading-none">HNB BASE</span>
-          <span className="text-sky-500 font-bold text-xs tracking-widest uppercase">Hospital Srinagar</span>
+        <div className="relative w-16 h-16 md:w-20 md:h-20 bg-white rounded-2xl p-2 shadow-xl border border-slate-100">
+          <Image src="/logo.png" alt="Hospital Logo" fill className="object-contain p-2" />
+        </div>
+        <div className="hidden sm:block">
+          <h4 className="text-slate-800 font-black text-lg tracking-tight leading-none">HNB BASE</h4>
+          <p className="text-sky-600 font-bold text-xs uppercase tracking-widest mt-1">Hospital Srinagar</p>
         </div>
       </motion.div>
 
@@ -25,20 +27,16 @@ export default function Hero() {
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="relative w-[320px] h-[320px] md:w-[550px] md:h-[550px] z-10 shrink-0 mt-8 md:mt-0 group"
+        className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] z-10 shrink-0 mt-8 md:mt-0"
       >
-        {/* Aesthetic Frame */}
-        <div className="absolute -inset-4 bg-gradient-to-tr from-sky-400/20 to-indigo-500/20 rounded-[4rem] blur-2xl opacity-50 group-hover:opacity-80 transition-opacity" />
-        <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden border-[6px] border-white shadow-2xl z-10">
+        <div className="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white ring-1 ring-slate-200">
           <Image
             src="/hospital.jpg"
             alt="HNB Base Hospital"
             fill
-            className="object-cover transition-transform duration-1000 group-hover:scale-110"
+            className="object-cover"
             priority
           />
-          {/* Subtle Overlay for better text contrast if needed, but keeping it minimal */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
         </div>
 
         {/* Floating Chardham Images */}
@@ -97,6 +95,7 @@ export default function Hero() {
           >
             We warmly welcome the Principal Assessor and Co-Assessors for the onsite inspection at <strong className="text-slate-800">Hemwati Nandan Bahuguna Base Hospital, Srinagar (Pauri Garhwal)</strong>.
           </motion.p>
+
 
         </motion.div>
       </div>

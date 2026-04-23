@@ -60,7 +60,7 @@ const nodes = [
     icon: FileDigit,
     gradient: "from-teal-400 to-emerald-500",
     shadow: "shadow-teal-400/50",
-    services: ["Pharmacy", "Physiotherapy", "CSSD", "Dietary Services", "Biomedical Engineering", "Fleet & Ambulance", "Housekeeping"]
+    services: ["Physiotherapy", "Pharmacy", "Dietary Services", "Biomedical Engineering", "Fleet & Ambulance", "Housekeeping"]
   }
 ];
 

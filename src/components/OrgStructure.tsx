@@ -25,8 +25,8 @@ export default function OrgStructure() {
     { dept: "Neurosurgery", hod: "Dr. Devendra Kumar" },
     { dept: "Pathology", hod: "Dr. Sachan Bhatt" },
     { dept: "Dentistry", hod: "Dr. Arun K. Goyal" },
-    { dept: "PMR (Physiotherapy)", hod: "Dr. Indira Yadav" },
-    { dept: "ENT", hod: "Dr. " }
+    { dept: "ENT", hod: "Dr. [Name]" },
+    { dept: "PMR (Physiotherapy)", hod: "Dr. Indira Yadav" }
   ];
 
   const adminDepts = [
@@ -459,28 +459,19 @@ export default function OrgStructure() {
 
                 <div className="w-1 h-8 bg-indigo-300 relative z-10" />
 
-                {/* Parallel Branch: Chief Pharmacist & Support Services */}
-                <div className="flex items-start justify-center gap-12 w-full max-w-4xl relative z-20 mb-8">
-                  {/* Chief Pharmacist */}
-                  <div className="flex flex-col items-center">
-                    <div className="w-px h-6 bg-slate-300" />
-                    <motion.div 
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className="glass px-6 py-3 rounded-2xl border-2 border-amber-400 bg-white shadow-lg w-48 text-center"
-                    >
-                      <h4 className="font-bold text-slate-800 text-sm">Chief Pharmacist</h4>
-                      <div className="flex items-center justify-center gap-2 mt-1 text-amber-600 font-bold text-[10px]">
-                        <User size={12} /> Mr. R.S. Chauhan
-                      </div>
-                    </motion.div>
+                <div className="flex items-start gap-8 relative z-20 mb-8">
+                  {/* Central Hub for support services */}
+                  <div className="glass-neon px-8 py-3 rounded-full bg-slate-100 border border-slate-200 w-full max-w-md shadow-inner flex items-center justify-center">
+                    <h4 className="font-bold text-slate-600 text-sm tracking-widest uppercase">Support & Admin Departments</h4>
                   </div>
 
-                  {/* Support & Admin Departments */}
-                  <div className="flex flex-col items-center">
-                    <div className="w-px h-6 bg-slate-300" />
-                    <div className="glass-neon px-8 py-3 rounded-full bg-slate-100 border border-slate-200 shadow-inner flex items-center justify-center">
-                      <h4 className="font-bold text-slate-600 text-sm tracking-widest uppercase">Support & Admin Departments</h4>
+                  <div className="hidden lg:block w-px h-12 bg-slate-200 self-center" />
+
+                  {/* Chief Pharmacist Parallel Branch */}
+                  <div className="glass px-6 py-3 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col items-center w-64 shadow-md">
+                    <h4 className="font-bold text-slate-700 text-sm">Chief Pharmacist</h4>
+                    <div className="flex items-center gap-2 mt-1 text-amber-600 font-bold text-xs">
+                      <User size={12} /> Mr. R.S. Chauhan
                     </div>
                   </div>
                 </div>
@@ -539,12 +530,17 @@ export default function OrgStructure() {
                   </div>
                 </div>
 
-                <div className="w-1 h-8 bg-indigo-300 relative z-10" />
+                <div className="w-1 h-8 bg-indigo-300" />
 
                 {/* Level 4: 3 ANS side by side */}
-                <div className="relative flex items-start justify-center gap-6 w-full max-w-4xl">
+                <div className="relative flex items-start justify-center gap-0 w-full max-w-5xl">
+                  {/* Horizontal bar across ANS boxes */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px bg-rose-300" style={{ width: '50%' }} />
+
+                  {/* 3 ANS nodes */}
                   {ansStaff.map((ans, idx) => (
-                    <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '180px' }}>
+                    <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '200px', margin: '0 8px' }}>
+                      <div className="w-1 h-8 bg-rose-300" />
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -561,20 +557,20 @@ export default function OrgStructure() {
                   ))}
                 </div>
 
-                <div className="w-1 h-8 bg-rose-300 mt-2" />
+                <div className="w-1 h-8 bg-rose-200 mt-2" />
 
-                {/* Level 5: ICN (below ANS) */}
+                {/* Level 5: ICN below ANS */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="glass-neon px-6 py-3 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-56 text-center"
+                  className="glass-neon px-6 py-4 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-56 text-center z-20"
                 >
-                  <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center mb-2">
-                    <Stethoscope size={16} className="text-violet-500" />
+                  <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mb-2">
+                    <Stethoscope size={20} className="text-violet-500" />
                   </div>
                   <span className="font-black text-slate-800 text-sm">ICN</span>
-                  <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-2 py-0.5 rounded-full">Infection Control Nurse</span>
+                  <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-3 py-1 rounded-full whitespace-nowrap">Infection Control Nurse</span>
                 </motion.div>
 
                 <div className="w-1 h-8 bg-rose-200 mt-2" />
@@ -652,19 +648,6 @@ export default function OrgStructure() {
                     <User size={14} /> Dr. Rakesh Rawat
                   </div>
                   <p className="text-xs font-semibold text-slate-500 text-center mt-3 pt-2 border-t border-slate-100 w-full">Reports to Principal & Dean</p>
-                </motion.div>
-
-                <div className="w-1 h-8 bg-sky-300 relative z-10" />
-
-                {/* Level 3: DMS */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15 }}
-                  className="glass px-6 py-3 rounded-2xl bg-indigo-50 border border-indigo-200 flex flex-col items-center w-80 shadow-md relative z-20"
-                >
-                  <h4 className="font-bold text-slate-700">Deputy Medical Superintendent</h4>
-                  <div className="flex items-center gap-2 mt-1 text-indigo-600 font-bold text-sm">
-                    <User size={14} /> Dr. Deepa Hatwal
-                  </div>
                 </motion.div>
 
                 <div className="w-1 h-8 bg-indigo-300 relative z-10" />

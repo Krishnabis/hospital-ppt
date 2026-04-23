@@ -21,7 +21,6 @@ export default function HRManagement() {
     { name: "SR & JR (Residents)", icon: UserRound, color: "text-rose-500", bg: "bg-rose-50" },
     { name: "Nurses", icon: HeartPulse, color: "text-purple-500", bg: "bg-purple-50" },
     { name: "Contractual and Outsourced", icon: Users, color: "text-emerald-500", bg: "bg-emerald-50" },
-    { name: "Clerical Staff", icon: Briefcase, color: "text-orange-500", bg: "bg-orange-50" },
   ];
 
   return (

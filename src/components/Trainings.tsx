@@ -1,9 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
 /* ──────────────── DATA ──────────────── */
 
 const generalImages = [
@@ -67,162 +63,48 @@ const sharedVideos = [
 
 type MediaItem = { type: "image" | "video"; src: string };
 
-function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const isDragging = useRef(false);
-  const isHovered = useRef(false);
-  const startX = useRef(0);
-  const scrollLeftRef = useRef(0);
-  const rafId = useRef<number>(0);
-
-  // Auto-scroll loop
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const speed = 0.8; // slightly faster
-    const step = () => {
-      if (!isDragging.current && !isHovered.current && el) {
-        el.scrollLeft += speed;
-        // Seamless loop: when reach halfway, jump back to 0
-        if (el.scrollLeft >= el.scrollWidth / 2) {
-          el.scrollLeft = 0;
-        }
-      }
-      rafId.current = requestAnimationFrame(step);
-    };
-    rafId.current = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(rafId.current);
-  }, []);
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
-
-  useEffect(() => {
-    checkScroll();
-    window.addEventListener("resize", checkScroll);
-    return () => window.removeEventListener("resize", checkScroll);
-  }, []);
-
-  const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current) {
-      const { clientWidth } = scrollRef.current;
-      const scrollAmount = direction === "left" ? -clientWidth * 0.8 : clientWidth * 0.8;
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
-  // Drag logic
-  const onMouseDown = (e: React.MouseEvent) => {
-    isDragging.current = true;
-    startX.current = e.pageX - (scrollRef.current?.offsetLeft ?? 0);
-    scrollLeftRef.current = scrollRef.current?.scrollLeft ?? 0;
-    if (scrollRef.current) scrollRef.current.style.cursor = "grabbing";
-  };
-  const onMouseLeave = () => {
-    isDragging.current = false;
-    isHovered.current = false;
-    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
-  };
-  const onMouseUp = () => {
-    isDragging.current = false;
-    if (scrollRef.current) scrollRef.current.style.cursor = "grab";
-  };
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !scrollRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    scrollRef.current.scrollLeft = scrollLeftRef.current - walk;
-  };
-
-  // Double items for seamless loop
-  const loopItems = [...items, ...items];
-
+function Carousel({ items, label }: { items: MediaItem[]; label: string }) {
+  const dup = [...items, ...items]; // duplicate for seamless loop
+  const duration = `${dup.length * 4}s`;
   return (
-    <div className="w-full relative group/carousel">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6 px-4 md:px-10">
-        <div className="flex items-center gap-3">
-          <span className="w-1.5 h-7 rounded-full bg-sky-500 shadow-[0_0_8px_rgba(14,165,233,0.4)]" />
-          <h3 className="text-xl font-bold text-slate-800 tracking-tight">{label}</h3>
-        </div>
-        
-        {/* Controls */}
-        <div className="flex gap-2">
-          <button
-            onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-              canScrollLeft ? "bg-white shadow-md text-sky-500 hover:scale-110" : "bg-slate-100 text-slate-300 cursor-not-allowed"
-            }`}
-          >
-            <ChevronLeft size={20} />
-          </button>
-          <button
-            onClick={() => scroll("right")}
-            disabled={!canScrollRight}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-              canScrollRight ? "bg-white shadow-md text-sky-500 hover:scale-110" : "bg-slate-100 text-slate-300 cursor-not-allowed"
-            }`}
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
+    <div className="w-full">
+      {/* Sub-heading */}
+      <div className="flex items-center gap-3 mb-5 px-4 md:px-10">
+        <span className="w-1.5 h-7 rounded-full bg-sky-400" />
+        <h3 className="text-lg md:text-xl font-bold text-slate-700 tracking-tight">{label}</h3>
       </div>
 
       {/* Track */}
-      <div className="relative">
-        <div 
-          ref={scrollRef}
-          onScroll={checkScroll}
-          onMouseEnter={() => { isHovered.current = true; }}
-          onMouseLeave={onMouseLeave}
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
-          onMouseMove={onMouseMove}
-          className="flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-10 pb-8 cursor-grab active:cursor-grabbing select-none"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {loopItems.map((m, i) => (
-            <motion.div
+      <div className="overflow-hidden relative">
+        {/* Fades */}
+        <div className="absolute left-0 inset-y-0 w-16 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 inset-y-0 w-16 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+
+        <div className="flex gap-5 animate-marquee" style={{ animationDuration: duration }}>
+          {dup.map((m, i) => (
+            <div
               key={i}
-              className="shrink-0 w-[280px] md:w-[380px] aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-xl border border-slate-100/50 group relative"
+              className="shrink-0 w-[260px] md:w-[320px] aspect-[4/3] rounded-2xl overflow-hidden bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] border border-slate-100 group"
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-              
-              {/* Force treat .gif as image for proper display */}
-              {m.src.toLowerCase().endsWith('.gif') || m.type === "image" ? (
+              {m.type === "image" ? (
                 <img
                   src={encodeURI(m.src)}
                   alt={label}
-                  draggable={false}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
                 />
               ) : (
                 <video
                   src={encodeURI(m.src)}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 pointer-events-none"
+                  className="w-full h-full object-cover"
                   muted
                   loop
                   playsInline
-                  autoPlay
+                  controls
+                  preload="none"
                 />
               )}
-
-              {/* Tag */}
-              <div className="absolute top-4 left-4 z-20">
-                <span className="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[10px] font-black text-white uppercase tracking-widest shadow-sm">
-                  {m.src.toLowerCase().endsWith('.gif') ? "gif" : m.type}
-                </span>
-              </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -235,12 +117,12 @@ function imagesToMedia(arr: string[]): MediaItem[] {
   return arr.map((s) => ({ type: "image", src: s }));
 }
 function videosToMedia(arr: string[]): MediaItem[] {
-  // If they are GIFs, they are technically images for HTML rendering
-  return arr.map((s) => ({ type: s.toLowerCase().endsWith('.gif') ? "image" : "video", src: s }));
+  return arr.map((s) => ({ type: "image", src: s }));
 }
 function mixMedia(images: string[], videos: string[]): MediaItem[] {
   const imgs = imagesToMedia(images);
   const vids = videosToMedia(videos);
+  // interleave: 3 images then 1 video, repeat
   const out: MediaItem[] = [];
   let ii = 0, vi = 0;
   while (ii < imgs.length || vi < vids.length) {
@@ -256,39 +138,29 @@ export default function Trainings() {
   return (
     <section
       id="trainings"
-      className="relative w-full py-24 bg-white overflow-hidden"
+      className="relative w-full py-20 bg-slate-50 overflow-hidden"
     >
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-sky-50 rounded-full blur-[100px] opacity-50 -mr-48 -mt-48" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-50 rounded-full blur-[100px] opacity-50 -ml-48 -mb-48" />
-
       {/* Section Header */}
-      <div className="text-center mb-20 px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-xs font-black tracking-[0.3em] text-sky-500 uppercase mb-4 shadow-sm inline-block px-4 py-1.5 rounded-full bg-sky-50">
-            Capacity Building
-          </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-6">
-            Training &amp; Preparedness
-          </h2>
-          <div className="h-1.5 w-24 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mx-auto mb-8 shadow-lg" />
-          <p className="text-slate-500 max-w-2xl mx-auto leading-relaxed text-lg font-medium">
-            Continuous learning, emergency mock drills, and vaccination drives
-            that keep our team prepared and our community protected.
-          </p>
-        </motion.div>
+      <div className="text-center mb-14 px-6">
+        <p className="text-[11px] font-black tracking-[0.25em] text-sky-500 uppercase mb-3">
+          Capacity Building
+        </p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 tracking-tight mb-3">
+          Training &amp; Preparedness
+        </h2>
+        <div className="h-[3px] w-16 bg-sky-400 rounded-full mx-auto mb-4" />
+        <p className="text-slate-500 max-w-xl mx-auto leading-relaxed">
+          Continuous learning, emergency mock drills, and vaccination drives
+          that keep our team prepared and our community protected.
+        </p>
       </div>
 
       {/* Carousel Stack */}
-      <div className="flex flex-col gap-20 max-w-[100vw] relative z-10">
-        <SlidingCarousel items={mixMedia(generalImages, generalVideos)} label="General Training Sessions" />
-        <SlidingCarousel items={videosToMedia(cprVideos)} label="CPR Mockdrills" />
-        <SlidingCarousel items={imagesToMedia(vaccinationImages)} label="Vaccination Drives" />
-        <SlidingCarousel items={videosToMedia(sharedVideos)} label="Training Videos Shared" />
+      <div className="flex flex-col gap-12 max-w-[100vw]">
+        <Carousel items={mixMedia(generalImages, generalVideos)} label="General Training Sessions" />
+        <Carousel items={videosToMedia(cprVideos)} label="CPR Mockdrills" />
+        <Carousel items={imagesToMedia(vaccinationImages)} label="Vaccination Drives" />
+        <Carousel items={videosToMedia(sharedVideos)} label="Training Videos Shared" />
       </div>
     </section>
   );
