@@ -230,7 +230,7 @@ export default function ClinicalPathways() {
         </div>
 
         {/* Pathway Selection (Buttons) */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        <div className="flex flex-wrap justify-center gap-3 mb-20">
           {activeCategory.pathways.map((path) => (
             <button
               key={path.id}
@@ -255,53 +255,53 @@ export default function ClinicalPathways() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.98 }}
               transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-y-12 gap-x-4 px-4"
+              className="grid grid-cols-1 md:grid-cols-3 gap-y-24 gap-x-16 px-4"
             >
               {activePathway.steps.map((step, idx) => {
                 const isEndOfRow = (idx + 1) % 3 === 0;
                 const isLastStep = idx === activePathway.steps.length - 1;
                 
                 return (
-                  <div key={idx} className="relative flex items-center justify-center">
+                  <div key={idx} className="relative">
                     
                     {/* Step Card */}
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.08 }}
-                      className="w-full glass p-6 rounded-[2rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group flex flex-col items-center text-center"
+                      className="w-full h-full glass p-8 rounded-[2.5rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group flex flex-col items-center text-center relative z-10"
                     >
-                      <div className={`w-10 h-10 rounded-xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-sm mb-4 group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
+                      <div className={`w-12 h-12 rounded-2xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-lg mb-4 group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
                         {idx + 1}
                       </div>
-                      <h4 className="font-black text-slate-800 text-base mb-2 leading-tight">
+                      <h4 className="font-black text-slate-800 text-lg mb-3 leading-tight">
                         {step.title}
                       </h4>
-                      <p className="text-slate-500 text-xs font-semibold leading-relaxed">
+                      <p className="text-slate-500 text-sm font-semibold leading-relaxed">
                         {step.desc}
                       </p>
                     </motion.div>
 
-                    {/* Arrow Logic */}
+                    {/* Arrow Logic - Placed OUTSIDE the card flow */}
                     {!isLastStep && (
-                      <div className="absolute z-20 pointer-events-none">
-                        {/* Horizontal Arrow (Right) - Visible on desktop for steps 1, 2, 4, 5... */}
+                      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
+                        {/* Horizontal Arrow (Right) - Between items in same row */}
                         {!isEndOfRow && (
-                          <div className="hidden md:block absolute -right-[2.5rem] top-1/2 -translate-y-1/2 text-slate-300">
-                             <ArrowRight size={28} strokeWidth={3} />
+                          <div className="hidden md:block absolute -right-12 top-1/2 -translate-y-1/2 text-slate-300 transform scale-125">
+                             <ArrowRight size={32} strokeWidth={2.5} />
                           </div>
                         )}
                         
-                        {/* Vertical Arrow (Down) - Visible on desktop for steps 3, 6... */}
+                        {/* Vertical Arrow (Down) - At end of row pointing to next row */}
                         {isEndOfRow && (
-                          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-[3.5rem] text-slate-300">
-                             <ArrowDown size={28} strokeWidth={3} />
+                          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-16 text-slate-300 transform scale-125">
+                             <ArrowDown size={32} strokeWidth={2.5} />
                           </div>
                         )}
 
-                        {/* Always Down on Mobile */}
-                        <div className="md:hidden absolute left-1/2 -translate-x-1/2 -bottom-[3.5rem] text-slate-300">
-                           <ArrowDown size={28} strokeWidth={3} />
+                        {/* Always Down on Mobile between every step */}
+                        <div className="md:hidden absolute left-1/2 -translate-x-1/2 -bottom-16 text-slate-300 transform scale-110">
+                           <ArrowDown size={24} strokeWidth={2.5} />
                         </div>
                       </div>
                     )}
