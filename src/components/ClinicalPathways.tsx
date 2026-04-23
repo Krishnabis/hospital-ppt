@@ -3,8 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { 
-  Stethoscope, Activity, Baby, ArrowRight, CheckCircle2, 
-  AlertCircle, Thermometer, HeartPulse, FileText, ClipboardList
+  Stethoscope, Activity, Baby, ArrowDown, ClipboardList
 } from "lucide-react";
 
 type Step = {
@@ -182,7 +181,7 @@ export default function ClinicalPathways() {
   };
 
   return (
-    <section id="pathways" className="relative min-h-screen w-full flex items-center justify-center py-24 bg-white overflow-hidden">
+    <section id="pathways" className="relative min-h-screen w-full py-24 bg-white overflow-hidden">
       
       {/* Background Decor */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
@@ -190,7 +189,7 @@ export default function ClinicalPathways() {
         <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-indigo-100 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
         
         <motion.div
            initial={{ opacity: 0, y: 50 }}
@@ -230,7 +229,7 @@ export default function ClinicalPathways() {
           ))}
         </div>
 
-        {/* Pathway Selection (Buttons inside active category) */}
+        {/* Pathway Selection (Buttons) */}
         <div className="flex flex-wrap justify-center gap-3 mb-16">
           {activeCategory.pathways.map((path) => (
             <button
@@ -238,86 +237,65 @@ export default function ClinicalPathways() {
               onClick={() => setActivePathway(path)}
               className={`px-5 py-2 rounded-xl text-sm font-bold border transition-all ${
                 activePathway.id === path.id
-                  ? `bg-${activeCategory.color}-500 border-transparent text-white shadow-md ring-4 ring-${activeCategory.color}-100`
-                  : `bg-white border-slate-200 text-slate-600 hover:border-${activeCategory.color}-400 hover:text-${activeCategory.color}-500`
+                  ? `bg-slate-900 border-transparent text-white shadow-md`
+                  : `bg-white border-slate-200 text-slate-600 hover:border-sky-400 hover:text-sky-500`
               }`}
-              style={{
-                backgroundColor: activePathway.id === path.id ? `var(--tw-color-${activeCategory.color}-500)` : ''
-              }}
             >
               {path.name}
             </button>
           ))}
         </div>
 
-        {/* Flow Visualization */}
-        <div className="w-full max-w-6xl mx-auto">
+        {/* Vertical Flow Visualization */}
+        <div className="w-full max-w-2xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePathway.id}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-4 overflow-x-auto pb-10 px-4 scrollbar-hide"
+              className="flex flex-col items-center gap-2"
             >
               {activePathway.steps.map((step, idx) => (
-                <div key={idx} className="flex flex-col md:flex-row items-center shrink-0">
+                <div key={idx} className="flex flex-col items-center w-full">
                   
                   {/* Step Card */}
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="w-full md:w-64 glass p-6 rounded-[2rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group"
+                    className="w-full glass p-8 rounded-[2.5rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group flex items-start gap-6"
                   >
-                    <div className={`w-10 h-10 rounded-xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-sm mb-4 group-hover:bg-${activeCategory.color}-500 group-hover:text-white transition-colors`}>
+                    <div className={`w-12 h-12 shrink-0 rounded-2xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-lg group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
                       {idx + 1}
                     </div>
-                    <h4 className="font-black text-slate-800 text-base mb-2 leading-tight">
-                      {step.title}
-                    </h4>
-                    <p className="text-slate-500 text-xs font-semibold leading-relaxed">
-                      {step.desc}
-                    </p>
+                    <div>
+                      <h4 className="font-black text-slate-800 text-xl mb-2 leading-tight">
+                        {step.title}
+                      </h4>
+                      <p className="text-slate-500 text-sm font-semibold leading-relaxed">
+                        {step.desc}
+                      </p>
+                    </div>
                   </motion.div>
 
                   {/* Arrow (Hidden on last step) */}
                   {idx < activePathway.steps.length - 1 && (
-                    <div className="flex items-center justify-center p-4">
-                       <div className="hidden md:block">
-                          <ArrowRight className={`text-${activeCategory.color}-300`} size={32} />
-                       </div>
-                       <div className="block md:hidden">
-                          <div className={`w-1 h-8 bg-gradient-to-b from-${activeCategory.color}-300 to-transparent`} />
-                       </div>
-                    </div>
+                    <motion.div 
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: idx * 0.1 + 0.1 }}
+                      className="py-4 text-slate-300"
+                    >
+                      <ArrowDown size={32} strokeWidth={3} />
+                    </motion.div>
                   )}
                 </div>
               ))}
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* Quality/NABH Note */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mt-16 p-8 rounded-[2.5rem] bg-slate-50 border border-slate-100 w-full max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6"
-        >
-          <div className="flex items-center gap-4">
-             <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-sky-500 shadow-sm border border-slate-100">
-                <CheckCircle2 size={28} />
-             </div>
-             <div>
-                <h4 className="font-black text-slate-800 text-lg">NABH Compliance Points</h4>
-                <p className="text-slate-400 text-sm font-medium">Triage time documented • Pain score recording • Reassessment every 30-60 min.</p>
-             </div>
-          </div>
-          <div className="px-6 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest">
-            Audit Ready
-          </div>
-        </motion.div>
 
       </div>
     </section>
