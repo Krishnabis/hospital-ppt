@@ -8,10 +8,24 @@ export default function OrgStructure() {
   const [activeTab, setActiveTab] = useState<"clinical" | "nonClinical" | "nursing" | "committees">("clinical");
 
   const clinicalDepts = [
-    "Medicine", "Surgery", "Pediatrics", "OBG", "Orthopedics", "Psychiatry",
-    "ENT", "Ophthalmology", "Dermatology", "Anesthesia", "Radiology",
-    "Dentistry", "Intensive Care", "Emergency",
-    "Physiotherapy & Occupational Therapy", "Pulmonology & Respiratory Medicine"
+    { dept: "Pediatrics", hod: "Dr. Chandra Madhur Sharma" },
+    { dept: "Orthopedics", hod: "Dr. Daya Krishna Tamta" },
+    { dept: "Anaesthesia", hod: "Dr. Ajay Vikram" },
+    { dept: "Surgery", hod: "Dr. Rakesh Rawat" },
+    { dept: "Ophthalmology", hod: "Dr. A.N. Pandey" },
+    { dept: "Obs & Gynae", hod: "Dr. N. Bora" },
+    { dept: "Respiratory Medicine", hod: "Dr. Vickey Bakshi" },
+    { dept: "Radiotherapy", hod: "Dr. Indira Yadav" },
+    { dept: "Emergency", hod: "Dr. Mohit Saini" },
+    { dept: "Psychiatry", hod: "Dr. Mohit Saini" },
+    { dept: "Radiology", hod: "Dr. Saurabh" },
+    { dept: "Dermatology", hod: "Dr. Deepak Dimri" },
+    { dept: "Medicine", hod: "Dr. Leena Firmal" },
+    { dept: "Biochemistry", hod: "Dr. Kailash Gairola" },
+    { dept: "Neurosurgery", hod: "Dr. Devendra Kumar" },
+    { dept: "Pathology", hod: "Dr. Sachan Bhatt" },
+    { dept: "Dentistry", hod: "Dr. Arun K. Goyal" },
+    { dept: "PMR (Physiotherapy)", hod: "Dr. Indira Yadav" }
   ];
 
   const adminDepts = [
@@ -300,8 +314,8 @@ export default function OrgStructure() {
                           className="glass px-3 py-3 rounded-xl flex flex-col items-center justify-center text-center border-t-[3px] border-sky-400 bg-white shadow-sm hover:-translate-y-1 hover:shadow-md transition-all"
                         >
                           <Stethoscope size={14} className="text-sky-400 mb-1 opacity-60" />
-                          <span className="text-[11px] font-black text-slate-700 leading-tight">{dept}</span>
-                          <span className="text-[9px] font-semibold text-sky-500 mt-1">HOD / Professor</span>
+                          <span className="text-[11px] font-black text-slate-700 leading-tight">{dept.dept}</span>
+                          <span className="text-[9px] font-semibold text-sky-500 mt-1">{dept.hod}</span>
                         </motion.div>
                       ))}
                     </div>
