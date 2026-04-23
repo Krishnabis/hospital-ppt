@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { 
-  Stethoscope, Activity, Baby, ArrowRight, ArrowDown, ClipboardList
+  Stethoscope, Activity, Baby, ArrowRight, ArrowDown, ArrowLeft, ClipboardList
 } from "lucide-react";
 
 type Step = {
@@ -180,6 +180,12 @@ export default function ClinicalPathways() {
     setActivePathway(cat.pathways[0]);
   };
 
+  // Helper to chunk steps into rows of 3
+  const rows: Step[][] = [];
+  for (let i = 0; i < activePathway.steps.length; i += 3) {
+    rows.push(activePathway.steps.slice(i, i + 3));
+  }
+
   return (
     <section id="pathways" className="relative min-h-screen w-full py-24 bg-white overflow-hidden">
       
@@ -246,65 +252,85 @@ export default function ClinicalPathways() {
           ))}
         </div>
 
-        {/* Grid-based Flow Visualization (3 steps per row) */}
-        <div className="w-full max-w-6xl mx-auto">
+        {/* Snake Grid-based Flow Visualization (Zig-Zag) */}
+        <div className="w-full max-w-6xl mx-auto flex flex-col gap-24">
           <AnimatePresence mode="wait">
             <motion.div
               key={activePathway.id}
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-y-24 gap-x-16 px-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="flex flex-col gap-24"
             >
-              {activePathway.steps.map((step, idx) => {
-                const isEndOfRow = (idx + 1) % 3 === 0;
-                const isLastStep = idx === activePathway.steps.length - 1;
+              {rows.map((row, rowIdx) => {
+                const isOddRow = rowIdx % 2 !== 0;
+                // If it's an odd row, we display it reversed to follow the snake flow
+                const displayRow = isOddRow ? [...row].reverse() : row;
                 
                 return (
-                  <div key={idx} className="relative">
-                    
-                    {/* Step Card */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.08 }}
-                      className="w-full h-full glass p-8 rounded-[2.5rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group flex flex-col items-center text-center relative z-10"
-                    >
-                      <div className={`w-12 h-12 rounded-2xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-lg mb-4 group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
-                        {idx + 1}
-                      </div>
-                      <h4 className="font-black text-slate-800 text-lg mb-3 leading-tight">
-                        {step.title}
-                      </h4>
-                      <p className="text-slate-500 text-sm font-semibold leading-relaxed">
-                        {step.desc}
-                      </p>
-                    </motion.div>
+                  <div key={rowIdx} className="grid grid-cols-1 md:grid-cols-3 gap-x-16 relative">
+                    {displayRow.map((step, colIdx) => {
+                      // Original index in the full steps array
+                      const stepIdx = isOddRow 
+                        ? (rowIdx * 3) + (row.length - 1 - colIdx)
+                        : (rowIdx * 3) + colIdx;
+                      
+                      const isLastInActiveRow = colIdx === displayRow.length - 1;
+                      const isLastStepGlobal = stepIdx === activePathway.steps.length - 1;
+                      
+                      // Determine arrow type
+                      let Arrow = null;
+                      let arrowPosClass = "";
 
-                    {/* Arrow Logic - Placed OUTSIDE the card flow */}
-                    {!isLastStep && (
-                      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-                        {/* Horizontal Arrow (Right) - Between items in same row */}
-                        {!isEndOfRow && (
-                          <div className="hidden md:block absolute -right-12 top-1/2 -translate-y-1/2 text-slate-300 transform scale-125">
-                             <ArrowRight size={32} strokeWidth={2.5} />
-                          </div>
-                        )}
-                        
-                        {/* Vertical Arrow (Down) - At end of row pointing to next row */}
-                        {isEndOfRow && (
-                          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-16 text-slate-300 transform scale-125">
-                             <ArrowDown size={32} strokeWidth={2.5} />
-                          </div>
-                        )}
+                      if (!isLastStepGlobal) {
+                        if (!isLastInActiveRow) {
+                          // Horizontal arrow
+                          Arrow = isOddRow ? ArrowLeft : ArrowRight;
+                          arrowPosClass = isOddRow 
+                            ? "hidden md:block absolute -left-12 top-1/2 -translate-y-1/2" 
+                            : "hidden md:block absolute -right-12 top-1/2 -translate-y-1/2";
+                        } else if (rowIdx < rows.length - 1) {
+                          // Vertical down arrow at the end of row
+                          Arrow = ArrowDown;
+                          arrowPosClass = "hidden md:block absolute left-1/2 -translate-x-1/2 -bottom-16";
+                        }
+                      }
 
-                        {/* Always Down on Mobile between every step */}
-                        <div className="md:hidden absolute left-1/2 -translate-x-1/2 -bottom-16 text-slate-300 transform scale-110">
-                           <ArrowDown size={24} strokeWidth={2.5} />
+                      return (
+                        <div key={colIdx} className="relative">
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: stepIdx * 0.05 }}
+                            className="w-full h-full glass p-8 rounded-[2.5rem] border border-slate-100 shadow-sm bg-white hover:shadow-xl transition-all group flex flex-col items-center text-center relative z-10"
+                          >
+                            <div className={`w-12 h-12 rounded-2xl bg-slate-50 text-${activeCategory.color}-500 flex items-center justify-center font-black text-lg mb-4 group-hover:bg-slate-900 group-hover:text-white transition-colors`}>
+                              {stepIdx + 1}
+                            </div>
+                            <h4 className="font-black text-slate-800 text-lg mb-3 leading-tight">
+                              {step.title}
+                            </h4>
+                            <p className="text-slate-500 text-sm font-semibold leading-relaxed">
+                              {step.desc}
+                            </p>
+                          </motion.div>
+
+                          {/* Arrow */}
+                          {Arrow && (
+                            <div className={`${arrowPosClass} text-slate-300 transform scale-125 z-0 pointer-events-none`}>
+                              <Arrow size={32} strokeWidth={2.5} />
+                            </div>
+                          )}
+
+                          {/* Mobile Arrow (Always Down) */}
+                          {!isLastStepGlobal && (
+                            <div className="md:hidden absolute left-1/2 -translate-x-1/2 -bottom-16 text-slate-300 z-0 pointer-events-none">
+                               <ArrowDown size={28} strokeWidth={2.5} />
+                            </div>
+                          )}
                         </div>
-                      </div>
-                    )}
+                      );
+                    })}
                   </div>
                 );
               })}
