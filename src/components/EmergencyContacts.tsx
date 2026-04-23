@@ -27,17 +27,11 @@ export default function EmergencyContacts() {
   return (
     <section
       id="emergency"
-      className="relative w-full flex items-center justify-center py-20 overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #0f172a 0%, #1e0808 50%, #0f172a 100%)" }}
+      className="relative w-full flex items-center justify-center py-20 overflow-hidden bg-slate-50"
     >
-      {/* Animated pulsing background glow */}
+      {/* Subtle red glow accent */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.22, 0.12] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(239,68,68,0.4) 0%, transparent 70%)" }}
-        />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-1 bg-gradient-to-r from-transparent via-red-400 to-transparent opacity-60" />
       </div>
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10 max-w-5xl flex flex-col items-center">
@@ -47,7 +41,7 @@ export default function EmergencyContacts() {
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-6 px-5 py-1.5 rounded-full border border-amber-400/50 bg-amber-400/10 text-amber-300 text-xs font-black tracking-[0.2em] uppercase"
+          className="mb-6 px-5 py-1.5 rounded-full border border-amber-500/60 bg-amber-100 text-amber-700 text-xs font-black tracking-[0.2em] uppercase"
         >
           ⚠ Temporary Display
         </motion.div>
@@ -60,10 +54,10 @@ export default function EmergencyContacts() {
           transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <h2 className="text-2xl md:text-3xl font-black text-white tracking-wide leading-snug">
+          <h2 className="text-2xl md:text-3xl font-black text-slate-800 tracking-wide leading-snug">
             H.N.B. BASE HOSPITAL SRINAGAR
           </h2>
-          <p className="text-red-300 font-bold text-sm mt-1 tracking-widest uppercase">
+          <p className="text-red-600 font-bold text-sm mt-1 tracking-widest uppercase">
             Pauri Garhwal, Uttarakhand — 246174
           </p>
           <div className="h-1 w-32 mt-4 mx-auto rounded-full bg-gradient-to-r from-red-600 via-red-400 to-red-600" />
@@ -75,11 +69,11 @@ export default function EmergencyContacts() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="w-full rounded-2xl border-2 border-red-500/60 bg-red-950/50 backdrop-blur-sm px-6 py-5 mb-8 text-center"
+          className="w-full rounded-2xl border-2 border-red-300 bg-red-50 px-6 py-5 mb-8 text-center"
         >
           <div className="flex items-center justify-center gap-2 mb-3">
             <AlertTriangle className="text-red-400" size={20} />
-            <p className="text-red-200 font-black text-sm tracking-wider uppercase">
+            <p className="text-red-700 font-black text-sm tracking-wider uppercase">
               In Case of Any Incident
             </p>
             <AlertTriangle className="text-red-400" size={20} />
@@ -94,7 +88,7 @@ export default function EmergencyContacts() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.05 * idx }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-900/60 border border-red-600/40 text-red-200 text-[11px] font-bold"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-red-200 text-red-700 text-[11px] font-bold shadow-sm"
                 >
                   <Icon size={11} />
                   {item.label}
@@ -110,11 +104,10 @@ export default function EmergencyContacts() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full rounded-3xl overflow-hidden border border-red-800/40 shadow-2xl"
-          style={{ boxShadow: "0 0 60px rgba(239,68,68,0.15)" }}
+          className="w-full rounded-3xl overflow-hidden border border-red-200 shadow-xl bg-white"
         >
           {/* Table Header */}
-          <div className="grid grid-cols-12 bg-red-700/80 px-6 py-3">
+          <div className="grid grid-cols-12 bg-red-600 px-6 py-3">
             <div className="col-span-1 text-white font-black text-xs tracking-widest uppercase">S.N.</div>
             <div className="col-span-7 text-white font-black text-xs tracking-widest uppercase">Name / Designation</div>
             <div className="col-span-4 text-white font-black text-xs tracking-widest uppercase flex items-center gap-1.5">
@@ -130,10 +123,10 @@ export default function EmergencyContacts() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.05 * idx }}
-              className={`grid grid-cols-12 px-6 py-4 border-t border-red-900/40 items-center transition-colors hover:bg-red-900/20 ${
+              className={`grid grid-cols-12 px-6 py-4 border-t border-red-100 items-center transition-colors hover:bg-red-50 ${
                 c.highlight
-                  ? "bg-red-600/20"
-                  : "bg-slate-900/60"
+                  ? "bg-red-50"
+                  : "bg-white"
               }`}
             >
               <div className="col-span-1">
@@ -144,7 +137,7 @@ export default function EmergencyContacts() {
                 </span>
               </div>
               <div className="col-span-7">
-                <span className={`font-bold text-sm ${c.highlight ? "text-red-200" : "text-slate-200"}`}>
+                <span className={`font-bold text-sm ${c.highlight ? "text-red-700" : "text-slate-700"}`}>
                   {c.label}
                 </span>
               </div>
@@ -152,7 +145,7 @@ export default function EmergencyContacts() {
                 <a
                   href={`tel:${c.number.replace(/[^0-9]/g, "")}`}
                   className={`font-black text-base flex items-center gap-2 group ${
-                    c.highlight ? "text-red-300" : "text-emerald-400"
+                    c.highlight ? "text-red-600" : "text-emerald-600"
                   }`}
                 >
                   <Phone size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
@@ -169,7 +162,7 @@ export default function EmergencyContacts() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
-          className="mt-6 text-slate-500 text-xs text-center font-semibold"
+          className="mt-6 text-slate-400 text-xs text-center font-semibold"
         >
           Report any incident immediately to the nearest emergency contact listed above.
         </motion.p>
