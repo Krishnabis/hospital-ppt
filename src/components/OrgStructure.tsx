@@ -10,7 +10,8 @@ export default function OrgStructure() {
   const clinicalDepts = [
     "Medicine", "Surgery", "Pediatrics", "OBG", "Orthopedics", "Psychiatry",
     "ENT", "Ophthalmology", "Dermatology", "Anesthesia", "Radiology",
-    "Dentistry", "Intensive Care", "Emergency", "Physiotherapy & OT", "Pulmonology"
+    "Dentistry", "Intensive Care", "Emergency",
+    "Physiotherapy & Occupational Therapy", "Pulmonology & Respiratory Medicine"
   ];
 
   const adminDepts = [
@@ -26,22 +27,22 @@ export default function OrgStructure() {
   ];
 
   const deptIncharges = [
-    { dept: "General Medicine", incharge: "SNO / Nursing Incharge" },
-    { dept: "General Surgery", incharge: "SNO / Nursing Incharge" },
-    { dept: "Pediatrics", incharge: "SNO / Nursing Incharge" },
-    { dept: "OBG / Maternity", incharge: "SNO / Nursing Incharge" },
-    { dept: "Orthopedics", incharge: "SNO / Nursing Incharge" },
-    { dept: "Psychiatry", incharge: "SNO / Nursing Incharge" },
-    { dept: "ENT", incharge: "SNO / Nursing Incharge" },
-    { dept: "Ophthalmology", incharge: "SNO / Nursing Incharge" },
-    { dept: "Dermatology", incharge: "SNO / Nursing Incharge" },
-    { dept: "Intensive Care Unit (ICU)", incharge: "ICU Nursing Incharge" },
-    { dept: "Emergency / Casualty", incharge: "Emergency Nursing Incharge" },
-    { dept: "Operation Theatre (OT)", incharge: "OT Nursing Incharge" },
-    { dept: "Radiology", incharge: "SNO / Nursing Incharge" },
-    { dept: "Physiotherapy & OT", incharge: "SNO / Nursing Incharge" },
-    { dept: "Pulmonology", incharge: "SNO / Nursing Incharge" },
-    { dept: "Dental / Dentistry", incharge: "SNO / Nursing Incharge" },
+    { dept: "Medicine", incharge: "Nursing Incharge" },
+    { dept: "Surgery", incharge: "Nursing Incharge" },
+    { dept: "Pediatrics", incharge: "Nursing Incharge" },
+    { dept: "OBG", incharge: "Nursing Incharge" },
+    { dept: "Orthopedics", incharge: "Nursing Incharge" },
+    { dept: "Psychiatry", incharge: "Nursing Incharge" },
+    { dept: "ENT", incharge: "Nursing Incharge" },
+    { dept: "Ophthalmology", incharge: "Nursing Incharge" },
+    { dept: "Dermatology", incharge: "Nursing Incharge" },
+    { dept: "Anesthesia", incharge: "Nursing Incharge" },
+    { dept: "Radiology", incharge: "Nursing Incharge" },
+    { dept: "Dentistry", incharge: "Nursing Incharge" },
+    { dept: "Intensive Care", incharge: "ICU Nursing Incharge" },
+    { dept: "Emergency", incharge: "Emergency Nursing Incharge" },
+    { dept: "Physiotherapy & Occupational Therapy", incharge: "Nursing Incharge" },
+    { dept: "Pulmonology & Respiratory Medicine", incharge: "Nursing Incharge" },
   ];
 
   const hospitalCommittees = [
@@ -281,30 +282,115 @@ export default function OrgStructure() {
 
                 <div className="w-1 h-8 bg-indigo-300 relative z-10" />
 
-                {/* Hierarchy Chain */}
-                <div className="flex flex-col items-center w-full max-w-md relative z-20 gap-4">
-                  <div className="glass px-6 py-3 rounded-xl bg-white border border-slate-200 shadow-sm w-full text-center hover:border-sky-300 hover:bg-sky-50 transition-all">
-                    <span className="font-bold text-slate-700">HOD of Department / Professor</span>
+                {/* Two-column layout: HOD grid (left) | ANS→ICN→Incharges→Staff Nurses (right) */}
+                <div className="flex flex-col lg:flex-row gap-8 w-full items-start justify-center">
+
+                  {/* LEFT COLUMN: HOD of all departments */}
+                  <div className="flex flex-col items-center flex-1 min-w-0">
+                    <div className="glass px-6 py-2 rounded-full bg-sky-700 text-white font-bold text-xs tracking-widest uppercase mb-4 flex items-center gap-2">
+                      <Stethoscope size={14} /> HOD of Departments
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 w-full">
+                      {clinicalDepts.map((dept, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.85 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.03 * idx, type: "spring" }}
+                          className="glass px-3 py-3 rounded-xl flex flex-col items-center justify-center text-center border-t-[3px] border-sky-400 bg-white shadow-sm hover:-translate-y-1 hover:shadow-md transition-all"
+                        >
+                          <Stethoscope size={14} className="text-sky-400 mb-1 opacity-60" />
+                          <span className="text-[11px] font-black text-slate-700 leading-tight">{dept}</span>
+                          <span className="text-[9px] font-semibold text-sky-500 mt-1">HOD / Professor</span>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
-                  <ChevronDown className="text-slate-300" />
-                  
-                  <div className="glass px-6 py-3 rounded-xl bg-white border border-slate-200 shadow-sm w-full text-center hover:border-sky-300 hover:bg-sky-50 transition-all">
-                    <span className="font-bold text-slate-700">Associate Professor</span>
-                  </div>
-                  <ChevronDown className="text-slate-300" />
-                  
-                  <div className="glass px-6 py-3 rounded-xl bg-white border border-slate-200 shadow-sm w-full text-center hover:border-sky-300 hover:bg-sky-50 transition-all">
-                    <span className="font-bold text-slate-700">Assistant Professor</span>
-                  </div>
-                  <ChevronDown className="text-slate-300" />
-                  
-                  <div className="glass px-6 py-3 rounded-xl bg-white border border-slate-200 shadow-sm w-full text-center hover:border-sky-300 hover:bg-sky-50 transition-all">
-                    <span className="font-bold text-slate-700">Senior Resident (SR) / Junior Resident (JR)</span>
-                  </div>
-                  <ChevronDown className="text-slate-300" />
-                  
-                  <div className="glass px-6 py-3 rounded-xl bg-slate-50 border border-slate-200 shadow-inner w-full text-center hover:border-slate-300 transition-all">
-                    <span className="font-bold text-slate-600">Other Clerical Staff & Accounts Staff</span>
+
+                  {/* RIGHT COLUMN: ANS → ICN → Incharges → Staff Nurses */}
+                  <div className="flex flex-col items-center flex-1 min-w-0">
+
+                    {/* ANS header */}
+                    <div className="glass px-6 py-2 rounded-full bg-rose-600 text-white font-bold text-xs tracking-widest uppercase mb-2 flex items-center gap-2">
+                      <Users size={14} /> ANS (Nursing)
+                    </div>
+
+                    {/* 3 ANS nodes side-by-side */}
+                    <div className="flex gap-2 justify-center w-full mb-1">
+                      {ansStaff.map((ans, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, y: 15 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 * idx }}
+                          className="glass-neon px-3 py-3 rounded-xl flex flex-col items-center border-[2px] border-rose-300 shadow-md bg-white text-center flex-1"
+                        >
+                          <div className="w-7 h-7 rounded-full bg-rose-100 flex items-center justify-center mb-1">
+                            <User size={13} className="text-rose-500" />
+                          </div>
+                          <span className="font-black text-slate-800 text-[11px]">ANS</span>
+                          <span className="font-bold text-rose-600 text-[10px] mt-0.5">{ans.name}</span>
+                          <span className="text-[9px] text-slate-400 mt-0.5 bg-rose-50 px-1.5 py-0.5 rounded-full">{ans.area}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Arrow + ICN beside ANS row */}
+                    <div className="flex items-center gap-2 self-end pr-0 mb-2">
+                      <div className="flex items-center gap-1 text-violet-400 text-xs font-bold">
+                        <span className="text-base">→</span>
+                        <motion.div
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.4 }}
+                          className="glass-neon px-3 py-2 rounded-xl flex flex-col items-center border-[2px] border-violet-400 shadow-md bg-white text-center w-32"
+                        >
+                          <Stethoscope size={13} className="text-violet-500 mb-1" />
+                          <span className="font-black text-slate-800 text-[11px]">ICN</span>
+                          <span className="text-[9px] text-violet-500 mt-0.5 bg-violet-50 px-1.5 py-0.5 rounded-full">Infection Control</span>
+                        </motion.div>
+                      </div>
+                    </div>
+
+                    {/* Connector */}
+                    <div className="w-1 h-5 bg-rose-200" />
+
+                    {/* Dept Incharges label */}
+                    <div className="glass px-5 py-2 rounded-full bg-rose-700 text-white font-bold text-xs tracking-widest uppercase mb-3 flex items-center gap-2">
+                      <Users size={13} /> Dept. Nursing Incharges
+                    </div>
+
+                    {/* Incharges grid */}
+                    <div className="grid grid-cols-2 gap-2 w-full mb-3">
+                      {deptIncharges.map((item, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ opacity: 0, scale: 0.85 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.02 * idx, type: "spring" }}
+                          className="glass px-2 py-2 rounded-xl flex flex-col items-center justify-center text-center border-t-[3px] border-rose-300 bg-white shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all"
+                        >
+                          <span className="text-[10px] font-black text-slate-700 leading-tight">{item.dept}</span>
+                          <span className="text-[9px] font-semibold text-rose-500 mt-0.5">{item.incharge}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Connector */}
+                    <div className="w-1 h-5 bg-rose-200" />
+
+                    {/* Staff Nurses */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="glass px-6 py-4 rounded-2xl flex flex-col items-center border-[3px] border-pink-300 bg-pink-50 shadow-lg w-full text-center"
+                    >
+                      <Users size={20} className="text-pink-400 mb-2" />
+                      <span className="font-black text-slate-800 text-sm">Staff Nurses / Nursing Officers</span>
+                      <span className="text-[10px] text-slate-500 mt-1">All Clinical Departments</span>
+                    </motion.div>
+
                   </div>
                 </div>
               </motion.div>
@@ -480,6 +566,22 @@ export default function OrgStructure() {
                     </motion.div>
                   ))}
                 </div>
+
+                {/* Connector */}
+                <div className="w-1 h-5 bg-rose-200 mt-2" />
+
+                {/* Staff Nurses / Nursing Officers */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="glass px-8 py-4 rounded-2xl flex flex-col items-center border-[3px] border-pink-300 bg-pink-50 shadow-lg w-full max-w-sm text-center mt-1"
+                >
+                  <Users size={22} className="text-pink-400 mb-2" />
+                  <span className="font-black text-slate-800 text-base">Staff Nurses / Nursing Officers</span>
+                  <span className="text-xs text-slate-500 mt-1">All Clinical Departments</span>
+                </motion.div>
+
               </motion.div>
             )}
 
