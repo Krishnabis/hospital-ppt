@@ -3,13 +3,11 @@
 import { motion } from "framer-motion";
 import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip,
-  CartesianGrid, LineChart, Line, Legend,
+  CartesianGrid, LineChart, Line,
 } from "recharts";
 import { useState } from "react";
 
 /* ─── REAL DATA ─── */
-
-// April IS available for these
 const safetyData = [
   { month: "Jan'26", NSI: 0,     MedError: 0,  CAUTI: 0, SSI: 0, VIP: 2,  VAP: 0 },
   { month: "Feb'26", NSI: 0,     MedError: 0,  CAUTI: 1, SSI: 0, VIP: 3,  VAP: 0 },
@@ -17,13 +15,14 @@ const safetyData = [
   { month: "Apr'26", NSI: 0,     MedError: 0,  CAUTI: 0, SSI: 0, VIP: 3,  VAP: 0 },
 ];
 
-/* ─── KPI SUMMARY CARDS ─── */
-const kpiCards = [
-  { label: "NSI Rate",              value: "0.006",  sub: "Mar'26",  color: "from-rose-400 to-pink-500",   note: "0 in Jan & Feb" },
-  { label: "Medication Error",      value: "0%",     sub: "All months", color: "from-emerald-400 to-teal-500", note: "Zero incidents" },
-  { label: "CAUTI Rate",            value: "1%",     sub: "Feb'26",  color: "from-purple-400 to-fuchsia-500", note: "0% in Jan, Mar, Apr" },
-  { label: "SSI Rate",              value: "4%",     sub: "Mar'26",  color: "from-red-400 to-rose-500",    note: "0% in Jan, Feb, Apr" },
-  { label: "VIP (Total)",           value: "10",     sub: "4 Months",color: "from-cyan-400 to-sky-500",    note: "Across Jan-Apr'26" },
+/* ─── CHART CONFIG ─── */
+const chartConfigs = [
+  { key: "NSI",      label: "NSI Rate",         color: "#f43f5e", type: "line" },
+  { key: "MedError", label: "Medication Error", color: "#10b981", type: "bar"  },
+  { key: "CAUTI",    label: "CAUTI (%)",        color: "#8b5cf6", type: "bar"  },
+  { key: "SSI",      label: "SSI (%)",          color: "#ef4444", type: "line" },
+  { key: "VIP",      label: "VIP Patients",     color: "#0ea5e9", type: "bar"  },
+  { key: "VAP",      label: "VAP (%)",          color: "#f59e0b", type: "bar"  },
 ];
 
 export default function QualityIndicators() {
@@ -45,89 +44,48 @@ export default function QualityIndicators() {
             Quality Indicators
           </h2>
           <div className="h-1 w-24 bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full mx-auto mb-3" />
-          <p className="text-slate-500 text-sm">Jan'26 – Apr'26 · Continuous monitoring of key patient safety metrics</p>
+          <p className="text-slate-500 text-sm">Jan'26 – Apr'26 · Specialized KPI Monitoring</p>
         </motion.div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-12">
-          {kpiCards.map((k, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="rounded-2xl overflow-hidden shadow-sm border border-slate-100"
-            >
-              <div className={`bg-gradient-to-br ${k.color} px-4 py-3`}>
-                <p className="text-white/80 text-[10px] font-bold uppercase tracking-wider">{k.label}</p>
-                <p className="text-white font-black text-2xl leading-tight">{k.value}</p>
-                <p className="text-white/70 text-[10px] font-semibold">{k.sub}</p>
-              </div>
-              <div className="bg-white px-4 py-2">
-                <p className="text-slate-500 text-[10px] font-semibold">{k.note}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
         {mounted && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            {/* NSI + SSI — all 4 months */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-sm"
-            >
-              <h3 className="text-base font-bold text-slate-800 mb-1">NSI Rate & SSI Rate</h3>
-              <p className="text-slate-400 text-xs mb-5">Jan–Apr'26 (per month)</p>
-              <div className="w-full h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={safetyData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
-                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
-                    <YAxis axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
-                    <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 12 }} />
-                    <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Line type="monotone" dataKey="NSI" name="NSI Rate" stroke="#f43f5e" strokeWidth={2.5} dot={{ r: 4 }} activeDot={{ r: 7 }} />
-                    <Line type="monotone" dataKey="SSI" name="SSI (%)" stroke="#8b5cf6" strokeWidth={2.5} dot={{ r: 4 }} activeDot={{ r: 7 }} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </motion.div>
-
-            {/* VIP + CAUTI + VAP — all 4 months */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-sm"
-            >
-              <h3 className="text-base font-bold text-slate-800 mb-1">VIP / CAUTI / VAP</h3>
-              <p className="text-slate-400 text-xs mb-5">Jan–Apr'26 (per month)</p>
-              <div className="w-full h-64">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={safetyData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
-                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
-                    <YAxis axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 11 }} />
-                    <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 12 }} />
-                    <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <defs>
-                      <linearGradient id="gVIP" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#06b6d4" /><stop offset="100%" stopColor="#0891b2" />
-                      </linearGradient>
-                    </defs>
-                    <Bar dataKey="VIP"   name="VIP"       fill="url(#gVIP)"  radius={[4, 4, 0, 0]} maxBarSize={32} />
-                    <Bar dataKey="CAUTI" name="CAUTI (%)" fill="#10b981"     radius={[4, 4, 0, 0]} maxBarSize={32} />
-                    <Bar dataKey="VAP"   name="VAP (%)"   fill="#f59e0b"     radius={[4, 4, 0, 0]} maxBarSize={32} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </motion.div>
-
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {chartConfigs.map((cfg, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-lg hover:shadow-xl transition-shadow"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-base font-bold text-slate-800">{cfg.label}</h3>
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cfg.color }} />
+                </div>
+                
+                <div className="w-full h-48">
+                  <ResponsiveContainer width="100%" height="100%">
+                    {cfg.type === "line" ? (
+                      <LineChart data={safetyData} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 10 }} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 10 }} />
+                        <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 11 }} />
+                        <Line type="monotone" dataKey={cfg.key} stroke={cfg.color} strokeWidth={3} dot={{ r: 4, fill: cfg.color }} activeDot={{ r: 6 }} />
+                      </LineChart>
+                    ) : (
+                      <BarChart data={safetyData} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F1F5F9" />
+                        <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 10 }} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fill: "#94A3B8", fontSize: 10 }} />
+                        <Tooltip contentStyle={{ borderRadius: "12px", border: "none", boxShadow: "0 4px 20px rgba(0,0,0,0.1)", fontSize: 11 }} />
+                        <Bar dataKey={cfg.key} fill={cfg.color} radius={[6, 6, 0, 0]} maxBarSize={20} />
+                      </BarChart>
+                    )}
+                  </ResponsiveContainer>
+                </div>
+              </motion.div>
+            ))}
           </div>
         )}
 
@@ -137,7 +95,7 @@ export default function QualityIndicators() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-10 rounded-3xl overflow-hidden border border-slate-200 shadow-sm"
+          className="mt-12 rounded-3xl overflow-hidden border border-slate-200 shadow-sm"
         >
           <div className="bg-slate-800 px-6 py-3 flex items-center gap-3">
             <h3 className="text-white font-black text-sm tracking-widest uppercase">Monthly KPI Summary</h3>

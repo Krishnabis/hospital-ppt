@@ -654,6 +654,19 @@ export default function OrgStructure() {
                   <p className="text-xs font-semibold text-slate-500 text-center mt-3 pt-2 border-t border-slate-100 w-full">Reports to Principal & Dean</p>
                 </motion.div>
 
+                <div className="w-1 h-8 bg-sky-300 relative z-10" />
+
+                {/* Level 3: DMS */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.15 }}
+                  className="glass px-6 py-3 rounded-2xl bg-indigo-50 border border-indigo-200 flex flex-col items-center w-80 shadow-md relative z-20"
+                >
+                  <h4 className="font-bold text-slate-700">Deputy Medical Superintendent</h4>
+                  <div className="flex items-center gap-2 mt-1 text-indigo-600 font-bold text-sm">
+                    <User size={14} /> Dr. Deepa Hatwal
+                  </div>
+                </motion.div>
+
                 <div className="w-1 h-8 bg-indigo-300 relative z-10" />
 
                 {/* Title Node for Committees */}

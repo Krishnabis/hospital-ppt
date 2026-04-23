@@ -71,6 +71,28 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const isDragging = useRef(false);
+  const isHovered = useRef(false);
+  const rafId = useRef<number>(0);
+
+  // Auto-scroll loop
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const speed = 0.6; // px per frame - consistent with BeforeAfter
+    const step = () => {
+      if (!isDragging.current && !isHovered.current && el) {
+        el.scrollLeft += speed;
+        // Seamless loop
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      rafId.current = requestAnimationFrame(step);
+    };
+    rafId.current = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId.current);
+  }, []);
 
   const checkScroll = () => {
     if (scrollRef.current) {
@@ -93,6 +115,9 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
+
+  // Double items for seamless loop
+  const loopItems = [...items, ...items];
 
   return (
     <div className="w-full relative group/carousel">
@@ -131,17 +156,19 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
         <div 
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 md:px-10 pb-8 cursor-grab active:cursor-grabbing"
+          onMouseEnter={() => { isHovered.current = true; }}
+          onMouseLeave={() => { isHovered.current = false; }}
+          className="flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-10 pb-8 cursor-grab active:cursor-grabbing"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {items.map((m, i) => (
+          {loopItems.map((m, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="shrink-0 w-[280px] md:w-[380px] aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-xl border border-slate-100/50 snap-start group relative"
+              transition={{ delay: (i % items.length) * 0.05 }}
+              className="shrink-0 w-[280px] md:w-[380px] aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-xl border border-slate-100/50 group relative"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
               
@@ -149,7 +176,6 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
                 <img
                   src={encodeURI(m.src)}
                   alt={label}
-                  loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
               ) : (
@@ -160,7 +186,6 @@ function SlidingCarousel({ items, label }: { items: MediaItem[]; label: string }
                   loop
                   playsInline
                   autoPlay
-                  preload="none"
                 />
               )}
 
