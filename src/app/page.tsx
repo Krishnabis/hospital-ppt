@@ -17,6 +17,7 @@ import Committees from "@/components/Committees";
 import PatientRights from "@/components/PatientRights";
 import FuturePlans from "@/components/FuturePlans";
 import QualityIndicators from "@/components/QualityIndicators";
+import ClinicalPathways from "@/components/ClinicalPathways";
 import SopIndex from "@/components/SopIndex";
 
 export default function Home() {
@@ -51,6 +52,7 @@ export default function Home() {
       <div id="patient"><PatientRights /></div>
       <div id="future"><FuturePlans /></div>
       <div id="indicators"><QualityIndicators /></div>
+      <div id="pathways"><ClinicalPathways /></div>
       <div id="sop"><SopIndex /></div>
 
       <footer className="w-full bg-slate-950 text-slate-400 py-12 text-center text-sm border-t border-slate-900 relative">
