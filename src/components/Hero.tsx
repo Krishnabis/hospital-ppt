@@ -25,15 +25,21 @@ export default function Hero() {
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] z-10 shrink-0 mt-8 md:mt-0"
+        className="relative w-[320px] h-[320px] md:w-[550px] md:h-[550px] z-10 shrink-0 mt-8 md:mt-0 group"
       >
-        <Image
-          src="/hospital.jpg"
-          alt="HNB Base Hospital"
-          fill
-          className="object-contain drop-shadow-2xl z-10"
-          priority
-        />
+        {/* Aesthetic Frame */}
+        <div className="absolute -inset-4 bg-gradient-to-tr from-sky-400/20 to-indigo-500/20 rounded-[4rem] blur-2xl opacity-50 group-hover:opacity-80 transition-opacity" />
+        <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden border-[6px] border-white shadow-2xl z-10">
+          <Image
+            src="/hospital.jpg"
+            alt="HNB Base Hospital"
+            fill
+            className="object-cover transition-transform duration-1000 group-hover:scale-110"
+            priority
+          />
+          {/* Subtle Overlay for better text contrast if needed, but keeping it minimal */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent" />
+        </div>
 
         {/* Floating Chardham Images */}
         {/* Top Left: Yamunotri */}
