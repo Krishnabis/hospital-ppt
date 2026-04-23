@@ -217,15 +217,7 @@ export default function EmergencyContacts() {
           </div>
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="mt-6 text-slate-400 text-xs text-center font-semibold"
-        >
-          Report any incident immediately to the corresponding color-code emergency contacts listed above.
-        </motion.p>
+
 
       </div>
     </section>
