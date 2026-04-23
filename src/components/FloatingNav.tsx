@@ -23,10 +23,10 @@ const navItems = [
   { id: "map",        name: "Floor Map",           icon: Map },
   { id: "committees", name: "Committees",          icon: UsersRound },
   { id: "patient",    name: "Patient Rights",      icon: HeartHandshake },
-  { id: "future",     name: "Future Plans",        icon: Rocket },
   { id: "pathways",   name: "Clinical Pathways",   icon: ClipboardList },
   { id: "indicators", name: "Quality Indicators",  icon: LineChart },
   { id: "sop",        name: "SOP Index",          icon: FileText },
+  { id: "future",     name: "Future Plans",        icon: Rocket },
 ];
 
 export default function FloatingNav() {
