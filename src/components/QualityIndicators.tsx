@@ -17,12 +17,12 @@ const safetyData = [
 
 /* ─── KPI SUMMARY CARDS ─── */
 const kpiCards = [
-  { label: "NSI Rate",              value: "0.006",  sub: "Mar'26",  color: "from-rose-400 to-pink-500",   note: "Zero in Jan, Feb, Apr" },
-  { label: "Medication Error",      value: "0",      sub: "All months", color: "from-emerald-400 to-teal-500", note: "100% compliance" },
-  { label: "CAUTI Rate",            value: "1%",     sub: "Feb'26",  color: "from-purple-400 to-fuchsia-500", note: "0% in other months" },
-  { label: "SSI Rate",              value: "4%",     sub: "Mar'26",  color: "from-red-400 to-rose-500",    note: "0% in Jan, Feb, Apr" },
-  { label: "Total VIP Patients",    value: "10",     sub: "4-Month Total", color: "from-cyan-400 to-sky-500",    note: "Jan:2 | Feb:3 | Mar:2 | Apr:3" },
-  { label: "VAP Rate",              value: "1%",     sub: "Mar'26",  color: "from-amber-400 to-orange-500", note: "0% in Jan, Feb, Apr" },
+  { label: "NSI",                   value: "1 NSI reported in march",  sub: "Average",  color: "from-rose-400 to-pink-500",   note: "Zero in Jan, Feb, Apr" },
+  { label: "Medication Error",      value: "0",                        sub: "Average", color: "from-emerald-400 to-teal-500", note: "100% compliance" },
+  { label: "CAUTI",                 value: "1 CAUTI reported",         sub: "Average",  color: "from-purple-400 to-fuchsia-500", note: "0% in other months" },
+  { label: "SSI",                   value: "2 SSI",                    sub: "Average",  color: "from-red-400 to-rose-500",    note: "0% in Jan, Feb, Apr" },
+  { label: "Total VIP Patients",    value: "10",                       sub: "Average", color: "from-cyan-400 to-sky-500",    note: "Jan:2 | Feb:3 | Mar:2 | Apr:3" },
+  { label: "VAP",                   value: "1 VAP reported in march",  sub: "Average",  color: "from-amber-400 to-orange-500", note: "0% in Jan, Feb, Apr" },
 ];
 
 export default function QualityIndicators() {
@@ -60,7 +60,7 @@ export default function QualityIndicators() {
             >
               <div className={`bg-gradient-to-br ${k.color} px-4 py-4`}>
                 <p className="text-white/80 text-[10px] font-black uppercase tracking-wider mb-1">{k.label}</p>
-                <p className="text-white font-black text-3xl leading-tight">{k.value}</p>
+                <p className="text-white font-black text-xl leading-tight">{k.value}</p>
                 <p className="text-white/70 text-[10px] font-bold mt-1 uppercase">{k.sub}</p>
               </div>
               <div className="bg-white px-4 py-3 border-t border-slate-50">
