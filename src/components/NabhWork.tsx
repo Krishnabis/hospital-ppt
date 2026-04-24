@@ -5,17 +5,17 @@ import { useRef, useEffect } from "react";
 /* ──────────────── DATA ──────────────── */
 
 const nabhWorkImages = [
-  "/photos/quality/1.jpg",
-  "/photos/quality/2.jpg",
-  "/photos/quality/3.jpg",
-  "/photos/quality/4.jpg",
-  "/photos/quality/5.jpg",
-  "/photos/quality/6.jpg",
-  "/photos/quality/7.jpg",
-  "/photos/quality/8.jpg",
-  "/photos/quality/9.jpg",
-  "/photos/quality/10.jpg",
-  "/photos/quality/11.jpg",
+  "/photos/quality/1.JPG",
+  "/photos/quality/2.JPG",
+  "/photos/quality/3.JPG",
+  "/photos/quality/4.JPG",
+  "/photos/quality/5.JPG",
+  "/photos/quality/6.JPG",
+  "/photos/quality/7.JPG",
+  "/photos/quality/8.JPG",
+  "/photos/quality/9.JPG",
+  "/photos/quality/10.JPG",
+  "/photos/quality/11.JPG",
 ];
 
 /* ──────────────── CAROUSEL ──────────────── */
