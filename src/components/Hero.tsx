@@ -96,7 +96,22 @@ export default function Hero() {
             We warmly welcome the Principal Assessor and Co-Assessors for the onsite inspection at <strong className="text-slate-800">Hemwati Nandan Bahuguna Base Hospital, Srinagar (Pauri Garhwal)</strong>.
           </motion.p>
 
-
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 1 }}
+            className="mt-8 pt-6 border-t border-slate-100 flex flex-col items-center md:items-start text-center md:text-left"
+          >
+            <p className="text-xl md:text-2xl font-bold text-sky-700 font-serif italic mb-3">
+              "न हि ज्ञानेन सदृशं पवित्रमिह विद्यते"
+            </p>
+            <p className="text-sm md:text-base font-semibold text-slate-500 mb-1">
+              <span className="text-indigo-500">Hindi:</span> इस संसार में ज्ञान के समान पवित्र करने वाली दूसरी कोई वस्तु नहीं है।
+            </p>
+            <p className="text-sm md:text-base font-semibold text-slate-500 italic">
+              <span className="text-indigo-500">English:</span> In this world there is nothing as sublime and pure as transcendental knowledge.
+            </p>
+          </motion.div>
         </motion.div>
       </div>
 
