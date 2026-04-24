@@ -5,13 +5,17 @@ import { useRef, useEffect } from "react";
 /* ──────────────── DATA ──────────────── */
 
 const nabhWorkImages = [
-  "/photos/quality/PHOTO-2026-04-24-08-00-02.jpg",
-  "/photos/quality/PHOTO-2026-04-24-08-00-02 2.jpg",
-  "/photos/quality/PHOTO-2026-04-24-08-00-02 3.jpg",
-  "/photos/quality/PHOTO-2026-04-24-08-00-02 4.jpg",
-  "/photos/quality/PHOTO-2026-04-24-08-00-04.jpg",
-  "/photos/quality/PHOTO-2026-04-24-08-00-04 2.jpg",
-  "/photos/quality/PHOTO-2026-04-24-08-00-04 3.jpg",
+  "/photos/quality/1.jpg",
+  "/photos/quality/2.jpg",
+  "/photos/quality/3.jpg",
+  "/photos/quality/4.jpg",
+  "/photos/quality/5.jpg",
+  "/photos/quality/6.jpg",
+  "/photos/quality/7.jpg",
+  "/photos/quality/8.jpg",
+  "/photos/quality/9.jpg",
+  "/photos/quality/10.jpg",
+  "/photos/quality/11.jpg",
 ];
 
 /* ──────────────── CAROUSEL ──────────────── */
