@@ -14,6 +14,7 @@ import FloorMap from "@/components/FloorMap";
 import Trainings from "@/components/Trainings";
 import BeforeAfter from "@/components/BeforeAfter";
 import QualityWall from "@/components/QualityWall";
+import NabhWork from "@/components/NabhWork";
 import Committees from "@/components/Committees";
 import PatientRights from "@/components/PatientRights";
 import FuturePlans from "@/components/FuturePlans";
@@ -50,6 +51,7 @@ export default function Home() {
       <div id="trainings"><Trainings /></div>
       <div id="beforeafter"><BeforeAfter /></div>
       <div id="qualitywall"><QualityWall /></div>
+      <div id="nabhwork"><NabhWork /></div>
       <div id="map"><FloorMap /></div>
       <div id="committees"><Committees /></div>
       <div id="patient"><PatientRights /></div>

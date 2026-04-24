@@ -20,6 +20,7 @@ const navItems = [
   { id: "trainings",  name: "Trainings",           icon: GraduationCap },
   { id: "beforeafter",name: "Before & After",      icon: ImageIcon },
   { id: "qualitywall",name: "Quality Wall",        icon: Award },
+  { id: "nabhwork",   name: "NABH Work",           icon: ShieldCheck },
   { id: "map",        name: "Floor Map",           icon: Map },
   { id: "committees", name: "Committees",          icon: UsersRound },
   { id: "patient",    name: "Patient Rights",      icon: HeartHandshake },
