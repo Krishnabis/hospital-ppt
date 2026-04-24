@@ -25,7 +25,7 @@ export default function OrgStructure() {
     { dept: "Neurosurgery", hod: "Dr. Devendra Kumar" },
     { dept: "Pathology", hod: "Dr. Sachan Bhatt" },
     { dept: "Dentistry", hod: "Dr. Arun K. Goyal" },
-    { dept: "ENT", hod: "Dr. [Name]" },
+    { dept: "ENT", hod: "DR ARJUN DOSHAD" },
     { dept: "PMR (Physiotherapy)", hod: "Dr. Indira Yadav" }
   ];
 
@@ -316,7 +316,7 @@ export default function OrgStructure() {
                         >
                           <Stethoscope size={14} className="text-sky-400 mb-1 opacity-60" />
                           <span className="text-[11px] font-black text-slate-700 leading-tight">{dept.dept}</span>
-                          <span className="text-[9px] font-semibold text-sky-500 mt-1">{dept.hod}</span>
+                          <span className="text-[11px] font-bold text-sky-500 mt-1">{dept.hod}</span>
                         </motion.div>
                       ))}
                     </div>
