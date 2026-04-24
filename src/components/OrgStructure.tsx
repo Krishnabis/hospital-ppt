@@ -186,6 +186,22 @@ export default function OrgStructure() {
         "Member – Record Clerk (I/C Computer Section & CCTV) – Mr. Sanjay Pandey",
         "Member – Health Inspector – Mr. Karan Sukhbeer"
       ]
+    },
+    {
+      name: "Ambulance Committee – TOR",
+      members: [
+        "Chairperson – Medical Superintendent – Dr. Rakesh Rawat (8006947777)",
+        "Member – EMERGENCY INCHARGE – Mr. Hemant Saini (9634428683)",
+        "Member – Chief Pharmacist – Mr. R.S. Chauhan (8979497641)",
+        "Member – ANS – Mr. Achlesh Prashar (9758234961)",
+        "Member – ANS – Mr. Avinash Sharma (9870877504)",
+        "Member – ANS – Mr. Bijendra (9837066944)",
+        "Member – Emergency Nursing Incharge – Mr. Vijay Yadav (8979064494)",
+        "Member – M.S.W. – Mr. Pankaj Shakya (7579085099)",
+        "Member – NO – Mr. Jatin Chauhan (8218896312)",
+        "Member – NO – Mr. Yogesh Mathpal",
+        "Member – NO – Mr. Shashank Behera (9907772236)"
+      ]
     }
   ];
 
