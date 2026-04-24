@@ -532,46 +532,51 @@ export default function OrgStructure() {
 
                 <div className="w-1 h-8 bg-indigo-300" />
 
-                {/* Level 4: 3 ANS side by side */}
-                <div className="relative flex items-start justify-center gap-0 w-full max-w-5xl">
-                  {/* Horizontal bar across ANS boxes */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px bg-rose-300" style={{ width: '50%' }} />
+                {/* Level 4: ANS Row + ICN on the side */}
+                <div className="flex items-center justify-center gap-4 w-full max-w-6xl">
+                  {/* ANS Row */}
+                  <div className="relative flex items-start justify-center gap-2">
+                    {/* Horizontal bar across ANS boxes */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px bg-rose-300" style={{ width: '80%' }} />
 
-                  {/* 3 ANS nodes */}
-                  {ansStaff.map((ans, idx) => (
-                    <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '200px', margin: '0 8px' }}>
-                      <div className="w-1 h-8 bg-rose-300" />
+                    {ansStaff.map((ans, idx) => (
+                      <div key={idx} className="flex flex-col items-center" style={{ flex: '0 0 auto', width: '180px' }}>
+                        <div className="w-1 h-8 bg-rose-300" />
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.1 * idx }}
+                          className="glass-neon px-4 py-4 rounded-2xl flex flex-col items-center border-[3px] border-rose-300 shadow-lg bg-white w-full text-center"
+                        >
+                          <div className="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center mb-2">
+                            <User size={16} className="text-rose-500" />
+                          </div>
+                          <span className="font-black text-slate-800 text-sm">ANS</span>
+                          <span className="font-bold text-rose-600 text-xs mt-1">{ans.name}</span>
+                        </motion.div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* ICN on the side */}
+                  <div className="flex flex-col items-center pt-8">
+                    <div className="flex items-center gap-2 text-violet-400 font-bold">
+                      <span className="text-2xl">→</span>
                       <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 * idx }}
-                        className="glass-neon px-4 py-4 rounded-2xl flex flex-col items-center border-[3px] border-rose-300 shadow-lg bg-white w-full text-center"
+                        initial={{ opacity: 0, scale: 0.9, x: 20 }}
+                        animate={{ opacity: 1, scale: 1, x: 0 }}
+                        transition={{ delay: 0.4 }}
+                        className="glass-neon px-5 py-4 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-48 text-center"
                       >
-                        <div className="w-8 h-8 rounded-full bg-rose-100 flex items-center justify-center mb-2">
-                          <User size={16} className="text-rose-500" />
+                        <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mb-2">
+                          <Stethoscope size={20} className="text-violet-500" />
                         </div>
-                        <span className="font-black text-slate-800 text-sm">ANS</span>
-                        <span className="font-bold text-rose-600 text-xs mt-1">{ans.name}</span>
+                        <span className="font-black text-slate-800 text-sm">ICN</span>
+                        <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-3 py-1 rounded-full">Infection Control</span>
                       </motion.div>
                     </div>
-                  ))}
-                </div>
-
-                <div className="w-1 h-8 bg-rose-200 mt-2" />
-
-                {/* Level 5: ICN below ANS */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="glass-neon px-6 py-4 rounded-2xl flex flex-col items-center border-[3px] border-violet-400 shadow-lg bg-white w-56 text-center z-20"
-                >
-                  <div className="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center mb-2">
-                    <Stethoscope size={20} className="text-violet-500" />
                   </div>
-                  <span className="font-black text-slate-800 text-sm">ICN</span>
-                  <span className="text-[10px] text-slate-500 font-semibold mt-1 bg-violet-50 px-3 py-1 rounded-full whitespace-nowrap">Infection Control Nurse</span>
-                </motion.div>
+                </div>
 
                 <div className="w-1 h-8 bg-rose-200 mt-2" />
 

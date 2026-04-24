@@ -23,8 +23,18 @@ export default function ThankYou() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="flex flex-col items-center"
         >
-          <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 mb-12 shadow-2xl">
-             <Heart className="text-rose-500 fill-rose-500 animate-bounce" size={64} />
+          <div className="relative mb-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl mb-8 mx-auto"
+            >
+              <img src="/dhari.jpeg" alt="Dhari Devi" className="w-full h-full object-cover" />
+            </motion.div>
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 absolute -bottom-4 -right-4 shadow-2xl z-20">
+               <Heart className="text-rose-500 fill-rose-500 animate-bounce" size={40} />
+            </div>
           </div>
           
           <h1 className="text-7xl md:text-9xl font-black text-white tracking-tighter uppercase mb-2">
